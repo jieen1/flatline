@@ -60,7 +60,7 @@ Asset Snapshotter → Asset Registry ───────┼→ Effective Bundl
 
 ## 状态
 
-项目已完成 P0，并已完成 P1 可运行骨架与 SQLite schema。Go 质量门禁（`gofmt` / `go vet` / `go test` / `go build`）已通过，loopback daemon 健康检查已完成 smoke test；P2 尚未开始。
+项目已完成 P0、P1，并已完成 P2 事实层与 Source Adapters：canonical event store、CC/Codex 适配器、合成 fixture、字段矩阵、locator 下钻、增量幂等和 EnvironmentChanged 锚点均已通过测试。Go 质量门禁（`gofmt` / `go vet` / `go test` / `go build`）已通过；P3 尚未开始。
 
 ## 许可
 
