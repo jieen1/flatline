@@ -1,0 +1,43 @@
+# Go
+bin/
+dist/
+*.exe
+*.test
+*.out
+coverage.*
+vendor/
+
+# Go workspace
+go.work
+go.work.sum
+
+# Node / frontend
+node_modules/
+web/dist/
+web/.vite/
+*.tsbuildinfo
+
+# Local data & secrets
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+data/
+*.local
+.env
+.env.*
+!.env.example
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
+
+# Logs
+*.log
+logs/
+
+# 原型 zip 保留在 docs/ 中（设计输入），但禁止解压产物入库
+docs/flatline-prototype-unpacked/
