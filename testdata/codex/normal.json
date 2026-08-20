@@ -1,0 +1,43 @@
+{
+  "_meta": {
+    "source": "codex",
+    "scenario": "normal",
+    "description": "Synthetic Codex session with an explicit tool/skill invocation record.",
+    "synthetic": true,
+    "expected": {
+      "session_id": "codex-fixture-normal",
+      "harness_version": "0.42.0",
+      "model": "codex-synthetic",
+      "asset_invocation_count": 1,
+      "observation_level": "invoked"
+    }
+  },
+  "session": {
+    "id": "codex-fixture-normal",
+    "started_at": "2026-08-20T11:00:00Z",
+    "ended_at": "2026-08-20T11:04:00Z",
+    "harness_version": "0.42.0",
+    "model": "codex-synthetic",
+    "cwd": "/synthetic/codex/project"
+  },
+  "turns": [
+    {
+      "id": "codex-turn-normal-1",
+      "timestamp": "2026-08-20T11:01:00Z",
+      "role": "user",
+      "text": "Inspect the synthetic deployment fixture."
+    },
+    {
+      "id": "codex-turn-normal-2",
+      "timestamp": "2026-08-20T11:01:05Z",
+      "role": "assistant",
+      "asset_invocations": [
+        {
+          "asset_id": "skill:synthetic:deploy-check",
+          "content_hash": "sha256:synthetic-codex-normal",
+          "references": ["synthetic-tool", "/synthetic/codex/project/deploy"]
+        }
+      ]
+    }
+  ]
+}

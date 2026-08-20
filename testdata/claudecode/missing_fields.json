@@ -1,0 +1,26 @@
+{
+  "_meta": {
+    "source": "claude_code",
+    "scenario": "missing_fields",
+    "description": "Synthetic Claude Code input with omitted version, model, timestamp, and invocation fields.",
+    "synthetic": true,
+    "expected": {
+      "session_id": "cc-fixture-missing-fields",
+      "harness_version": "unknown",
+      "model": "unknown",
+      "asset_invocation_count": "unknown",
+      "observation_level": "unknown"
+    }
+  },
+  "session": {
+    "id": "cc-fixture-missing-fields",
+    "cwd": "/synthetic/claude/project"
+  },
+  "messages": [
+    {
+      "id": "cc-msg-missing-1",
+      "role": "assistant",
+      "content": "Synthetic message with intentionally unrecorded metadata."
+    }
+  ]
+}

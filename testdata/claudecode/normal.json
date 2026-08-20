@@ -1,0 +1,43 @@
+{
+  "_meta": {
+    "source": "claude_code",
+    "scenario": "normal",
+    "description": "Synthetic Claude Code session with an explicit skill invocation.",
+    "synthetic": true,
+    "expected": {
+      "session_id": "cc-fixture-normal",
+      "harness_version": "2.14.0",
+      "model": "claude-sonnet-synthetic",
+      "asset_invocation_count": 1,
+      "observation_level": "invoked"
+    }
+  },
+  "session": {
+    "id": "cc-fixture-normal",
+    "started_at": "2026-08-20T09:00:00Z",
+    "ended_at": "2026-08-20T09:03:00Z",
+    "harness_version": "2.14.0",
+    "model": "claude-sonnet-synthetic",
+    "cwd": "/synthetic/claude/project"
+  },
+  "messages": [
+    {
+      "id": "cc-msg-normal-1",
+      "timestamp": "2026-08-20T09:01:00Z",
+      "role": "user",
+      "content": "Inspect the synthetic migration fixture."
+    },
+    {
+      "id": "cc-msg-normal-2",
+      "timestamp": "2026-08-20T09:01:02Z",
+      "role": "assistant",
+      "asset_invocations": [
+        {
+          "asset_id": "skill:synthetic:sql-migrations",
+          "content_hash": "sha256:synthetic-cc-normal",
+          "references": ["synthetic-command", "/synthetic/claude/project/migrations"]
+        }
+      ]
+    }
+  ]
+}

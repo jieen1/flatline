@@ -1,0 +1,26 @@
+{
+  "_meta": {
+    "source": "codex",
+    "scenario": "missing_fields",
+    "description": "Synthetic Codex input with omitted environment and participation fields.",
+    "synthetic": true,
+    "expected": {
+      "session_id": "codex-fixture-missing-fields",
+      "harness_version": "unknown",
+      "model": "unknown",
+      "asset_invocation_count": "unknown",
+      "observation_level": "unknown"
+    }
+  },
+  "session": {
+    "id": "codex-fixture-missing-fields",
+    "cwd": "/synthetic/codex/project"
+  },
+  "turns": [
+    {
+      "id": "codex-turn-missing-1",
+      "role": "assistant",
+      "text": "Synthetic turn with intentionally unrecorded metadata."
+    }
+  ]
+}

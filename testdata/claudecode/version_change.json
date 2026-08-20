@@ -1,0 +1,43 @@
+{
+  "_meta": {
+    "source": "claude_code",
+    "scenario": "version_change",
+    "description": "Synthetic Claude Code session after a harness and model change.",
+    "synthetic": true,
+    "expected": {
+      "session_id": "cc-fixture-version-change",
+      "harness_version": "2.15.0",
+      "model": "claude-opus-synthetic",
+      "environment_change_fields": ["harness_version", "model"],
+      "asset_invocation_count": 1
+    }
+  },
+  "session": {
+    "id": "cc-fixture-version-change",
+    "started_at": "2026-08-20T10:00:00Z",
+    "ended_at": "2026-08-20T10:02:00Z",
+    "harness_version": "2.15.0",
+    "model": "claude-opus-synthetic",
+    "cwd": "/synthetic/claude/project"
+  },
+  "messages": [
+    {
+      "id": "cc-msg-version-1",
+      "timestamp": "2026-08-20T10:00:30Z",
+      "role": "user",
+      "content": "Continue the synthetic migration check."
+    },
+    {
+      "id": "cc-msg-version-2",
+      "timestamp": "2026-08-20T10:00:33Z",
+      "role": "assistant",
+      "asset_invocations": [
+        {
+          "asset_id": "skill:synthetic:sql-migrations",
+          "content_hash": "sha256:synthetic-cc-version-change",
+          "references": ["synthetic-command"]
+        }
+      ]
+    }
+  ]
+}

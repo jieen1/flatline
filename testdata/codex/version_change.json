@@ -1,0 +1,43 @@
+{
+  "_meta": {
+    "source": "codex",
+    "scenario": "version_change",
+    "description": "Synthetic Codex session after a harness version change.",
+    "synthetic": true,
+    "expected": {
+      "session_id": "codex-fixture-version-change",
+      "harness_version": "0.43.0",
+      "model": "codex-synthetic",
+      "environment_change_fields": ["harness_version"],
+      "asset_invocation_count": 1
+    }
+  },
+  "session": {
+    "id": "codex-fixture-version-change",
+    "started_at": "2026-08-20T12:00:00Z",
+    "ended_at": "2026-08-20T12:02:00Z",
+    "harness_version": "0.43.0",
+    "model": "codex-synthetic",
+    "cwd": "/synthetic/codex/project"
+  },
+  "turns": [
+    {
+      "id": "codex-turn-version-1",
+      "timestamp": "2026-08-20T12:00:20Z",
+      "role": "user",
+      "text": "Continue the synthetic deployment check."
+    },
+    {
+      "id": "codex-turn-version-2",
+      "timestamp": "2026-08-20T12:00:24Z",
+      "role": "assistant",
+      "asset_invocations": [
+        {
+          "asset_id": "skill:synthetic:deploy-check",
+          "content_hash": "sha256:synthetic-codex-version-change",
+          "references": ["synthetic-tool"]
+        }
+      ]
+    }
+  ]
+}
