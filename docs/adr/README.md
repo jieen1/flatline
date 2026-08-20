@@ -64,6 +64,7 @@ ADR 是**决策的权威来源**：当设计文档、代码与 ADR 冲突时，�
 | ADR-8 | 判定规则必须一句话可解释（一行分子分母说不清则不得上线） | accepted | [008-one-line-explainable-rules.md](008-one-line-explainable-rules.md) |
 | ADR-9 | 确定性优先、AI 署名、显式授权写入 | accepted（沿用 v0.3 ADR-7/8） | [009-determinism-ai-attribution-explicit-writes.md](009-determinism-ai-attribution-explicit-writes.md) |
 | ADR-10 | 状态历史可廉价重放（阈值/detector 升级后全量回算，回测即验收） | accepted | [010-cheap-replay-of-state-history.md](010-cheap-replay-of-state-history.md) |
+| ADR-11 | Canonical event model and append-only ingestion contract | accepted | [011-canonical-event-model.md](011-canonical-event-model.md) |
 
 ## 流程
 
