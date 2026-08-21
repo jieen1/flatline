@@ -43,6 +43,14 @@ type SessionMeta struct {
 	HarnessVersion  string
 	Model           string
 	CWD             string
+	// Title is a source-backed display name. It is nullable in storage:
+	// callers must not derive a title from an opaque id when the source has no
+	// task/title evidence.
+	Title string
+	// TaskText is a bounded source-backed excerpt used to explain what the
+	// session was about. It is not a task-shape classification and must never
+	// create an opportunity by itself.
+	TaskText string
 }
 
 // FieldMatrix documents source coverage without turning missing data into zero.

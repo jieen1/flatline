@@ -17,8 +17,8 @@ import (
 	"flatline/migrations"
 )
 
-// SchemaVersion is the schema version written by the initial migration.
-const SchemaVersion = 1
+// SchemaVersion is the highest schema migration version.
+const SchemaVersion = 5
 
 // DB wraps the open database handle.
 type DB struct {

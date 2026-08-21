@@ -38,11 +38,11 @@ func TestParseFixtures(t *testing.T) {
 					t.Fatal(err)
 				}
 			}
-			if scenario == "missing_fields" && len(events) != 1 {
-				t.Fatalf("missing fixture fabricated invocation: %d events", len(events))
+			if scenario == "missing_fields" && len(events) != 2 {
+				t.Fatalf("missing fixture lost transcript/invocation events: %d", len(events))
 			}
-			if scenario != "missing_fields" && len(events) != 2 {
-				t.Fatalf("events = %d, want session + invocation", len(events))
+			if scenario != "missing_fields" && len(events) != 3 {
+				t.Fatalf("events = %d, want session + transcript + invocation", len(events))
 			}
 		})
 	}
@@ -82,4 +82,32 @@ func TestFieldMatrix(t *testing.T) {
 	if err := New().FieldMatrix().Validate(); err != nil {
 		t.Fatal(err)
 	}
+}
+
+func TestParsePreservesExplicitOutcomeEvidence(t *testing.T) {
+	raw := []byte(`{"session":{"id":"outcome","started_at":"2026-08-20T09:00:00Z","ended_at":"2026-08-20T09:03:00Z"},"messages":[{"id":"m1","timestamp":"2026-08-20T09:01:00Z","asset_invocations":[{"asset_id":"skill:fixture","followed":true,"violated":true}]}]}`)
+	_, events, err := New().Parse(adapters.RawSession{Source: adapters.SourceClaudeCode, RawJSON: raw})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(events) != 4 || events[2].ParticipationSignal == nil || *events[2].ParticipationSignal != canonical.SignalFollowed || events[3].EventType != canonical.EventTypeAssetViolation {
+		t.Fatalf("events = %#v, want session/invocation/followed/violation", events)
+	}
+	if events[3].ObservationLevel != canonical.LevelInvoked || events[3].Payload["violated"] != true {
+		t.Fatalf("violation event = %#v", events[3])
+	}
+}
+
+func TestParsePreservesExplicitToolError(t *testing.T) {
+	raw := []byte("{\"session\":{\"id\":\"tool-error\",\"started_at\":\"2026-08-20T09:00:00Z\",\"ended_at\":\"2026-08-20T09:03:00Z\"},\"messages\":[{\"id\":\"result-1\",\"timestamp\":\"2026-08-20T09:01:00Z\",\"role\":\"tool\",\"kind\":\"tool_result\",\"tool_output\":\"permission denied\",\"is_error\":true}]}")
+	_, events, err := New().Parse(adapters.RawSession{Source: adapters.SourceClaudeCode, RawJSON: raw})
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, event := range events {
+		if event.EventType == canonical.EventTypeTranscriptResult && event.Payload["is_error"] == true {
+			return
+		}
+	}
+	t.Fatalf("tool error evidence missing: %#v", events)
 }

@@ -104,8 +104,32 @@ func TestMigrateIdempotent(t *testing.T) {
 	if err := db.QueryRowContext(ctx, `SELECT COUNT(*) FROM schema_migrations`).Scan(&count); err != nil {
 		t.Fatalf("count migrations: %v", err)
 	}
-	if count != 1 {
-		t.Errorf("schema_migrations rows = %d, want 1 (idempotent)", count)
+	if count != SchemaVersion {
+		t.Errorf("schema_migrations rows = %d, want %d (idempotent)", count, SchemaVersion)
+	}
+}
+
+func TestAssetVersionContentHashIsUniquePerAsset(t *testing.T) {
+	db := openTestDB(t)
+	ctx := context.Background()
+	for _, id := range []string{"skill:test:a", "skill:test:b"} {
+		if _, err := db.ExecContext(ctx, `
+			INSERT INTO assets (id, kind, name, first_seen_at)
+			VALUES (?, 'skill', ?, '2026-01-01T00:00:00Z')`, id, id); err != nil {
+			t.Fatalf("insert asset %s: %v", id, err)
+		}
+	}
+	insert := `
+		INSERT INTO asset_versions (asset_id, version, content_hash, observation_level, observed_at)
+		VALUES (?, 1, 'sha256:same', 'unknown', '2026-01-01T00:00:00Z')`
+	if _, err := db.ExecContext(ctx, insert, "skill:test:a"); err != nil {
+		t.Fatalf("first version insert: %v", err)
+	}
+	if _, err := db.ExecContext(ctx, insert, "skill:test:b"); err != nil {
+		t.Fatalf("same content on another asset: %v", err)
+	}
+	if _, err := db.ExecContext(ctx, insert, "skill:test:a"); err == nil {
+		t.Fatal("same asset and content hash: expected uniqueness error")
 	}
 }
 

@@ -91,10 +91,14 @@ type Event struct {
 
 const (
 	EventTypeSessionStarted     = "session_started"
+	EventTypeTranscriptMessage  = "transcript_message"
+	EventTypeTranscriptToolCall = "transcript_tool_call"
+	EventTypeTranscriptResult   = "transcript_tool_result"
 	EventTypeAssetInvoked       = "asset_invoked"
 	EventTypeAssetLoaded        = "asset_loaded"
 	EventTypeAssetOffered       = "asset_offered"
 	EventTypeAssetObservedUse   = "asset_observed_use"
+	EventTypeAssetViolation     = "asset_violation"
 	EventTypeEnvironmentChanged = "environment_changed"
 )
 

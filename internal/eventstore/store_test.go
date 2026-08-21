@@ -68,6 +68,41 @@ func TestIngestSessionAndEventsAreIdempotent(t *testing.T) {
 	}
 }
 
+func TestIngestFrictionProjectsOnlyExplicitToolFailures(t *testing.T) {
+	ctx := context.Background()
+	store := testStore(t)
+	sessionID, err := store.IngestSession(ctx, adapters.SourceClaudeCode, adapters.SessionMeta{SourceSessionID: "friction"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	failure := testEvent(sessionID, "tool-result-error", "result-error", testTime(1))
+	failure.EventType = canonical.EventTypeTranscriptResult
+	failure.ObservationLevel = canonical.LevelUnknown
+	failure.Payload = map[string]any{"tool_output": "permission denied", "is_error": true}
+	exitFailure := testEvent(sessionID, "tool-result-exit", "result-exit", testTime(2))
+	exitFailure.EventType = canonical.EventTypeTranscriptResult
+	exitFailure.Payload = map[string]any{"tool_output": "Exit code 7\ncommand failed", "exit_code": 7}
+	ordinaryErrorText := testEvent(sessionID, "tool-result-text", "result-text", testTime(3))
+	ordinaryErrorText.EventType = canonical.EventTypeTranscriptResult
+	ordinaryErrorText.Payload = map[string]any{"tool_output": "the word error is part of this documentation"}
+	if _, err := store.IngestEvents(ctx, sessionID, []canonical.Event{failure, exitFailure, ordinaryErrorText}); err != nil {
+		t.Fatal(err)
+	}
+	if got, err := store.IngestFriction(ctx, sessionID, []canonical.Event{failure, exitFailure, ordinaryErrorText}); err != nil || got != 2 {
+		t.Fatalf("first friction projection = %d, %v; want 2", got, err)
+	}
+	if got, err := store.IngestFriction(ctx, sessionID, []canonical.Event{failure, exitFailure, ordinaryErrorText}); err != nil || got != 0 {
+		t.Fatalf("repeat friction projection = %d, %v; want 0", got, err)
+	}
+	records, err := store.FrictionRecordsForSession(ctx, sessionID, 10)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(records) != 2 || records[0].FrictionKind != FrictionKindToolError || records[1].ExitCode == nil || *records[1].ExitCode != 7 {
+		t.Fatalf("friction records = %#v", records)
+	}
+}
+
 func TestEventByLocator(t *testing.T) {
 	ctx := context.Background()
 	store := testStore(t)
