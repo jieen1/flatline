@@ -1,0 +1,37 @@
+{
+  "checkedAt": "2026-08-21T04:41:09.079Z",
+  "before": {
+    "route": "#/sessions",
+    "sidebarFilter": false,
+    "toolbar": true,
+    "rows": 23,
+    "sentinel": 0,
+    "scrollTop": 0,
+    "scrollHeight": 1510,
+    "clientHeight": 1510,
+    "outer": {
+      "scrollHeight": 1580,
+      "clientHeight": 848
+    },
+    "first": "p1-sqlite-schema-skeleton"
+  },
+  "afterScroll": {
+    "rows": 23,
+    "sentinel": 0,
+    "scrollTop": 0,
+    "scrollHeight": 1510,
+    "clientHeight": 1510
+  },
+  "filtered": {
+    "sourceFilter": "true",
+    "rows": 23,
+    "count": "23 个会话",
+    "allClaude": true
+  },
+  "sorted": {
+    "value": "events",
+    "rows": 23,
+    "firstMeta": "Claude Code · /home/bot/project/flatline · 8/19 22:34 · claude_code:8548a8cb…b58a",
+    "firstTitle": "p1-sqlite-schema-skeleton"
+  }
+}

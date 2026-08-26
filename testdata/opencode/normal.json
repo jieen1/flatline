@@ -1,0 +1,43 @@
+{
+  "session": {
+    "id": "ses_demo0001",
+    "title": "Wire the taskboard",
+    "task_text": "Add a taskboard page",
+    "started_at": "2026-08-07T11:50:52Z",
+    "ended_at": "2026-08-07T11:59:59Z",
+    "harness_version": "1.18.18",
+    "model": "demo-model",
+    "cwd": "/home/dev/demo",
+    "thread_kind": "subagent",
+    "parent_session_id": "opencode:ses_parent",
+    "agent_role": "build",
+    "agent_nickname": "",
+    "originator": "opencode",
+    "usage": {
+      "input_tokens": 1000, "cached_input_tokens": 500, "cache_write_tokens": 10,
+      "output_tokens": 200, "reasoning_tokens": 40, "total_tokens": 1750,
+      "assistant_turns": 1, "user_turns": 1,
+      "lines_added": 12, "lines_removed": 3, "files_changed": 2,
+      "active_ms": null, "context_window": null,
+      "source": "opencode_session", "cost": 0.25
+    }
+  },
+  "messages": [
+    {"id": "prt_1", "timestamp": "2026-08-07T11:50:52Z", "role": "user", "kind": "message",
+     "text": "Add a taskboard page", "asset_invocations": []},
+    {"id": "prt_3", "timestamp": "2026-08-07T11:51:00Z", "role": "assistant", "kind": "message",
+     "text": "Running the tests first.", "asset_invocations": []},
+    {"id": "prt_4", "timestamp": "2026-08-07T11:51:02Z", "role": "assistant", "kind": "tool_call",
+     "tool_name": "bash", "call_id": "call_ok", "tool_input": "{\"command\":\"go test ./...\"}",
+     "asset_invocations": []},
+    {"id": "prt_4", "timestamp": "2026-08-07T11:51:03Z", "role": "tool", "kind": "tool_result",
+     "call_id": "call_ok", "tool_output": "ok", "is_error": false, "exit_code": 0,
+     "asset_invocations": []},
+    {"id": "prt_5", "timestamp": "2026-08-07T11:51:04Z", "role": "assistant", "kind": "tool_call",
+     "tool_name": "bash", "call_id": "call_bad", "tool_input": "{\"command\":\"go build\"}",
+     "asset_invocations": []},
+    {"id": "prt_5", "timestamp": "2026-08-07T11:51:05Z", "role": "tool", "kind": "tool_result",
+     "call_id": "call_bad", "tool_output": "build failed", "is_error": true, "exit_code": 2,
+     "asset_invocations": []}
+  ]
+}

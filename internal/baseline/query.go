@@ -83,7 +83,7 @@ func (q *Query) Compute(ctx context.Context, assetID, shapeClass string, start, 
 	opportunityIDs, err := q.sessionIDs(ctx, `
 		SELECT DISTINCT o.session_id
 		FROM opportunities o
-		WHERE `+where+`
+		WHERE o.superseded_at IS NULL AND `+where+`
 		ORDER BY o.session_id`, args...)
 	if err != nil {
 		return nil, err
@@ -94,8 +94,9 @@ func (q *Query) Compute(ctx context.Context, assetID, shapeClass string, start, 
 		FROM opportunities o
 		JOIN participations p
 			ON p.session_id = o.session_id
+			AND p.superseded_at IS NULL
 			AND p.asset_version_id IN (SELECT id FROM asset_versions WHERE asset_id = o.asset_id)
-		WHERE `+where+`
+		WHERE o.superseded_at IS NULL AND `+where+`
 		ORDER BY o.session_id`, args...)
 	if err != nil {
 		return nil, err
@@ -171,7 +172,7 @@ func (q *Query) shapeRuleVersion(ctx context.Context, where string, args ...any)
 	rows, err := q.db.QueryContext(ctx, `
 		SELECT DISTINCT o.shape_rule_version
 		FROM opportunities o
-		WHERE `+where+`
+		WHERE o.superseded_at IS NULL AND `+where+`
 		ORDER BY o.shape_rule_version`, args...)
 	if err != nil {
 		return "", fmt.Errorf("baseline: query shape rule version: %w", err)

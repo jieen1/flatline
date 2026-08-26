@@ -70,6 +70,9 @@ ADR 是**决策的权威来源**：当设计文档、代码与 ADR 冲突时，�
 | ADR-14 | 修改后验证使用显式结果证据 | accepted | [014-explicit-outcome-evidence.md](014-explicit-outcome-evidence.md) |
 | ADR-15 | 原生会话 transcript 作为可下钻事实 | accepted | [015-native-session-transcript-evidence.md](015-native-session-transcript-evidence.md) |
 | ADR-16 | Native task shape 与精确资产机会 | accepted | [016-native-task-shape-opportunities.md](016-native-task-shape-opportunities.md) |
+| ADR-17 | 工具结果摩擦作为证据投影 | accepted | [017-tool-outcome-friction-projection.md](017-tool-outcome-friction-projection.md) |
+| ADR-18 | 从摩擦出发理解会话历史 | accepted | [018-friction-first-session-understanding.md](018-friction-first-session-understanding.md) |
+| ADR-19 | 适配器可依赖纯 Go 格式解码器（zstd 等），不引入 CGO | accepted | [019-adapter-format-decoders.md](019-adapter-format-decoders.md) |
 
 ## 流程
 

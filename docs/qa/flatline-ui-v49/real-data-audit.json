@@ -1,0 +1,133 @@
+{
+  "checkedAt": "2026-08-21T02:36:59.990Z",
+  "baseURL": "http://127.0.0.1:18899",
+  "source": "daemon_owned_sqlite",
+  "privacy": {
+    "rawSessionContentPersisted": false,
+    "selectedSessionKey": "codex:675a9f8e8fa9"
+  },
+  "http": {
+    "stats": 200,
+    "assets": 200,
+    "sessions": 200,
+    "timeline": 200,
+    "relatedAsset": 200,
+    "noOpportunityAsset": 200,
+    "selectedSession": 200
+  },
+  "counts": {
+    "assets": 932,
+    "versions": 938,
+    "sessions": 878,
+    "events": 427344,
+    "opportunities": 311,
+    "participations": 339,
+    "timelineItems": 2238,
+    "timelineClusters": 0
+  },
+  "relatedAsset": {
+    "id": "hook:user:plugins:marketplaces:claude-plugins-official:plugins:hookify:hooks:__init__",
+    "state": "healthy",
+    "versionCount": 1,
+    "sessionCount": 111,
+    "opportunityCount": 95,
+    "participationCount": 111,
+    "detailOpportunityRows": 95,
+    "detailParticipationRows": 111,
+    "relatedSessionCount": 111,
+    "relatedSessionsWithTaskMetadata": 95,
+    "observationLevels": [
+      "loaded"
+    ],
+    "sparklinePointCount": 12,
+    "changeMarkerKinds": [
+      "asset",
+      "environment"
+    ],
+    "referenceCheckCount": 47
+  },
+  "noOpportunityAsset": {
+    "id": "agents_md:user:agents",
+    "state": "no_opportunity",
+    "versionCount": 1,
+    "opportunityCount": 0,
+    "participationCount": 0,
+    "hasCurrentNumerator": false,
+    "hasCurrentDenominator": false,
+    "sparklinePointCount": 0,
+    "funnelStepCount": 5,
+    "funnelStepNumerators": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "funnelStepDenominators": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "hasDecisionEvidence": true
+  },
+  "selectedSession": {
+    "source": "codex",
+    "eventCount": 9693,
+    "eventRowsReturned": 9693,
+    "transcriptCount": 9678,
+    "assetCount": 1,
+    "hasTitle": true,
+    "hasTaskText": true,
+    "uniqueTurnIDs": 9678,
+    "rawLocatorCount": 9693,
+    "eventTypeCounts": {
+      "session_started": 1,
+      "environment_changed": 1,
+      "transcript_message": 882,
+      "transcript_tool_call": 4422,
+      "transcript_tool_result": 4374,
+      "asset_invoked": 13
+    },
+    "observationLevelCounts": {
+      "unknown": 9679,
+      "inferred": 1,
+      "loaded": 13
+    }
+  },
+  "timeline": {
+    "kindCounts": {
+      "environment_changed": 346,
+      "state_transition": 954,
+      "asset_version": 938
+    },
+    "hasEnvironmentAlignment": true
+  },
+  "checks": {
+    "statsHTTP200": true,
+    "assetsHTTP200": true,
+    "sessionsHTTP200": true,
+    "timelineHTTP200": true,
+    "relatedAssetHTTP200": true,
+    "noOpportunityAssetHTTP200": true,
+    "sessionHTTP200": true,
+    "persistedCountsNonZero": true,
+    "relatedAssetHasOpportunityAndParticipation": true,
+    "relatedAssetHasAssociatedDetailRows": true,
+    "relatedAssetSessionsExposeTaskMetadata": true,
+    "relatedAssetHasVersionAndObservation": true,
+    "relatedAssetSparklineUsesPersistedPoints": true,
+    "noOpportunityStateIsExplicit": true,
+    "noOpportunityRateIsNotFabricated": true,
+    "sessionEventsMatchPersistedCount": true,
+    "sessionHasHumanReadableMetadata": true,
+    "sessionHasTurnEvidence": true,
+    "sessionHasTranscriptEvidence": true,
+    "sessionPreservesRawLocators": true,
+    "sessionObservationLevelsAreClosed": true,
+    "timelineHasPersistedFacts": true,
+    "timelineHasEnvironmentAlignment": true
+  },
+  "allPassed": true
+}

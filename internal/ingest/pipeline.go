@@ -5,8 +5,10 @@
 package ingest
 
 import (
+	"bytes"
 	"context"
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"sort"
 	"strings"
@@ -38,6 +40,16 @@ type SessionInput struct {
 	TaskTags            []string
 	Assets              []AssetObservation
 	OpportunityAssetIDs []string
+	// Usage is what the reader measured from the full source text: tokens,
+	// turns, edited lines, active time. It is not carried on a canonical event
+	// because it is not one: it is a measurement of the whole transcript, and
+	// the bounded payloads in the event store cannot be measured from. A
+	// reader that cannot measure leaves it nil and the session keeps whatever
+	// measurement it already had.
+	Usage *eventstore.SessionUsage
+	// ParserVersion stamps the reader that produced Usage. It is what tells a
+	// later daemon whether this transcript still has to be read again.
+	ParserVersion string
 }
 
 type Report struct {
@@ -55,6 +67,21 @@ type Report struct {
 	ShapeRecorded             bool
 	ShapeClass                string
 	ShapeReason               string
+	// AssetEventIDs are the source event ids of the asset_invoked events this
+	// replay produced, whether or not they were newly inserted. They are what
+	// the caller compares the stored evidence against when a parser rule has
+	// changed which references count.
+	AssetEventIDs []string
+	// Opportunities is the complete set of opportunity rows this replay
+	// produced for the session, empty when it produced none. A caller
+	// reconciling stored opportunities against the current rules needs the
+	// whole set, including the assets whose only evidence is a path reference
+	// in the task text — those write no event, so AssetEventIDs cannot speak
+	// for them.
+	Opportunities []eventstore.OpportunityKey
+	// HookFrictionLinks counts the hook blocks in this session that named a
+	// registered hook asset.
+	HookFrictionLinks int
 }
 
 type Pipeline struct {
@@ -76,6 +103,21 @@ func NewPipeline(db *storage.DB, registry *adapters.Registry) *Pipeline {
 		tracker:     tracking.New(db),
 		resolver:    baseline.NewResolver(db),
 	}
+}
+
+// Parse runs the registered adapter for this source without writing anything.
+// It is what lets a caller see the canonical events a transcript produces —
+// their source event ids and their source positions — before deciding what to
+// do with them.
+func (p *Pipeline) Parse(raw adapters.RawSession) (adapters.SessionMeta, []canonical.Event, error) {
+	if p == nil || p.adapters == nil {
+		return adapters.SessionMeta{}, nil, fmt.Errorf("ingest: pipeline is not fully wired")
+	}
+	adapter, ok := p.adapters.Get(raw.Source)
+	if !ok {
+		return adapters.SessionMeta{}, nil, fmt.Errorf("ingest: no adapter registered for %q", raw.Source)
+	}
+	return adapter.Parse(raw)
 }
 
 // Ingest performs one idempotent adapter replay. Validation of all mappings
@@ -176,16 +218,50 @@ func (p *Pipeline) Ingest(ctx context.Context, input SessionInput) (Report, erro
 		return report, err
 	}
 	report.EventsInserted = inserted
+	for _, event := range events {
+		if event.EventType == canonical.EventTypeAssetInvoked {
+			report.AssetEventIDs = append(report.AssetEventIDs, event.SourceEventID)
+		}
+	}
 	frictionInserted, err := p.events.IngestFriction(ctx, sessionID, events)
 	if err != nil {
 		return report, err
 	}
 	report.FrictionRecordsInserted = frictionInserted
+	// A hook block recorded in this session is the one mark a hook leaves in a
+	// transcript. The links are rebuilt from the records just written, so a
+	// replay of the same file produces the same set.
+	hookLinks, err := p.events.LinkHookFriction(ctx, sessionID)
+	if err != nil {
+		return report, err
+	}
+	report.HookFrictionLinks = len(hookLinks)
 	anchors, err := p.events.DetectEnvironmentChanges(ctx, sessionID)
 	if err != nil {
 		return report, err
 	}
 	report.EnvironmentEventsInserted = anchors
+	if err := p.events.ReplaceRuleTags(ctx, sessionID, input.TaskTags); err != nil {
+		return report, err
+	}
+	if err := p.events.RecomputeSessionStats(ctx, sessionID); err != nil {
+		return report, err
+	}
+	if err := p.events.RecomputeSessionProjections(ctx, sessionID); err != nil {
+		return report, err
+	}
+	// The measurement is written last, from the reader's own pass over the
+	// source text, and rolled up over every transcript file of this session: a
+	// Claude Code session is one main transcript plus one file per subagent.
+	if input.Usage != nil && input.Raw.SourcePath != "" {
+		usage := *input.Usage
+		if usage.Cost == nil {
+			usage.Cost = normalizedCost(input.Raw.RawJSON)
+		}
+		if err := p.events.RecordFileUsage(ctx, input.Raw.SourcePath, sessionID, &usage, input.ParserVersion); err != nil {
+			return report, err
+		}
+	}
 
 	if meta.StartedAt != nil {
 		if _, err := p.resolver.Resolve(ctx, sessionID); err != nil {
@@ -208,6 +284,12 @@ func (p *Pipeline) Ingest(ctx context.Context, input SessionInput) (Report, erro
 	if err != nil {
 		return report, fmt.Errorf("ingest: opportunity asset set: %w", err)
 	}
+	// A hook that blocked something in this session had an opportunity in it,
+	// by the same rule that says it took part: the block is the record of the
+	// harness asking it. Without this the hook would carry a participation
+	// against no denominator and the state machine would still read it as
+	// "no opportunity".
+	opportunityIDs = appendHookAssets(opportunityIDs, hookLinks)
 	sort.Strings(opportunityIDs)
 	if len(input.TaskTags) == 0 {
 		report.ShapeReason = "task shape is not recorded by this input; no opportunity is inferred"
@@ -221,6 +303,14 @@ func (p *Pipeline) Ingest(ctx context.Context, input SessionInput) (Report, erro
 		report.ShapeRecorded = true
 		report.ShapeClass = class
 		report.OpportunitiesInserted = inserted
+		report.Opportunities = make([]eventstore.OpportunityKey, 0, len(opportunityIDs))
+		for _, assetID := range opportunityIDs {
+			report.Opportunities = append(report.Opportunities, eventstore.OpportunityKey{ShapeClass: class, AssetID: assetID})
+		}
+	}
+
+	if err := p.recordHookParticipations(ctx, sessionID, hookLinks, &report); err != nil {
+		return report, err
 	}
 
 	for _, event := range events {
@@ -253,6 +343,74 @@ func (p *Pipeline) Ingest(ctx context.Context, input SessionInput) (Report, erro
 		}
 	}
 	return report, nil
+}
+
+// appendHookAssets adds the assets the hook links point at to the opportunity
+// set, without disturbing what is already in it.
+func appendHookAssets(ids []string, links []eventstore.HookFrictionLink) []string {
+	if len(links) == 0 {
+		return ids
+	}
+	seen := make(map[string]struct{}, len(ids))
+	for _, id := range ids {
+		seen[id] = struct{}{}
+	}
+	for _, link := range links {
+		if _, ok := seen[link.AssetID]; ok {
+			continue
+		}
+		seen[link.AssetID] = struct{}{}
+		ids = append(ids, link.AssetID)
+	}
+	return ids
+}
+
+// recordHookParticipations writes one observed-use participation per hook the
+// session's blocks named. The level is observed-use, not invoked: what was
+// recorded is the harness reporting the hook's answer, which is a use of it
+// observed from outside — the hook's own execution was never recorded.
+func (p *Pipeline) recordHookParticipations(ctx context.Context, sessionID string, links []eventstore.HookFrictionLink, report *Report) error {
+	for _, link := range links {
+		version, err := p.assets.LatestVersion(ctx, link.AssetID)
+		if err != nil {
+			if err == sql.ErrNoRows {
+				// The hook is registered but no content was ever snapshotted,
+				// so there is no version to attach the participation to.
+				report.UnresolvedAssetVersions++
+				continue
+			}
+			return fmt.Errorf("ingest: resolve hook asset version %s: %w", link.AssetID, err)
+		}
+		var opportunityID *int64
+		if report.ShapeRecorded {
+			opportunity, lookupErr := p.tracker.OpportunityFor(ctx, sessionID, link.AssetID, report.ShapeClass)
+			if lookupErr == nil {
+				opportunityID = &opportunity.ID
+			} else if lookupErr != sql.ErrNoRows {
+				return fmt.Errorf("ingest: lookup hook opportunity for %s: %w", link.AssetID, lookupErr)
+			}
+		}
+		// The locator points at the friction record's own source position. A
+		// record whose source did not carry one is linked without it rather
+		// than skipped: the block still happened.
+		var locator *canonical.Locator
+		if link.Locator.Valid() {
+			value := link.Locator
+			locator = &value
+		}
+		inserted, err := p.tracker.RecordParticipation(ctx, tracking.ParticipationInput{
+			AssetVersionID: version.ID, SessionID: sessionID, OpportunityID: opportunityID,
+			Signal: canonical.SignalObservedUse, Level: canonical.LevelObservedUse,
+			OccurredAt: link.OccurredAt, Locator: locator,
+		})
+		if err != nil {
+			return fmt.Errorf("ingest: record hook participation %s: %w", link.AssetID, err)
+		}
+		if inserted {
+			report.ParticipationsInserted++
+		}
+	}
+	return nil
 }
 
 func validateInputs(ctx context.Context, input SessionInput, events []canonical.Event, registry *assets.Registry) (map[string]string, map[string]AssetObservation, error) {
@@ -355,6 +513,29 @@ func sessionTime(meta adapters.SessionMeta, events []canonical.Event) time.Time 
 	// opportunity; this value is only a defensive fallback and is rejected by
 	// the tracker if reached.
 	return time.Time{}
+}
+
+// normalizedCost reads session.usage.cost out of the normalized document a
+// reader produced. Only opencode records a cost, and it puts it there rather
+// than on the measurement struct, so the document is where the pipeline picks
+// it up. The byte scan comes first: without it every session would pay for a
+// second full decode of its own transcript to find a field almost none of them
+// carry.
+func normalizedCost(raw []byte) *float64 {
+	if !bytes.Contains(raw, []byte(`"cost"`)) {
+		return nil
+	}
+	var document struct {
+		Session struct {
+			Usage struct {
+				Cost *float64 `json:"cost"`
+			} `json:"usage"`
+		} `json:"session"`
+	}
+	if json.Unmarshal(raw, &document) != nil {
+		return nil
+	}
+	return document.Session.Usage.Cost
 }
 
 func contentHashMatches(event canonical.Event, contentHash string) bool {

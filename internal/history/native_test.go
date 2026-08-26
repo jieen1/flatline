@@ -315,3 +315,41 @@ func writeJSONLines(t *testing.T, path string, records []map[string]any) {
 }
 
 func stringPtr(value string) *string { return &value }
+
+// A bare basename is not evidence that a transcript used an asset. One project
+// writing /tmp/x/taskboard/__init__.py was recorded 523 times on this machine
+// as a load of another project's .../hookify/hooks/__init__.py, because both
+// files are called __init__.py. Two path segments is the shortest reference
+// that says which file is meant.
+func TestPathReferenceNeedsTwoSegments(t *testing.T) {
+	hook := "/home/bot/.claude/plugins/hookify/hooks/__init__.py"
+	index := newAssetIndex([]assets.Asset{
+		{ID: "hook:init", Kind: assets.KindHook, Name: "hookify", Scope: assets.ScopeUser, SourcePath: &hook},
+	}, "")
+
+	if got := index.invocationsInText("wrote /tmp/build/taskboard/__init__.py"); len(got) != 0 {
+		t.Fatalf("another project's __init__.py was read as evidence for the hook: %v", got)
+	}
+	if got := index.invocationsInText("patched hooks/__init__.py"); len(got) != 1 || got[0].AssetID != "hook:init" {
+		t.Fatalf("two-segment reference evidence = %v", got)
+	}
+	if got := index.invocationsInText("opened " + hook); len(got) != 1 {
+		t.Fatalf("full path evidence = %v", got)
+	}
+}
+
+// A suffix that could mean either of two assets means neither.
+func TestAmbiguousTwoSegmentSuffixIsNotEvidence(t *testing.T) {
+	first := "/home/bot/one/hooks/__init__.py"
+	second := "/home/bot/two/hooks/__init__.py"
+	index := newAssetIndex([]assets.Asset{
+		{ID: "hook:one", Kind: assets.KindHook, Name: "one", Scope: assets.ScopeUser, SourcePath: &first},
+		{ID: "hook:two", Kind: assets.KindHook, Name: "two", Scope: assets.ScopeUser, SourcePath: &second},
+	}, "")
+	if got := index.invocationsInText("patched hooks/__init__.py"); len(got) != 0 {
+		t.Fatalf("ambiguous two-segment suffix evidence = %v, want none", got)
+	}
+	if got := index.invocationsInText("patched " + second); len(got) != 1 || got[0].AssetID != "hook:two" {
+		t.Fatalf("full path still names one asset: %v", got)
+	}
+}

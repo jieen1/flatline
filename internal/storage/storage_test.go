@@ -4,6 +4,8 @@ import (
 	"context"
 	"path/filepath"
 	"testing"
+
+	"flatline/migrations"
 )
 
 // requiredTables are the v0.4 object-model tables that must exist after the
@@ -15,6 +17,10 @@ var requiredTables = []string{
 	"asset_versions",
 	"sessions",
 	"events",
+	"native_files",
+	"session_stats",
+	"session_tags",
+	"session_annotations",
 	"effective_bundles",
 	"opportunities",
 	"participations",
@@ -83,8 +89,16 @@ func TestOpenAppliesSchema(t *testing.T) {
 	if err != nil {
 		t.Fatalf("SchemaVersionOf: %v", err)
 	}
-	if v != SchemaVersion {
-		t.Errorf("SchemaVersionOf = %d, want %d", v, SchemaVersion)
+	all, err := migrations.All()
+	if err != nil {
+		t.Fatalf("migrations.All: %v", err)
+	}
+	highest := all[len(all)-1].Version
+	if v != highest {
+		t.Errorf("SchemaVersionOf = %d, want %d (highest embedded migration)", v, highest)
+	}
+	if SchemaVersion < highest {
+		t.Errorf("SchemaVersion = %d, lower than highest embedded migration %d", SchemaVersion, highest)
 	}
 }
 
@@ -100,12 +114,16 @@ func TestMigrateIdempotent(t *testing.T) {
 		t.Fatalf("third Migrate: %v", err)
 	}
 
+	all, err := migrations.All()
+	if err != nil {
+		t.Fatalf("migrations.All: %v", err)
+	}
 	var count int
 	if err := db.QueryRowContext(ctx, `SELECT COUNT(*) FROM schema_migrations`).Scan(&count); err != nil {
 		t.Fatalf("count migrations: %v", err)
 	}
-	if count != SchemaVersion {
-		t.Errorf("schema_migrations rows = %d, want %d (idempotent)", count, SchemaVersion)
+	if count != len(all) {
+		t.Errorf("schema_migrations rows = %d, want %d (idempotent)", count, len(all))
 	}
 }
 

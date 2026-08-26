@@ -1,0 +1,3 @@
+{"type": "fork-context-ref", "agentId": "fixtagent01", "sessionId": "cc-hierarchy-fixture", "timestamp": "2026-08-20T09:03:00Z"}
+{"type": "user", "isSidechain": true, "agentId": "fixtagent01", "sessionId": "cc-hierarchy-fixture", "uuid": "s1", "timestamp": "2026-08-20T09:03:10Z", "cwd": "/fixture/proj", "version": "2.15.0", "message": {"role": "user", "content": "子代理：跑一次测试"}}
+{"type": "assistant", "isSidechain": true, "agentId": "fixtagent01", "sessionId": "cc-hierarchy-fixture", "uuid": "s2", "timestamp": "2026-08-20T09:03:20Z", "cwd": "/fixture/proj", "version": "2.15.0", "message": {"id": "s2m", "role": "assistant", "model": "fixture-model", "content": [{"type": "tool_use", "id": "toolu_fixture_4", "name": "Bash", "input": {"command": "go test ./..."}}]}}

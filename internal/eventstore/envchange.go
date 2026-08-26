@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"time"
 
-	"flatline/internal/adapters"
 	"flatline/internal/canonical"
 )
 
@@ -75,12 +74,6 @@ func (s *Store) DetectEnvironmentChanges(ctx context.Context, sessionID string) 
 		return 0, nil
 	}
 	return s.IngestEvents(ctx, sessionID, events)
-}
-
-// Legacy-compatible helper for callers that already carry version metadata.
-// IngestSession persists the metadata; detection reads the canonical session row.
-func (s *Store) DetectEnvironmentChangesWithVersion(ctx context.Context, sessionID string, _ adapters.VersionInfo) (int, error) {
-	return s.DetectEnvironmentChanges(ctx, sessionID)
 }
 
 func parseNullableTime(value string) *time.Time {

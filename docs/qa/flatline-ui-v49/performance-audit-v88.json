@@ -1,0 +1,286 @@
+{
+  "generatedAt": "2026-08-21T03:15:19.425Z",
+  "source": "daemon_owned_sqlite",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "api": {
+    "wall": {
+      "status": 200,
+      "bytes": 1623852,
+      "elapsedMs": 318
+    },
+    "fullAssets": {
+      "status": 200,
+      "bytes": 21772522,
+      "elapsedMs": 467
+    },
+    "sessions": {
+      "status": 200,
+      "bytes": 560901,
+      "elapsedMs": 423
+    },
+    "timeline": {
+      "status": 200,
+      "bytes": 7158845,
+      "elapsedMs": 377
+    }
+  },
+  "wall": {
+    "assetCount": 932,
+    "navigation": {
+      "wallClockMs": 805
+    },
+    "metrics": {
+      "route": "#/",
+      "htmlBytes": 528270,
+      "bodyTextBytes": 4392,
+      "domNodes": 6552,
+      "rows": 118,
+      "sparklines": 118,
+      "firstRowHTMLBytes": 4228,
+      "scrollHeight": 900,
+      "wallScroll": {
+        "scrollHeight": 56530,
+        "clientHeight": 848,
+        "scrollTop": 0
+      },
+      "lazySentinels": 1,
+      "sessionLazySentinels": 0,
+      "sessionPageSentinels": 0,
+      "sessionRows": 0,
+      "sessionChatRows": 0,
+      "sessionLoaded": null,
+      "sessionTotal": null,
+      "navigation": {
+        "responseEnd": 3,
+        "domInteractive": 38,
+        "loadEventEnd": 38
+      }
+    },
+    "afterScrollDrain": {
+      "route": "#/",
+      "htmlBytes": 4091627,
+      "bodyTextBytes": 9341,
+      "domNodes": 50507,
+      "rows": 932,
+      "sparklines": 932,
+      "firstRowHTMLBytes": 4228,
+      "scrollHeight": 900,
+      "wallScroll": {
+        "scrollHeight": 60549,
+        "clientHeight": 848,
+        "scrollTop": 56274
+      },
+      "lazySentinels": 0,
+      "sessionLazySentinels": 0,
+      "sessionPageSentinels": 0,
+      "sessionRows": 0,
+      "sessionChatRows": 0,
+      "sessionLoaded": null,
+      "sessionTotal": null,
+      "navigation": {
+        "responseEnd": 3,
+        "domInteractive": 38,
+        "loadEventEnd": 38
+      }
+    }
+  },
+  "session": {
+    "idDigest": "claude_code:",
+    "eventCount": 82254,
+    "pageAPI": {
+      "status": 200,
+      "bytes": 883193,
+      "elapsedMs": 133
+    },
+    "navigation": {
+      "wallClockMs": 1081
+    },
+    "initial": {
+      "route": "#/sessions/claude_code%3A69dd1e73-9d91-4158-96dc-d4a45e29b2ec",
+      "htmlBytes": 317105,
+      "bodyTextBytes": 9261,
+      "domNodes": 2766,
+      "rows": 0,
+      "sparklines": 0,
+      "firstRowHTMLBytes": 0,
+      "scrollHeight": 900,
+      "wallScroll": null,
+      "lazySentinels": 0,
+      "sessionLazySentinels": 1,
+      "sessionPageSentinels": 1,
+      "sessionRows": 121,
+      "sessionChatRows": 0,
+      "sessionLoaded": "1000",
+      "sessionTotal": "82254",
+      "navigation": {
+        "responseEnd": 3,
+        "domInteractive": 16,
+        "loadEventEnd": 17
+      }
+    },
+    "chat": {
+      "route": "#/sessions/claude_code%3A69dd1e73-9d91-4158-96dc-d4a45e29b2ec",
+      "htmlBytes": 149207,
+      "bodyTextBytes": 5765,
+      "domNodes": 1514,
+      "rows": 0,
+      "sparklines": 0,
+      "firstRowHTMLBytes": 0,
+      "scrollHeight": 900,
+      "wallScroll": null,
+      "lazySentinels": 0,
+      "sessionLazySentinels": 1,
+      "sessionPageSentinels": 1,
+      "sessionRows": 0,
+      "sessionChatRows": 120,
+      "sessionLoaded": null,
+      "sessionTotal": null,
+      "navigation": {
+        "responseEnd": 3,
+        "domInteractive": 16,
+        "loadEventEnd": 17
+      }
+    },
+    "interactions": {
+      "chat": {
+        "elapsedMs": 3,
+        "found": true
+      },
+      "trajectory": {
+        "elapsedMs": 4,
+        "found": true
+      },
+      "event": {
+        "elapsedMs": 4,
+        "found": true
+      },
+      "chatRows": 0,
+      "ledgerRows": 121,
+      "selectedEvent": "3"
+    },
+    "after": {
+      "route": "#/sessions/claude_code%3A69dd1e73-9d91-4158-96dc-d4a45e29b2ec",
+      "htmlBytes": 318109,
+      "bodyTextBytes": 8648,
+      "domNodes": 2766,
+      "rows": 0,
+      "sparklines": 0,
+      "firstRowHTMLBytes": 0,
+      "scrollHeight": 900,
+      "wallScroll": null,
+      "lazySentinels": 0,
+      "sessionLazySentinels": 1,
+      "sessionPageSentinels": 1,
+      "sessionRows": 121,
+      "sessionChatRows": 0,
+      "sessionLoaded": "1000",
+      "sessionTotal": "82254",
+      "navigation": {
+        "responseEnd": 3,
+        "domInteractive": 16,
+        "loadEventEnd": 17
+      }
+    },
+    "beforePaging": {
+      "route": "#/sessions/claude_code%3A69dd1e73-9d91-4158-96dc-d4a45e29b2ec",
+      "htmlBytes": 318109,
+      "bodyTextBytes": 10047,
+      "domNodes": 2766,
+      "rows": 0,
+      "sparklines": 0,
+      "firstRowHTMLBytes": 0,
+      "scrollHeight": 900,
+      "wallScroll": null,
+      "lazySentinels": 0,
+      "sessionLazySentinels": 1,
+      "sessionPageSentinels": 1,
+      "sessionRows": 121,
+      "sessionChatRows": 0,
+      "sessionLoaded": "1000",
+      "sessionTotal": "82254",
+      "navigation": {
+        "responseEnd": 3,
+        "domInteractive": 16,
+        "loadEventEnd": 17
+      }
+    },
+    "paging": {
+      "route": "#/sessions/claude_code%3A69dd1e73-9d91-4158-96dc-d4a45e29b2ec",
+      "htmlBytes": 620020,
+      "bodyTextBytes": 2679,
+      "domNodes": 5216,
+      "rows": 0,
+      "sparklines": 0,
+      "firstRowHTMLBytes": 0,
+      "scrollHeight": 900,
+      "wallScroll": null,
+      "lazySentinels": 0,
+      "sessionLazySentinels": 1,
+      "sessionPageSentinels": 1,
+      "sessionRows": 241,
+      "sessionChatRows": 0,
+      "sessionLoaded": "2000",
+      "sessionTotal": "82254",
+      "navigation": {
+        "responseEnd": 3,
+        "domInteractive": 16,
+        "loadEventEnd": 17
+      }
+    },
+    "afterPaging": {
+      "route": "#/sessions/claude_code%3A69dd1e73-9d91-4158-96dc-d4a45e29b2ec",
+      "htmlBytes": 620020,
+      "bodyTextBytes": 2679,
+      "domNodes": 5216,
+      "rows": 0,
+      "sparklines": 0,
+      "firstRowHTMLBytes": 0,
+      "scrollHeight": 900,
+      "wallScroll": null,
+      "lazySentinels": 0,
+      "sessionLazySentinels": 1,
+      "sessionPageSentinels": 1,
+      "sessionRows": 241,
+      "sessionChatRows": 0,
+      "sessionLoaded": "2000",
+      "sessionTotal": "82254",
+      "navigation": {
+        "responseEnd": 3,
+        "domInteractive": 16,
+        "loadEventEnd": 17
+      }
+    }
+  },
+  "timeline": {
+    "navigation": {
+      "wallClockMs": 1399
+    },
+    "metrics": {
+      "route": "#/timeline",
+      "htmlBytes": 1907764,
+      "bodyTextBytes": 2222,
+      "domNodes": 33862,
+      "rows": 0,
+      "sparklines": 0,
+      "firstRowHTMLBytes": 0,
+      "scrollHeight": 900,
+      "wallScroll": null,
+      "lazySentinels": 0,
+      "sessionLazySentinels": 0,
+      "sessionPageSentinels": 0,
+      "sessionRows": 0,
+      "sessionChatRows": 0,
+      "sessionLoaded": null,
+      "sessionTotal": null,
+      "navigation": {
+        "responseEnd": 2,
+        "domInteractive": 16,
+        "loadEventEnd": 16
+      }
+    }
+  },
+  "runtimeErrors": []
+}

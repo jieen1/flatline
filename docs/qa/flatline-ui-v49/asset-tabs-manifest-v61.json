@@ -1,0 +1,23 @@
+{
+  "diagnosis": {
+    "path": "/tmp/flatline-capture-v61/asset-related-diagnosis-zh-light.png",
+    "tabs": [
+      "diagnosis",
+      "source",
+      "versions"
+    ]
+  },
+  "source": {
+    "present": true,
+    "path": "/tmp/flatline-capture-v61/asset-related-source-zh-light.png"
+  },
+  "versions": {
+    "present": true,
+    "path": "/tmp/flatline-capture-v61/asset-related-versions-zh-light.png"
+  },
+  "history": {
+    "present": false,
+    "path": null
+  },
+  "dispositions": false
+}

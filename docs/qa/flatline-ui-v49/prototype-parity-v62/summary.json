@@ -1,0 +1,389 @@
+{
+  "prototypeScreens": 12,
+  "currentScreens": 14,
+  "prototypeUnsupportedIcons": [],
+  "currentUnsupportedIcons": [],
+  "iconPathMismatches": [],
+  "currentScrollFailures": [],
+  "routeCounts": {
+    "wall": {
+      "prototype": [
+        {
+          ".fl-row": 16,
+          ".elevated-card": 0,
+          ".fl-spark": 16,
+          ".fl-funnel": 0,
+          ".fl-list": 0,
+          ".fl-node": 0,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        },
+        {
+          ".fl-row": 16,
+          ".elevated-card": 0,
+          ".fl-spark": 16,
+          ".fl-funnel": 0,
+          ".fl-list": 0,
+          ".fl-node": 0,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        }
+      ],
+      "current": [
+        {
+          ".fl-row": 118,
+          ".elevated-card": 0,
+          ".fl-spark": 118,
+          ".fl-funnel": 0,
+          ".fl-list": 0,
+          ".fl-node": 0,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        },
+        {
+          ".fl-row": 118,
+          ".elevated-card": 0,
+          ".fl-spark": 118,
+          ".fl-funnel": 0,
+          ".fl-list": 0,
+          ".fl-node": 0,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        }
+      ]
+    },
+    "sessions": {
+      "prototype": [
+        {
+          ".fl-row": 6,
+          ".elevated-card": 0,
+          ".fl-spark": 0,
+          ".fl-funnel": 0,
+          ".fl-list": 0,
+          ".fl-node": 0,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        },
+        {
+          ".fl-row": 6,
+          ".elevated-card": 0,
+          ".fl-spark": 0,
+          ".fl-funnel": 0,
+          ".fl-list": 0,
+          ".fl-node": 0,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        }
+      ],
+      "current": [
+        {
+          ".fl-row": 120,
+          ".elevated-card": 0,
+          ".fl-spark": 0,
+          ".fl-funnel": 0,
+          ".fl-list": 0,
+          ".fl-node": 0,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        },
+        {
+          ".fl-row": 120,
+          ".elevated-card": 0,
+          ".fl-spark": 0,
+          ".fl-funnel": 0,
+          ".fl-list": 0,
+          ".fl-node": 0,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        }
+      ]
+    },
+    "sessionDetail": {
+      "prototype": [
+        {
+          ".fl-row": 0,
+          ".elevated-card": 0,
+          ".fl-spark": 0,
+          ".fl-funnel": 0,
+          ".fl-list": 2,
+          ".fl-node": 0,
+          ".fl-tbtn": 3,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        },
+        {
+          ".fl-row": 0,
+          ".elevated-card": 0,
+          ".fl-spark": 0,
+          ".fl-funnel": 0,
+          ".fl-list": 2,
+          ".fl-node": 0,
+          ".fl-tbtn": 3,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        }
+      ],
+      "current": [
+        {
+          ".fl-row": 0,
+          ".elevated-card": 0,
+          ".fl-spark": 0,
+          ".fl-funnel": 0,
+          ".fl-list": 3,
+          ".fl-node": 0,
+          ".fl-tbtn": 3,
+          ".session-ledger-row": 143,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        },
+        {
+          ".fl-row": 0,
+          ".elevated-card": 0,
+          ".fl-spark": 0,
+          ".fl-funnel": 0,
+          ".fl-list": 3,
+          ".fl-node": 0,
+          ".fl-tbtn": 3,
+          ".session-ledger-row": 143,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        }
+      ]
+    },
+    "assetDetail": {
+      "prototype": [
+        {
+          ".fl-row": 0,
+          ".elevated-card": 7,
+          ".fl-spark": 1,
+          ".fl-funnel": 1,
+          ".fl-list": 5,
+          ".fl-node": 0,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        },
+        {
+          ".fl-row": 0,
+          ".elevated-card": 7,
+          ".fl-spark": 1,
+          ".fl-funnel": 1,
+          ".fl-list": 5,
+          ".fl-node": 0,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        }
+      ],
+      "current": [
+        {
+          ".fl-row": 0,
+          ".elevated-card": 7,
+          ".fl-spark": 1,
+          ".fl-funnel": 1,
+          ".fl-list": 5,
+          ".fl-node": 0,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        },
+        {
+          ".fl-row": 0,
+          ".elevated-card": 7,
+          ".fl-spark": 1,
+          ".fl-funnel": 1,
+          ".fl-list": 5,
+          ".fl-node": 0,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        }
+      ]
+    },
+    "timeline": {
+      "prototype": [
+        {
+          ".fl-row": 0,
+          ".elevated-card": 0,
+          ".fl-spark": 0,
+          ".fl-funnel": 0,
+          ".fl-list": 0,
+          ".fl-node": 9,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        },
+        {
+          ".fl-row": 0,
+          ".elevated-card": 0,
+          ".fl-spark": 0,
+          ".fl-funnel": 0,
+          ".fl-list": 0,
+          ".fl-node": 9,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        }
+      ],
+      "current": [
+        {
+          ".fl-row": 0,
+          ".elevated-card": 0,
+          ".fl-spark": 0,
+          ".fl-funnel": 0,
+          ".fl-list": 0,
+          ".fl-node": 2238,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        },
+        {
+          ".fl-row": 0,
+          ".elevated-card": 0,
+          ".fl-spark": 0,
+          ".fl-funnel": 0,
+          ".fl-list": 0,
+          ".fl-node": 2238,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        }
+      ]
+    },
+    "stats": {
+      "prototype": [
+        {
+          ".fl-row": 0,
+          ".elevated-card": 6,
+          ".fl-spark": 0,
+          ".fl-funnel": 0,
+          ".fl-list": 3,
+          ".fl-node": 0,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        },
+        {
+          ".fl-row": 0,
+          ".elevated-card": 6,
+          ".fl-spark": 0,
+          ".fl-funnel": 0,
+          ".fl-list": 3,
+          ".fl-node": 0,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        }
+      ],
+      "current": [
+        {
+          ".fl-row": 0,
+          ".elevated-card": 6,
+          ".fl-spark": 0,
+          ".fl-funnel": 0,
+          ".fl-list": 3,
+          ".fl-node": 0,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 6,
+          ".heat-cell": 364
+        },
+        {
+          ".fl-row": 0,
+          ".elevated-card": 6,
+          ".fl-spark": 0,
+          ".fl-funnel": 0,
+          ".fl-list": 3,
+          ".fl-node": 0,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 6,
+          ".heat-cell": 364
+        }
+      ]
+    },
+    "cleanup": {
+      "prototype": [],
+      "current": [
+        {
+          ".fl-row": 0,
+          ".elevated-card": 3,
+          ".fl-spark": 0,
+          ".fl-funnel": 0,
+          ".fl-list": 0,
+          ".fl-node": 0,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        },
+        {
+          ".fl-row": 0,
+          ".elevated-card": 3,
+          ".fl-spark": 0,
+          ".fl-funnel": 0,
+          ".fl-list": 0,
+          ".fl-node": 0,
+          ".fl-tbtn": 0,
+          ".session-ledger-row": 0,
+          ".session-chat-row": 0,
+          ".stats-card": 0,
+          ".heat-cell": 0
+        }
+      ]
+    }
+  }
+}

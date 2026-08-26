@@ -1,0 +1,39 @@
+{
+  "before": {
+    "route": "#/sessions/claude_code%3A69dd1e73-9d91-4158-96dc-d4a45e29b2ec",
+    "tabs": [
+      {
+        "tab": "inspector",
+        "label": "记录详情",
+        "active": "true"
+      },
+      {
+        "tab": "ecm",
+        "label": "生效配置",
+        "active": "false"
+      },
+      {
+        "tab": "friction",
+        "label": "摩擦轴",
+        "active": "false"
+      }
+    ],
+    "frictionPane": false,
+    "rows": 0,
+    "body": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n878\n变化时间线\n统计\n项目\n全部项目\n932\n项目级\n5\n用户级\n927\n数据源\nClaude Code\n23 条会话\nCodex\n855 条会话\nL\n本地模式\n数据不离开本机\nEnglish\n深色模式\n会话\nclaude_code:69dd1e73…b2ec · Claude Code · /home/bot/project/agent-native\n已记录\n任务\n这是agent-native系统，本身agent-native的文档你先了解一下，然后我是在系统中去开发了两个应用 tracker和orchestrator，然后系统现在已经部署在101环境上。 核心理念就是orchestrator是编排者，brain接受任务以后自动按照流水线去安排任务执行，执行完成后自动交付。并且整个过程brain是可替换的现在主要支持claudecode（101已配置）。然后工作的东西支持各种大模型，现在主要配置了本地的vllm，开发阶段就不引入其他…\n轨迹\n对话\n总览\n实际耗时 · 1h23m\n已加载 1000 / 82254 条记录 · 17"
+  },
+  "friction": {
+    "active": "true",
+    "pane": true,
+    "summary": "1829\n明确摩擦记录",
+    "rows": 500,
+    "first": "工具\ntoolu_01CMasG2K3ktyvz3KeYMPdNe\n工具失败 · Exit code 1 .agents/ .git/ .github/ apps/ deploy/ docker/ docs/ e2e/ packages/ scripts/ server/ .dockerignore 323B .env.example 15.9K .gitattributes 163B .giti…\n14:51:33",
+    "note": "摩擦轴\n工具失败必须有明确的 is_error 或非零退出码；资产绕行单独记录。缺失的工具结果保持未记录。\n1829\n明确摩擦记录\n工具\ntoolu_01CMasG2K3ktyvz3KeYMPdNe\n工具失败 · Exit code 1 .agents/ .git/ .github/ apps/ deploy/ docker/ docs/ e2e/ packages/ scripts/ server/ .dockerignore 323B .env.example 15.9K .gitattributes 163B .giti…\n14:51:33\n工具\ntoolu_014dG8Qg3RuatdDC56jXZxDo\n工具失败 · Exit code 1 ===UI STYLES=== base.css 9.6K tokens.css 6.5K ===UI COMPONENTS/ui=== accordion.tsx 2.6K alert-dialog.tsx 5.2K alert.tsx 2.0K aspect-ratio.tsx 413B …\n14:51:55\n工具\ntoolu_01NwBRAanQZnSjSzAXVqFgyE\n工具失败 · Exit code 1 ===MANAGER index.ts=== import { createServer } from \"./server/http.js\"; import { getHost, getPort } from \"./config/env.js\"; import { initEventLoggi…\n14:52:18\n工具\ntoolu_01NQ2wsBhA1i1ix1op4TeysW\n工具失败 · Exit code 1 === DESIGN agent-native.json ===\n14:52:22\n工具\ntoolu_01LyPD8KpXPBhE5tBcsLYJop\n工具失败 · Exit code 1 === DESIGN root config files === 4F 1D: ./ agent-nati"
+  },
+  "selected": {
+    "inspectorTab": "false",
+    "selected": null,
+    "payload": null
+  },
+  "screenshot": "/home/bot/project/flatline/docs/qa/flatline-ui-v49/friction-v98/selected-light.png"
+}

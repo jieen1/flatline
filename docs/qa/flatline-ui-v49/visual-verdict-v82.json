@@ -1,0 +1,16 @@
+{
+  "score": 95,
+  "verdict": "pass",
+  "category_match": true,
+  "differences": [
+    "Real local data has different asset/session counts, titles, event density, and empty-state distribution than the illustrative prototype fixture.",
+    "The selected real assets show sparse or missing curves when the persisted evidence has only one point or no task denominator; this is intentional evidence fidelity.",
+    "Timeline and statistics contain more real records than the prototype reference, while shell geometry, color semantics, component hierarchy, and interaction surfaces remain aligned."
+  ],
+  "suggestions": [
+    "Keep comparing same-size light/dark screenshots after changes to the prototype or local corpus.",
+    "Keep missing task denominators as slash plus explicit not-recorded copy; do not add synthetic percentages or curves.",
+    "Keep session toolbar icons on the prototype paths and 14x14 geometry."
+  ],
+  "reasoning": "The current screenshots match the prototype category and shell treatment. Exact token parity, zero unsupported icons, zero SVG path mismatches, functional session state transitions, and real-data association checks provide evidence for a passing visual verdict; remaining differences are evidence-backed content density rather than UI simplification."
+}

@@ -1,0 +1,45 @@
+{
+  "baseline": "docs/qa/flatline-ui-v45/data/prototype-icon-inventory.json",
+  "rule": "prototypeIconNames is a closed set: icon() renders nothing for a name outside it, so a typo shows an empty slot instead of a borrowed glyph. Growing the set is a deliberate act and every addition is recorded here with the slot it fills and the glyph it replaces.",
+  "decided_at": "2026-08-23",
+  "decided_in": "docs/qa/dogfood-2026-08-22.md, 第五轮 → B4 待办；第十一轮 → B8 待办",
+  "source": "Lucide (same set the prototype draws from), 24x24 stroke grid, stroke-width 2",
+  "additions": [
+    {
+      "name": "list-filter",
+      "added_in": "B8",
+      "decided_in": "docs/qa/dogfood-2026-08-22.md, 第十一轮",
+      "slot": "session and friction toolbars: the filter button (filterControl, data-action=\"fl-filter\")",
+      "replaced": "nothing — the button had no glyph at all",
+      "call_sites": 1,
+      "reason": "icon(\"list-filter\") was already being called, but the name was in neither prototypeIconNames nor iconAliases, so icon() returned an empty string and the button rendered as bare text next to a row of buttons that all carry a glyph. The SVG path was already in the ICONS table under the camelCase key listFilter; what was missing was the kebab alias, the whitelist entry and the iconAliases row. This is the one control that opens the filter popover, so it is the affordance that most needs to be recognisable without reading."
+    },
+    {
+      "name": "refresh-cw",
+      "added_in": "B8",
+      "decided_in": "docs/qa/dogfood-2026-08-22.md, 第十一轮",
+      "slot": "rescan and retry buttons on the data, session, friction and overview pages (data-action=\"data-refresh\" / \"reload-sessions\" / \"reload-friction\" / \"reload-overview\")",
+      "replaced": "nothing — the buttons had no glyph at all",
+      "call_sites": 6,
+      "reason": "the six call sites spell the name camelCase as icon(\"refreshCw\"). ICONS[\"refresh-cw\"] existed, but iconAliases had no refreshCw row, so the name kebab-cased to refresh-cw and then failed the prototypeIconNames membership test, and icon() returned an empty string. Rescan and retry are the two actions that re-read the sources; leaving them as unmarked text made them read as links rather than as the one button that costs a scan."
+    },
+    {
+      "name": "pin",
+      "slot": "session row and session detail: pin / unpin a session (data-action=\"session-pin\")",
+      "replaced": "chevron-up",
+      "reason": "chevron-up reads as \"collapse\" in every other place on the page, so the pin button looked like a fold control. Pinning had no glyph in the prototype set because the prototype had no pinning."
+    },
+    {
+      "name": "tag",
+      "slot": "session row and session detail: the tag chip strip label (sessionTagChips)",
+      "replaced": "hash",
+      "reason": "hash is the heading/anchor glyph and is already used for identifiers; a tag chip strip needs the tag shape so the two are not confused."
+    },
+    {
+      "name": "plus",
+      "slot": "session row and session detail: add a user tag (data-action=\"session-tag-editor\")",
+      "replaced": "hash",
+      "reason": "the add-a-tag button used the same hash glyph as the chips themselves, so the action and the objects it acts on were indistinguishable. plus is the add affordance."
+    }
+  ]
+}

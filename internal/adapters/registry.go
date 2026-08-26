@@ -6,7 +6,7 @@ import (
 	"sync"
 )
 
-// Registry provides deterministic lookup for the two MVP adapters.
+// Registry provides deterministic lookup of the registered source adapters.
 type Registry struct {
 	mu       sync.RWMutex
 	bySource map[Source]Adapter
@@ -20,8 +20,8 @@ func (r *Registry) Register(adapter Adapter) error {
 	if adapter == nil {
 		return fmt.Errorf("adapters: nil adapter")
 	}
-	if !adapter.Source().Valid() {
-		return fmt.Errorf("adapters: unsupported source %q", adapter.Source())
+	if err := RegisterSource(adapter.Source(), ""); err != nil {
+		return err
 	}
 	if err := adapter.FieldMatrix().Validate(); err != nil {
 		return err

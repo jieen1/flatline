@@ -1,0 +1,41 @@
+{
+  "before": {
+    "route": "#/sessions/claude_code%3A69dd1e73-9d91-4158-96dc-d4a45e29b2ec",
+    "tabs": [
+      {
+        "tab": "inspector",
+        "label": "记录详情",
+        "active": "true"
+      },
+      {
+        "tab": "ecm",
+        "label": "生效配置",
+        "active": "false"
+      },
+      {
+        "tab": "friction",
+        "label": "摩擦轴",
+        "active": "false"
+      }
+    ],
+    "frictionPane": false,
+    "rows": 0
+  },
+  "friction": {
+    "active": "true",
+    "pane": true,
+    "summary": "1829\n明确摩擦记录",
+    "note": "当前展示前 500 条已加载记录；明确摩擦总数：1829 条。",
+    "rows": 500,
+    "first": "工具\n工具失败\n工具失败 · Exit code 1 .agents/ .git/ .github/ apps/ deploy/ docker/ docs/ e2e/ packages/ scripts/ server/ .dockerignore 323B .env.example 15.9K .gitattributes 163B .giti…\n14:51:33",
+    "firstHasOpaqueToolID": false
+  },
+  "selected": {
+    "inspectorActive": "true",
+    "selected": "摩擦记录\n工具\n\n工具失败\n\n工具失败 · Exit code 1 .agents/ .git/ .github/ apps/ deploy/ docker/ docs/ e2e/ packages/ scripts/ server/ .dockerignore 323B .env.example 15.9K .gitattributes 163B .giti…\n\n耗时\n事件时间\n2026/7/10 22:51:33\n相对间隔\n—\n角色\ntool\nTOKEN 用量\n输入\n—\n输出\n—\nToken 数\n未记录\n观测\n观测等级\n未记录（unknown）\n参与形式\n未记录\n定位信息{\"source\":\"claude_code\",\"session_id\":\"claude_code:69dd1e73-9d91-4158-96dc-d4a45e29b2ec\",\"message_index\":4,\"raw_ref\":\"a9f25be7-8f96-4216-9f29-068efc815ab1-0:tool_result\"}\n事件载荷\n{\n  \"exit_code\": 1,\n  \"is_error\": true,\n  \"message_id\": \"a9f25be7-8f96-4216-9f29-068efc815ab1-0\",\n  \"role\": \"tool\",\n  \"tool_name\": \"toolu_01CMasG2K3ktyvz3KeYMPdNe\",\n  \"tool_output\": \"Exit code 1\\n.agents/\\n.git/\\n.github/\\napps/\\ndeploy/\\ndocker/\\ndocs/\\ne2e/\\npackages/\\nscripts/\\nserver/\\n.dockerignore  323B\\n.env.example  15.9K\\n.gitattributes  163B\\n.gitignore  1.3K\\n.goreleaser.yml  1.7K\\n.npmrc  22B\\n.vercelignore  1.2K\\nAGEN",
+    "payload": "{\n  \"exit_code\": 1,\n  \"is_error\": true,\n  \"message_id\": \"a9f25be7-8f96-4216-9f29-068efc815ab1-0\",\n  \"role\": \"tool\",\n  \"tool_name\": \"toolu_01CMasG2K3ktyvz3KeYMPdNe\",\n  \"tool_output\": \"Exit code 1\\n.agents/\\n.git/\\n.github/\\napps/\\ndeploy/\\ndocker/\\ndocs/\\ne2e/\\npackages/\\nscripts/\\nserver/\\n.dockerignore  323B\\n.env.example  15.9K\\n.gitattributes  163B\\n.gitignore  1.3K\\n.goreleaser.yml  1.7K\\n.npmrc  22B\\n.vercelignore  1.2K\\nAGENTS.md  2.1K\\nCLAUDE.md  13.5K\\nCLI_AND_DAEMON.md  31.9K\\nCLI_INSTALL.md  5.7K\\nCONTRIBUTING.md  15.0K\\nDockerfile  1.4K\\nDockerfile.web  2.6K\\nLICENSE  2.1K\\nMakefile  15.4K\\nREADME.md  10.4K\\nREADME.zh-CN.md  9.7K\\nSELF_HOSTING.md  22.0K\\nSELF_HOSTING_ADVANCED.md  25.2K\\nSELF_HOSTING_AI.md  2.1K\\ndocker-compose.selfhost.build.yml  593B\\ndocker-compose.selfhost.yml  6.0K\\ndocker-compose.yml  331B\\npackage.json  1.8K\\nplaywright.config.ts  529B\\npnpm-lock.yaml  802.7K\\npnpm-workspace.yaml  1.6K\\nskills-lock.json  862B\\nturbo.json  891B\\n---GIT---\\n06df00f41 refactor(views): remove Runtimes tab CLI-update red dot (#5228)\\n53f05cca5 feat(github): fan out PR/check_suite webhooks to all bound workspaces (MUL-4343) (#5218)\\n7a405fd1c fix(daemon): keep the task transcript ordered and complete (#5210)\\n37b0a6e72 docs(changelog): add v0.3.43 release entry (MUL-4376) (#5216)\\n595f785ac fix(desktop): make overflowing tab additions visible (#5215)\\n---ROOT FILES--",
+    "hasErrorEvidence": true,
+    "hasExitEvidence": false
+  },
+  "screenshot": "/home/bot/project/flatline/docs/qa/flatline-ui-v49/friction-v99/selected-light.png"
+}

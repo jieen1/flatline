@@ -1,0 +1,24 @@
+{
+  "generatedAt": "2026-08-21T02:36:59.975Z",
+  "prototype": {
+    "rootFiles": [
+      "colors.css",
+      "spacing.css",
+      "motion.css",
+      "typography.css"
+    ],
+    "darkFiles": [
+      "dark.css",
+      "spacing.css"
+    ]
+  },
+  "light": {
+    "missing": [],
+    "mismatched": []
+  },
+  "dark": {
+    "missing": [],
+    "mismatched": []
+  },
+  "exact": true
+}

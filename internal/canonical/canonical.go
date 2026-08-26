@@ -51,10 +51,6 @@ func (s ParticipationSignal) Valid() bool {
 	}
 }
 
-func AllParticipationSignals() []ParticipationSignal {
-	return []ParticipationSignal{SignalOffered, SignalLoaded, SignalInvoked, SignalObservedUse, SignalFollowed}
-}
-
 // Locator identifies the source position for an event. Nil positions mean the
 // source did not record that coordinate; they are never replaced with zero.
 type Locator struct {

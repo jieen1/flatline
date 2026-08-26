@@ -42,6 +42,12 @@ type session struct {
 	HarnessVersion string `json:"harness_version"`
 	Model          string `json:"model"`
 	CWD            string `json:"cwd"`
+
+	ThreadKind      string `json:"thread_kind"`
+	ParentSessionID string `json:"parent_session_id"`
+	AgentRole       string `json:"agent_role"`
+	AgentNickname   string `json:"agent_nickname"`
+	Originator      string `json:"originator"`
 }
 type message struct {
 	ID               string       `json:"id"`
@@ -51,12 +57,27 @@ type message struct {
 	Text             string       `json:"text"`
 	Content          string       `json:"content"`
 	ToolName         string       `json:"tool_name"`
+	ToolUseID        string       `json:"tool_use_id"`
 	ToolInput        string       `json:"tool_input"`
 	ToolOutput       string       `json:"tool_output"`
 	Truncated        bool         `json:"truncated"`
 	IsError          *bool        `json:"is_error"`
 	ExitCode         *int         `json:"exit_code"`
+	AgentID          string       `json:"agent_id"`
+	Sidechain        bool         `json:"sidechain"`
+	Usage            *usageRecord `json:"usage"`
 	AssetInvocations []invocation `json:"asset_invocations"`
+}
+
+// usageRecord is the per-message token record the parser copied from the
+// source's own usage block. It passes through untouched.
+type usageRecord struct {
+	Input       int64 `json:"input_tokens"`
+	CachedInput int64 `json:"cached_input_tokens"`
+	CacheWrite  int64 `json:"cache_write_tokens"`
+	Output      int64 `json:"output_tokens"`
+	Reasoning   int64 `json:"reasoning_tokens"`
+	Total       int64 `json:"total_tokens"`
 }
 type invocation struct {
 	AssetID             string                         `json:"asset_id"`
@@ -100,7 +121,10 @@ func (a Adapter) Parse(raw adapters.RawSession) (adapters.SessionMeta, []canonic
 		return adapters.SessionMeta{}, nil, fmt.Errorf("claudecode: ended_at: %w", err)
 	}
 	qualified := string(a.Source()) + ":" + id
-	meta := adapters.SessionMeta{SourceSessionID: id, StartedAt: started, EndedAt: ended, HarnessVersion: input.Session.HarnessVersion, Model: input.Session.Model, CWD: input.Session.CWD, Title: input.Session.Title, TaskText: input.Session.TaskText}
+	meta := adapters.SessionMeta{SourceSessionID: id, StartedAt: started, EndedAt: ended, HarnessVersion: input.Session.HarnessVersion, Model: input.Session.Model, CWD: input.Session.CWD, Title: input.Session.Title, TaskText: input.Session.TaskText,
+		ThreadKind: input.Session.ThreadKind, ParentSessionID: input.Session.ParentSessionID,
+		AgentRole: input.Session.AgentRole, AgentNickname: input.Session.AgentNickname,
+		Originator: input.Session.Originator}
 	events := []canonical.Event{{
 		SourceEventID: stableID(qualified, "session"), SessionID: qualified, EventType: canonical.EventTypeSessionStarted,
 		ObservationLevel: canonical.LevelUnknown, Payload: map[string]any{"source_session_id": id},
@@ -115,7 +139,7 @@ func (a Adapter) Parse(raw adapters.RawSession) (adapters.SessionMeta, []canonic
 		if text == "" {
 			text = message.Content
 		}
-		if message.Kind != "" || text != "" || message.ToolName != "" || message.ToolInput != "" || message.ToolOutput != "" || message.IsError != nil || message.ExitCode != nil {
+		if message.Kind != "" || text != "" || message.ToolName != "" || message.ToolUseID != "" || message.ToolInput != "" || message.ToolOutput != "" || message.IsError != nil || message.ExitCode != nil {
 			occurred, err := parseTime(message.Timestamp)
 			if err != nil {
 				return adapters.SessionMeta{}, nil, fmt.Errorf("claudecode: message %s timestamp: %w", messageRef, err)
@@ -132,6 +156,9 @@ func (a Adapter) Parse(raw adapters.RawSession) (adapters.SessionMeta, []canonic
 			if message.ToolName != "" {
 				payload["tool_name"] = message.ToolName
 			}
+			if message.ToolUseID != "" {
+				payload["tool_use_id"] = message.ToolUseID
+			}
 			if message.ToolInput != "" {
 				payload["tool_input"] = message.ToolInput
 			}
@@ -146,6 +173,15 @@ func (a Adapter) Parse(raw adapters.RawSession) (adapters.SessionMeta, []canonic
 			}
 			if message.Truncated {
 				payload["truncated"] = true
+			}
+			if message.AgentID != "" {
+				payload["agent_id"] = message.AgentID
+			}
+			if message.Sidechain {
+				payload["sidechain"] = true
+			}
+			if message.Usage != nil {
+				payload["usage"] = message.Usage
 			}
 			index := messageIndex
 			transcript := canonical.Event{

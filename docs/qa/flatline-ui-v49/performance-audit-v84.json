@@ -1,0 +1,158 @@
+{
+  "generatedAt": "2026-08-21T02:36:50.304Z",
+  "source": "daemon_owned_sqlite",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "api": {
+    "wall": {
+      "status": 200,
+      "bytes": 1623852,
+      "elapsedMs": 510
+    },
+    "fullAssets": {
+      "status": 200,
+      "bytes": 21771908,
+      "elapsedMs": 508
+    },
+    "sessions": {
+      "status": 200,
+      "bytes": 560899,
+      "elapsedMs": 633
+    },
+    "timeline": {
+      "status": 200,
+      "bytes": 7158845,
+      "elapsedMs": 394
+    }
+  },
+  "wall": {
+    "assetCount": 932,
+    "navigation": {
+      "wallClockMs": 1192
+    },
+    "metrics": {
+      "route": "#/",
+      "htmlBytes": 528270,
+      "bodyTextBytes": 4392,
+      "domNodes": 6552,
+      "rows": 118,
+      "sparklines": 118,
+      "firstRowHTMLBytes": 4228,
+      "scrollHeight": 900,
+      "wallScroll": {
+        "scrollHeight": 56530,
+        "clientHeight": 848,
+        "scrollTop": 0
+      },
+      "lazySentinels": 1,
+      "navigation": {
+        "responseEnd": 38,
+        "domInteractive": 124,
+        "loadEventEnd": 137
+      }
+    },
+    "afterScrollDrain": {
+      "route": "#/",
+      "htmlBytes": 4091627,
+      "bodyTextBytes": 9341,
+      "domNodes": 50507,
+      "rows": 932,
+      "sparklines": 932,
+      "firstRowHTMLBytes": 4228,
+      "scrollHeight": 900,
+      "wallScroll": {
+        "scrollHeight": 60549,
+        "clientHeight": 848,
+        "scrollTop": 56274
+      },
+      "lazySentinels": 0,
+      "navigation": {
+        "responseEnd": 38,
+        "domInteractive": 124,
+        "loadEventEnd": 137
+      }
+    }
+  },
+  "session": {
+    "idDigest": "codex:019fc8",
+    "eventCount": 2810,
+    "navigation": {
+      "wallClockMs": 1250
+    },
+    "initial": {
+      "route": "#/sessions/codex%3A019fc85d-aec3-7042-bec6-647f1b8646d9",
+      "htmlBytes": 2489574,
+      "bodyTextBytes": 7944,
+      "domNodes": 37072,
+      "rows": 0,
+      "sparklines": 0,
+      "firstRowHTMLBytes": 0,
+      "scrollHeight": 900,
+      "wallScroll": null,
+      "lazySentinels": 0,
+      "navigation": {
+        "responseEnd": 3,
+        "domInteractive": 19,
+        "loadEventEnd": 20
+      }
+    },
+    "interactions": {
+      "chat": {
+        "elapsedMs": 88,
+        "found": true
+      },
+      "trajectory": {
+        "elapsedMs": 76,
+        "found": true
+      },
+      "event": {
+        "elapsedMs": 82,
+        "found": true
+      },
+      "chatRows": 0,
+      "ledgerRows": 2810,
+      "selectedEvent": "3"
+    },
+    "after": {
+      "route": "#/sessions/codex%3A019fc85d-aec3-7042-bec6-647f1b8646d9",
+      "htmlBytes": 2489968,
+      "bodyTextBytes": 7444,
+      "domNodes": 37072,
+      "rows": 0,
+      "sparklines": 0,
+      "firstRowHTMLBytes": 0,
+      "scrollHeight": 900,
+      "wallScroll": null,
+      "lazySentinels": 0,
+      "navigation": {
+        "responseEnd": 3,
+        "domInteractive": 19,
+        "loadEventEnd": 20
+      }
+    }
+  },
+  "timeline": {
+    "navigation": {
+      "wallClockMs": 1467
+    },
+    "metrics": {
+      "route": "#/timeline",
+      "htmlBytes": 1907764,
+      "bodyTextBytes": 2222,
+      "domNodes": 33862,
+      "rows": 0,
+      "sparklines": 0,
+      "firstRowHTMLBytes": 0,
+      "scrollHeight": 900,
+      "wallScroll": null,
+      "lazySentinels": 0,
+      "navigation": {
+        "responseEnd": 3,
+        "domInteractive": 43,
+        "loadEventEnd": 44
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{"type":"session_meta","timestamp":"2026-08-24T10:00:00Z","payload":{"id":"codex-turn-tokens-fixture","cwd":"/fixture/turns","originator":"codex_exec","source":"exec","cli_version":"0.42.0"}}
+{"type":"turn_context","timestamp":"2026-08-24T10:00:01Z","payload":{"cwd":"/fixture/turns","model":"synthetic-model"}}
+{"type":"response_item","timestamp":"2026-08-24T10:00:02Z","payload":{"type":"message","role":"user","content":[{"type":"input_text","text":"第一轮：帮我跑一下测试"}]}}
+{"type":"event_msg","timestamp":"2026-08-24T10:00:10Z","payload":{"type":"token_count","info":{"total_token_usage":{"input_tokens":900,"cached_input_tokens":800,"output_tokens":100,"total_tokens":1000},"last_token_usage":{"input_tokens":900,"output_tokens":100,"total_tokens":1000}}}}
+{"type":"event_msg","timestamp":"2026-08-24T10:00:30Z","payload":{"type":"token_count","info":{"total_token_usage":{"input_tokens":1900,"cached_input_tokens":1700,"output_tokens":300,"total_tokens":2200},"last_token_usage":{"input_tokens":1000,"output_tokens":200,"total_tokens":1200}}}}
+{"type":"event_msg","timestamp":"2026-08-24T10:00:40Z","payload":{"type":"turn_aborted","reason":"interrupted"}}
+{"type":"turn_context","timestamp":"2026-08-24T10:01:00Z","payload":{"cwd":"/fixture/turns","model":"synthetic-model"}}
+{"type":"response_item","timestamp":"2026-08-24T10:01:02Z","payload":{"type":"message","role":"user","content":[{"type":"input_text","text":"第二轮：继续"}]}}
+{"type":"event_msg","timestamp":"2026-08-24T10:01:30Z","payload":{"type":"token_count","info":{"total_token_usage":{"input_tokens":2900,"cached_input_tokens":2600,"output_tokens":500,"total_tokens":3400},"last_token_usage":{"input_tokens":900,"output_tokens":200,"total_tokens":1200}}}}
+{"type":"response_item","timestamp":"2026-08-24T10:02:00Z","payload":{"type":"message","role":"user","content":[{"type":"input_text","text":"第三轮：再继续"}]}}
+{"type":"event_msg","timestamp":"2026-08-24T10:02:30Z","payload":{"type":"token_count","info":{"total_token_usage":{"input_tokens":3900,"cached_input_tokens":3500,"output_tokens":800,"total_tokens":4700},"last_token_usage":{"input_tokens":1000,"output_tokens":300,"total_tokens":1300}}}}
+{"type":"event_msg","timestamp":"2026-08-24T10:02:45Z","payload":{"type":"token_count","info":{"total_token_usage":{"input_tokens":4400,"cached_input_tokens":4000,"output_tokens":1000,"total_tokens":5200},"last_token_usage":{"input_tokens":500,"output_tokens":200,"total_tokens":500}}}}

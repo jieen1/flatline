@@ -2,7 +2,10 @@ module flatline
 
 go 1.22
 
-require modernc.org/sqlite v1.34.5
+require (
+	github.com/klauspost/compress v1.17.11
+	modernc.org/sqlite v1.34.5
+)
 
 require (
 	github.com/dustin/go-humanize v1.0.1 // indirect

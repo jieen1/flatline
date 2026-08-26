@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-08-21T01:40:05Z",
+  "source": "daemon_owned_sqlite",
+  "route": "#/assets",
+  "fullFactsProjection": true,
+  "firstVisibleAssetRatio": "1/1",
+  "firstVisibleAssetLastParticipation": "8/19 23:37",
+  "firstVisibleSparklinePath": "M66.00,6.00",
+  "meaning": "The wall route renders persisted ratio and sparkline facts instead of summary-mode missing values."
+}

@@ -1,0 +1,110 @@
+{
+  "_meta": {
+    "source": "claude_code",
+    "scenario": "friction",
+    "description": "Synthetic Claude Code session whose tool results carry explicit failures, one unlinked result, and a user interrupt.",
+    "synthetic": true,
+    "expected": {
+      "session_id": "cc-fixture-friction",
+      "friction_records": 5,
+      "user_interrupt_records": 1,
+      "unlinked_tool_results": 1
+    }
+  },
+  "session": {
+    "id": "cc-fixture-friction",
+    "started_at": "2026-08-21T09:00:00Z",
+    "ended_at": "2026-08-21T09:10:00Z",
+    "harness_version": "2.14.0",
+    "model": "claude-sonnet-synthetic",
+    "cwd": "/synthetic/claude/friction"
+  },
+  "messages": [
+    {
+      "id": "cc-friction-call-1",
+      "timestamp": "2026-08-21T09:01:00Z",
+      "role": "assistant",
+      "kind": "tool_call",
+      "tool_name": "Bash",
+      "tool_use_id": "toolu_synthetic_1",
+      "tool_input": "{\"command\":\"go test ./...\"}"
+    },
+    {
+      "id": "cc-friction-result-1",
+      "timestamp": "2026-08-21T09:01:30Z",
+      "role": "tool",
+      "kind": "tool_result",
+      "tool_use_id": "toolu_synthetic_1",
+      "tool_output": "--- FAIL: TestSynthetic (0.01s)\nFAIL\tflatline/internal/synthetic\t0.02s",
+      "exit_code": 1
+    },
+    {
+      "id": "cc-friction-call-2",
+      "timestamp": "2026-08-21T09:02:00Z",
+      "role": "assistant",
+      "kind": "tool_call",
+      "tool_name": "Read",
+      "tool_use_id": "toolu_synthetic_2",
+      "tool_input": "{\"file_path\":\"/synthetic/claude/friction/missing.md\"}"
+    },
+    {
+      "id": "cc-friction-result-2",
+      "timestamp": "2026-08-21T09:02:05Z",
+      "role": "tool",
+      "kind": "tool_result",
+      "tool_use_id": "toolu_synthetic_2",
+      "tool_output": "File does not exist.",
+      "is_error": true
+    },
+    {
+      "id": "cc-friction-call-3",
+      "timestamp": "2026-08-21T09:03:00Z",
+      "role": "assistant",
+      "kind": "tool_call",
+      "tool_name": "Bash",
+      "tool_use_id": "toolu_synthetic_3",
+      "tool_input": "{\"command\":\"gofmt -l .\"}"
+    },
+    {
+      "id": "cc-friction-result-3",
+      "timestamp": "2026-08-21T09:03:04Z",
+      "role": "tool",
+      "kind": "tool_result",
+      "tool_use_id": "toolu_synthetic_3",
+      "tool_output": "/bin/bash: line 1: gofmt: command not found",
+      "exit_code": 127
+    },
+    {
+      "id": "cc-friction-result-4",
+      "timestamp": "2026-08-21T09:04:00Z",
+      "role": "tool",
+      "kind": "tool_result",
+      "tool_use_id": "toolu_synthetic_unlinked",
+      "tool_output": "<tool_use_error>No task found with ID: synthetic</tool_use_error>",
+      "is_error": true
+    },
+    {
+      "id": "cc-friction-result-5",
+      "timestamp": "2026-08-21T09:05:00Z",
+      "role": "tool",
+      "kind": "tool_result",
+      "tool_use_id": "toolu_synthetic_ok",
+      "tool_output": "the error handling looks fine",
+      "exit_code": 0
+    },
+    {
+      "id": "cc-friction-interrupt",
+      "timestamp": "2026-08-21T09:06:00Z",
+      "role": "user",
+      "kind": "message",
+      "text": "[Request interrupted by user]"
+    },
+    {
+      "id": "cc-friction-message",
+      "timestamp": "2026-08-21T09:07:00Z",
+      "role": "user",
+      "kind": "message",
+      "text": "the log mentioned [Request interrupted by user] earlier"
+    }
+  ]
+}

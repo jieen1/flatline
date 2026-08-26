@@ -41,6 +41,12 @@ type session struct {
 	HarnessVersion string `json:"harness_version"`
 	Model          string `json:"model"`
 	CWD            string `json:"cwd"`
+
+	ThreadKind      string `json:"thread_kind"`
+	ParentSessionID string `json:"parent_session_id"`
+	AgentRole       string `json:"agent_role"`
+	AgentNickname   string `json:"agent_nickname"`
+	Originator      string `json:"originator"`
 }
 type turn struct {
 	ID               string       `json:"id"`
@@ -49,11 +55,16 @@ type turn struct {
 	Kind             string       `json:"kind"`
 	Text             string       `json:"text"`
 	ToolName         string       `json:"tool_name"`
+	CallID           string       `json:"call_id"`
 	ToolInput        string       `json:"tool_input"`
 	ToolOutput       string       `json:"tool_output"`
 	Truncated        bool         `json:"truncated"`
 	IsError          *bool        `json:"is_error"`
 	ExitCode         *int         `json:"exit_code"`
+	AgentID          string       `json:"agent_id"`
+	Sidechain        bool         `json:"sidechain"`
+	AbortReason      string       `json:"abort_reason"`
+	TurnTokens       *int64       `json:"turn_tokens"`
 	AssetInvocations []invocation `json:"asset_invocations"`
 }
 type invocation struct {
@@ -98,14 +109,17 @@ func (a Adapter) Parse(raw adapters.RawSession) (adapters.SessionMeta, []canonic
 		return adapters.SessionMeta{}, nil, fmt.Errorf("codex: ended_at: %w", err)
 	}
 	qualified := string(a.Source()) + ":" + id
-	meta := adapters.SessionMeta{SourceSessionID: id, StartedAt: started, EndedAt: ended, HarnessVersion: input.Session.HarnessVersion, Model: input.Session.Model, CWD: input.Session.CWD, Title: input.Session.Title, TaskText: input.Session.TaskText}
+	meta := adapters.SessionMeta{SourceSessionID: id, StartedAt: started, EndedAt: ended, HarnessVersion: input.Session.HarnessVersion, Model: input.Session.Model, CWD: input.Session.CWD, Title: input.Session.Title, TaskText: input.Session.TaskText,
+		ThreadKind: input.Session.ThreadKind, ParentSessionID: input.Session.ParentSessionID,
+		AgentRole: input.Session.AgentRole, AgentNickname: input.Session.AgentNickname,
+		Originator: input.Session.Originator}
 	events := []canonical.Event{{SourceEventID: stableID(qualified, "session"), SessionID: qualified, EventType: canonical.EventTypeSessionStarted, ObservationLevel: canonical.LevelUnknown, Payload: map[string]any{"source_session_id": id}, Locator: canonical.Locator{Source: string(a.Source()), SessionID: qualified, RawRef: "session"}, OccurredAt: started, AdapterVersion: a.Version()}}
 	for turnIndex, turn := range input.Turns {
 		turnRef := turn.ID
 		if turnRef == "" {
 			turnRef = fmt.Sprintf("turn-%d", turnIndex)
 		}
-		if turn.Kind != "" || turn.Text != "" || turn.ToolName != "" || turn.ToolInput != "" || turn.ToolOutput != "" || turn.IsError != nil || turn.ExitCode != nil {
+		if turn.Kind != "" || turn.Text != "" || turn.ToolName != "" || turn.CallID != "" || turn.ToolInput != "" || turn.ToolOutput != "" || turn.IsError != nil || turn.ExitCode != nil || turn.AbortReason != "" {
 			occurred, err := parseTime(turn.Timestamp)
 			if err != nil {
 				return adapters.SessionMeta{}, nil, fmt.Errorf("codex: turn %s timestamp: %w", turnRef, err)
@@ -122,6 +136,9 @@ func (a Adapter) Parse(raw adapters.RawSession) (adapters.SessionMeta, []canonic
 			if turn.ToolName != "" {
 				payload["tool_name"] = turn.ToolName
 			}
+			if turn.CallID != "" {
+				payload["call_id"] = turn.CallID
+			}
 			if turn.ToolInput != "" {
 				payload["tool_input"] = turn.ToolInput
 			}
@@ -136,6 +153,18 @@ func (a Adapter) Parse(raw adapters.RawSession) (adapters.SessionMeta, []canonic
 			}
 			if turn.Truncated {
 				payload["truncated"] = true
+			}
+			if turn.AgentID != "" {
+				payload["agent_id"] = turn.AgentID
+			}
+			if turn.Sidechain {
+				payload["sidechain"] = true
+			}
+			if turn.TurnTokens != nil {
+				payload["turn_tokens"] = *turn.TurnTokens
+			}
+			if turn.AbortReason != "" {
+				payload["abort_reason"] = turn.AbortReason
 			}
 			index := turnIndex
 			transcript := canonical.Event{

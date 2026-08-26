@@ -1,0 +1,37 @@
+{
+  "checkedAt": "2026-08-21T04:48:46.175Z",
+  "before": {
+    "route": "#/sessions",
+    "sidebarFilter": false,
+    "toolbar": true,
+    "rows": 120,
+    "sentinel": 1,
+    "scrollTop": 0,
+    "scrollHeight": 51780,
+    "clientHeight": 779,
+    "outer": {
+      "scrollHeight": 848,
+      "clientHeight": 848,
+      "overflow": "hidden"
+    },
+    "first": "我先做一个类似openscreen   Screen Studio  这样的一个软件  但是是在鸿蒙系统开发 你帮我起一个应用的名称 最好符合鸿蒙系统的逻辑且比较吸引人，也让人容易理解"
+  },
+  "afterScroll": {
+    "rows": 240,
+    "sentinel": 1,
+    "scrollTop": 51001,
+    "scrollHeight": 52620,
+    "clientHeight": 779
+  },
+  "filtered": {
+    "sourceFilter": "true",
+    "rows": 23,
+    "count": "23 个会话",
+    "allClaude": true
+  },
+  "sorted": {
+    "value": "events",
+    "rows": 23,
+    "firstTitle": "设计Agent-native项目管理系统架构"
+  }
+}

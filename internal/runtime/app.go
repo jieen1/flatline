@@ -9,8 +9,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/fs"
+	"log"
 	"os"
 	"sort"
+	"strings"
 	"sync"
 	"time"
 
@@ -18,6 +20,7 @@ import (
 	"flatline/internal/assets"
 	"flatline/internal/canonical"
 	"flatline/internal/detectors"
+	"flatline/internal/eventstore"
 	"flatline/internal/history"
 	"flatline/internal/ingest"
 	"flatline/internal/storage"
@@ -29,10 +32,19 @@ type App struct {
 	registry    *assets.Registry
 	snapshotter *assets.Snapshotter
 	pipeline    *ingest.Pipeline
+	events      *eventstore.Store
 	states      *vital.Repository
 	machine     *vital.Machine
 	nativeMu    sync.Mutex
 	nativeFiles map[string]history.FileStamp
+
+	stateMu     sync.Mutex
+	dataVersion int64
+	progress    ImportProgress
+
+	evalMu     sync.Mutex
+	evalMarks  evaluationMarks
+	lastFullAt time.Time
 }
 
 func New(db *storage.DB, sourceRegistry *adapters.Registry, config vital.Config) *App {
@@ -41,7 +53,7 @@ func New(db *storage.DB, sourceRegistry *adapters.Registry, config vital.Config)
 	}
 	assetRegistry := assets.New(db)
 	machine := vital.NewMachine(config)
-	return &App{db: db, registry: assetRegistry, snapshotter: assets.NewSnapshotter(assetRegistry), pipeline: ingest.NewPipeline(db, sourceRegistry), states: vital.NewRepository(db, machine), machine: machine, nativeFiles: make(map[string]history.FileStamp)}
+	return &App{db: db, registry: assetRegistry, snapshotter: assets.NewSnapshotter(assetRegistry), pipeline: ingest.NewPipeline(db, sourceRegistry), events: eventstore.New(db), states: vital.NewRepository(db, machine), machine: machine, nativeFiles: make(map[string]history.FileStamp), progress: ImportProgress{Phase: PhaseIdle}}
 }
 
 func (a *App) Pipeline() *ingest.Pipeline { return a.pipeline }
@@ -89,6 +101,7 @@ func (a *App) ImportNativeHistory(ctx context.Context, config history.Config) (N
 	}
 	a.nativeMu.Unlock()
 	config.KnownFiles = knownFiles
+	config.OnFile = func(seen, read, skipped int) { a.setFileCounts(seen, read, skipped) }
 	sessions, discovered, err := history.Discover(config)
 	if err != nil {
 		return NativeHistoryReport{}, err
@@ -104,16 +117,142 @@ func (a *App) ImportNativeHistory(ctx context.Context, config history.Config) (N
 		a.nativeFiles[path] = stamp
 	}
 	a.nativeMu.Unlock()
+	sessionByPath := make(map[string]string, len(sessions))
+	failed := make([]string, 0)
 	for _, session := range sessions {
 		result, err := a.pipeline.Ingest(ctx, session.Input)
 		if err != nil {
 			report.Warnings = append(report.Warnings, fmt.Sprintf("%s: ingest: %v", session.SourcePath, err))
+			failed = append(failed, session.SourcePath)
 			continue
 		}
+		sessionByPath[session.SourcePath] = result.SessionID
 		report.SessionsIngested++
 		report.EventsInserted += result.EventsInserted
+		a.setSessionsIngested(report.SessionsIngested)
 	}
+	if err := a.persistNativeFiles(ctx, discovered.FileStamps, sessionByPath, time.Now().UTC()); err != nil {
+		return report, err
+	}
+	// A file that parsed but could not be ingested must stay unknown, or the
+	// fingerprint would retire it from every future pass.
+	for _, path := range failed {
+		a.forgetNativeFile(ctx, path)
+	}
+	logInjectedSkips("native history")
 	return report, nil
+}
+
+// logInjectedSkips reports the harness-injected blocks the readers left out of
+// the transcript. They are not user turns and are not counted as such; saying
+// how many were dropped is what keeps that from being a silent edit.
+func logInjectedSkips(pass string) {
+	counts := history.InjectedSkipCounts()
+	if len(counts) == 0 {
+		return
+	}
+	tags := make([]string, 0, len(counts))
+	for tag := range counts {
+		tags = append(tags, tag)
+	}
+	sort.Strings(tags)
+	parts := make([]string, 0, len(tags))
+	for _, tag := range tags {
+		parts = append(parts, fmt.Sprintf("%s=%d", tag, counts[tag]))
+	}
+	log.Printf("%s: harness-injected blocks left out of the transcript %s", pass, strings.Join(parts, " "))
+}
+
+// RecomputeAllProjections rebuilds the command and file projections for every
+// session from the events already stored.
+func (a *App) RecomputeAllProjections(ctx context.Context) (int, error) {
+	if a == nil || a.events == nil {
+		return 0, fmt.Errorf("runtime: event store is not wired")
+	}
+	return a.events.RecomputeAllProjections(ctx)
+}
+
+// RecomputeMissingProjections projects the sessions that have never been
+// projected, so a database migrated before these tables existed becomes
+// complete after one startup.
+func (a *App) RecomputeMissingProjections(ctx context.Context) (int, error) {
+	if a == nil || a.events == nil {
+		return 0, fmt.Errorf("runtime: event store is not wired")
+	}
+	return a.events.RecomputeMissingProjections(ctx)
+}
+
+// BackfillSessionHierarchy fills thread_kind and the thread facts around it for
+// sessions ingested before the columns existed. A transcript whose fingerprint
+// has not changed is never replayed, so the only way to recover these facts is
+// to re-read the one record that holds them: Codex writes them in session_meta,
+// and a Claude Code transcript file is a top-level thread by construction. A
+// session whose transcript is no longer on disk keeps thread_kind NULL, which
+// reads as "not recorded" rather than "main".
+func (a *App) BackfillSessionHierarchy(ctx context.Context) (int, error) {
+	if a == nil || a.db == nil {
+		return 0, fmt.Errorf("runtime: database is not wired")
+	}
+	rows, err := a.db.QueryContext(ctx, `
+		SELECT s.id, s.source, (
+			SELECT n.path FROM native_files n WHERE n.session_id = s.id ORDER BY n.path LIMIT 1)
+		FROM sessions s WHERE s.thread_kind IS NULL ORDER BY s.id`)
+	if err != nil {
+		return 0, fmt.Errorf("runtime: list sessions without thread kind: %w", err)
+	}
+	type pending struct{ id, source, path string }
+	var todo []pending
+	for rows.Next() {
+		var item pending
+		var path sql.NullString
+		if err := rows.Scan(&item.id, &item.source, &path); err != nil {
+			rows.Close()
+			return 0, fmt.Errorf("runtime: scan session without thread kind: %w", err)
+		}
+		item.path = path.String
+		todo = append(todo, item)
+	}
+	if err := rows.Err(); err != nil {
+		rows.Close()
+		return 0, fmt.Errorf("runtime: iterate sessions without thread kind: %w", err)
+	}
+	if err := rows.Close(); err != nil {
+		return 0, fmt.Errorf("runtime: close sessions without thread kind: %w", err)
+	}
+	filled := 0
+	for _, item := range todo {
+		var thread history.SessionThread
+		var ok bool
+		if adapters.Source(item.source) == adapters.SourceClaudeCode {
+			thread, ok = history.ClaudeThread(), true
+		} else if item.path != "" {
+			thread, ok = history.ReadCodexThread(item.path)
+		}
+		if !ok || thread.Kind == "" {
+			continue
+		}
+		if _, err := a.db.ExecContext(ctx, `
+			UPDATE sessions SET
+				thread_kind       = COALESCE(thread_kind, ?),
+				parent_session_id = COALESCE(parent_session_id, ?),
+				agent_role        = COALESCE(agent_role, ?),
+				agent_nickname    = COALESCE(agent_nickname, ?),
+				originator        = COALESCE(originator, ?)
+			WHERE id = ?`,
+			thread.Kind, nullable(thread.ParentSessionID), nullable(thread.AgentRole),
+			nullable(thread.AgentNickname), nullable(thread.Originator), item.id); err != nil {
+			return filled, fmt.Errorf("runtime: backfill thread %s: %w", item.id, err)
+		}
+		filled++
+	}
+	return filled, nil
+}
+
+func nullable(value string) any {
+	if strings.TrimSpace(value) == "" {
+		return nil
+	}
+	return value
 }
 
 // ScanAssets performs an explicit read-only scan of root. It uses os.DirFS
@@ -187,6 +326,16 @@ func (a *App) recordReferenceCheck(ctx context.Context, versionID int64, assetID
 	} else if unknown > 0 {
 		status = "partial"
 	}
+	// A scan that observes exactly what the last check observed is not a new
+	// observation. Writing a row anyway would grow the table on every refresh
+	// and make every asset look like it had changed inputs.
+	unchanged, err := a.referenceCheckUnchanged(ctx, versionID, status, observations)
+	if err != nil {
+		return err
+	}
+	if unchanged {
+		return nil
+	}
 	result, err := a.db.ExecContext(ctx, `
 		INSERT INTO reference_checks (asset_version_id, checked_at, overall_status, checker_version)
 		VALUES (?, ?, ?, ?)
@@ -220,13 +369,62 @@ func (a *App) recordReferenceCheck(ctx context.Context, versionID int64, assetID
 	return nil
 }
 
-func (a *App) IngestAndEvaluate(ctx context.Context, input ingest.SessionInput, asOf time.Time) (ingest.Report, []vital.Decision, error) {
-	report, err := a.pipeline.Ingest(ctx, input)
-	if err != nil {
-		return report, nil, err
+func (a *App) referenceCheckUnchanged(ctx context.Context, versionID int64, status string, observations []detectors.ReferenceObservation) (bool, error) {
+	var checkID int64
+	var recordedStatus string
+	err := a.db.QueryRowContext(ctx, `
+		SELECT id, overall_status FROM reference_checks
+		WHERE asset_version_id = ? ORDER BY checked_at DESC, id DESC LIMIT 1`, versionID).Scan(&checkID, &recordedStatus)
+	if err == sql.ErrNoRows {
+		return false, nil
 	}
-	decisions, err := a.EvaluateAll(ctx, asOf)
-	return report, decisions, err
+	if err != nil {
+		return false, fmt.Errorf("runtime: read latest reference check: %w", err)
+	}
+	if recordedStatus != status {
+		return false, nil
+	}
+	rows, err := a.db.QueryContext(ctx, `SELECT ref_kind, ref_value, "exists" FROM reference_check_items WHERE check_id = ? ORDER BY id`, checkID)
+	if err != nil {
+		return false, fmt.Errorf("runtime: read latest reference items: %w", err)
+	}
+	defer rows.Close()
+	recorded := make(map[string]struct{})
+	count := 0
+	for rows.Next() {
+		var kind, value string
+		var exists sql.NullInt64
+		if err := rows.Scan(&kind, &value, &exists); err != nil {
+			return false, fmt.Errorf("runtime: scan latest reference item: %w", err)
+		}
+		recorded[referenceItemKey(kind, value, exists.Valid, exists.Int64 != 0)] = struct{}{}
+		count++
+	}
+	if err := rows.Err(); err != nil {
+		return false, err
+	}
+	if count != len(observations) {
+		return false, nil
+	}
+	for _, observation := range observations {
+		known := observation.Known && observation.Exists != nil
+		present := known && *observation.Exists
+		if _, ok := recorded[referenceItemKey(string(observation.Kind), observation.Value, known, present)]; !ok {
+			return false, nil
+		}
+	}
+	return true, nil
+}
+
+func referenceItemKey(kind, value string, known, present bool) string {
+	state := "unknown"
+	if known {
+		state = "missing"
+		if present {
+			state = "present"
+		}
+	}
+	return kind + "\x00" + value + "\x00" + state
 }
 
 // EvaluateAll recomputes current derived states from the persisted P3 facts.
@@ -245,6 +443,10 @@ func (a *App) EvaluateAll(ctx context.Context, asOf time.Time) ([]vital.Decision
 	if err != nil {
 		return nil, err
 	}
+	return a.evaluate(ctx, assetsList, asOf)
+}
+
+func (a *App) evaluate(ctx context.Context, assetsList []assets.Asset, asOf time.Time) ([]vital.Decision, error) {
 	decisions := make([]vital.Decision, 0, len(assetsList))
 	for _, asset := range assetsList {
 		assessment, err := a.assessAsset(ctx, asset, asOf)
@@ -449,10 +651,10 @@ func (a *App) assetOpportunities(ctx context.Context, assetID string, asOf time.
 	rows, err := a.db.QueryContext(ctx, `
 		SELECT o.id, o.session_id, o.shape_class, o.detected_at, s.source,
 		       CASE WHEN EXISTS (
-				SELECT 1 FROM participations p JOIN asset_versions av ON av.id = p.asset_version_id
+				SELECT 1 FROM participations p JOIN asset_versions av ON av.id = p.asset_version_id AND p.superseded_at IS NULL
 				WHERE p.session_id = o.session_id AND av.asset_id = o.asset_id
 		       ) THEN 1 ELSE 0 END
-		FROM opportunities o JOIN sessions s ON s.id = o.session_id
+		FROM opportunities o JOIN sessions s ON s.id = o.session_id AND o.superseded_at IS NULL
 		WHERE o.asset_id = ? AND julianday(o.detected_at) <= julianday(?)
 		ORDER BY o.detected_at, o.id`, assetID, formatTime(asOf))
 	if err != nil {
@@ -471,7 +673,7 @@ func (a *App) assetOpportunities(ctx context.Context, assetID string, asOf time.
 			return nil, err
 		}
 		item.Participated = participated != 0
-		item.ParticipationKnown = sourceHasExactInvocation(source)
+		item.ParticipationKnown = a.sourceHasExactInvocation(source)
 		out = append(out, item)
 	}
 	if err := rows.Err(); err != nil {
@@ -509,7 +711,7 @@ func latestOpportunityShape(opportunities []opportunityFact) []opportunityFact {
 func (a *App) participationEvidence(ctx context.Context, sessionID, assetID string) ([]canonical.ObservationLevel, []string, bool, error) {
 	rows, err := a.db.QueryContext(ctx, `
 		SELECT p.participation_signal, p.observation_level, COALESCE(p.locator_json, '')
-		FROM participations p JOIN asset_versions av ON av.id = p.asset_version_id
+		FROM participations p JOIN asset_versions av ON av.id = p.asset_version_id AND p.superseded_at IS NULL
 		WHERE p.session_id = ? AND av.asset_id = ? ORDER BY p.id`, sessionID, assetID)
 	if err != nil {
 		return nil, nil, false, err
@@ -536,7 +738,7 @@ func (a *App) participationEvidence(ctx context.Context, sessionID, assetID stri
 
 func (a *App) cumulativeParticipations(ctx context.Context, assetID string) (int, error) {
 	var count int
-	err := a.db.QueryRowContext(ctx, `SELECT COUNT(DISTINCT p.session_id) FROM participations p JOIN asset_versions av ON av.id = p.asset_version_id WHERE av.asset_id = ?`, assetID).Scan(&count)
+	err := a.db.QueryRowContext(ctx, `SELECT COUNT(DISTINCT p.session_id) FROM participations p JOIN asset_versions av ON av.id = p.asset_version_id AND p.superseded_at IS NULL WHERE av.asset_id = ?`, assetID).Scan(&count)
 	if err != nil {
 		return 0, fmt.Errorf("runtime: cumulative participations: %w", err)
 	}
@@ -722,8 +924,18 @@ func resurrectionOutcome(current *vital.CurrentState, opportunities []opportunit
 	return false, known >= config.ResurrectionFailureOpportunities
 }
 
-func sourceHasExactInvocation(source string) bool {
-	return adapters.Source(source) == adapters.SourceClaudeCode || adapters.Source(source) == adapters.SourceCodex
+// sourceHasExactInvocation reports whether a session's source records tool
+// invocations exactly, which is what makes a non-participation observable
+// rather than unknown.
+//
+// The answer comes from the source registry rather than from a hard-coded pair
+// of harness names: a registered source is one this build has a reader for,
+// and every reader turns the source's own recorded tool calls into invocation
+// events. A source string that is not registered can only have reached the
+// database from a different build, and its participation stays unknown rather
+// than being assumed complete.
+func (a *App) sourceHasExactInvocation(source string) bool {
+	return adapters.Source(source).Valid()
 }
 
 func formatTime(value time.Time) string { return value.UTC().Format(time.RFC3339Nano) }

@@ -5,7 +5,9 @@
 
 ## 0. 产品一句话（防止跑偏）
 
-Flatline 是一台**本地优先**的 Agent 资产生命体征监护仪：持续追踪每个 Skill、AGENTS.md、Rule、Hook 在真实工作会话中的参与情况，在资产静默失效、损坏或被绕行时告警，帮助用户诊断、修复或清理，并在资产复活时确认修复生效。
+Flatline 是一台**本地优先**的 Agent 工作历史监护仪：它把本机五个 harness（Claude Code、Codex、opencode、dsh、Hermes）写下的会话转写读成一份可下钻的事实，
+主线回答两个问题——**这些会话里发生了什么**（会话管理：度量、层级、项目、时间）与**哪里反复卡住**（摩擦发现：签名、生命周期、规则覆盖缺口）；
+资产生命体征（Skill / AGENTS.md / Rule / Hook 的静默、损坏、绕行、休眠）是从摩擦与会话往下钻的一层，不是入口（ADR-18）。
 
 目标架构：**Go + 纯 Go SQLite 驱动 + 单 daemon + loopback + 内嵌 SPA**。daemon 是唯一数据属主。
 
@@ -15,11 +17,14 @@ Flatline 是一台**本地优先**的 Agent 资产生命体征监护仪：持续
 
 | 任务类型 | 必读文档 |
 | --- | --- |
-| 架构、数据模型、detector、状态机、API | `docs/flatline-system-design-v0_4.md` |
+| 架构、数据模型、detector、状态机 | `docs/flatline-system-design-v0_4.md` |
+| 会话/总览/摩擦的数据层与 **API 契约** | `docs/flatline-session-first-redesign-v1.md`（当前契约见 §27 总表） |
+| 摩擦页信息架构 | `docs/flatline-friction-page-design-v1.md` |
 | UI、信息架构、组件、文案、颜色语义 | `docs/flatline-ui-design-guidelines-v2_0.md` |
 | 阶段目标、验收标准、依赖关系 | `docs/roadmap.md` |
 | 架构级决策（新增/变更/推翻） | `docs/adr/` 下相关 ADR |
-| 构建、测试、提交规范 | `DEVELOPMENT.md`、`CONTRIBUTING.md` |
+| 数据源支持哪些字段 | `docs/field-matrix-*.md`（claudecode / codex / opencode / dsh） |
+| 构建、测试、提交规范、每次构建后的核对流程 | `DEVELOPMENT.md`、`CONTRIBUTING.md` |
 
 原型参考：`docs/flatline-prototype.zip` 是设计输入，**只读、不解压到生产目录**（`web/` 等）。
 
@@ -44,7 +49,7 @@ Flatline 是一台**本地优先**的 Agent 资产生命体征监护仪：持续
 - **小任务先测试**：先写/更新测试（或最小可验证断言），再实现；测试失败时先怀疑自己，不伪造通过。
 - 修改前先定位现有代码与相关 ADR；架构级变更必须先写 ADR（见 `docs/adr/README.md` 流程）。
 - 派生子 agent 时：
-  - **子 agent 只允许使用 Haiku 或 Sonnet 模型**，不得使用其他模型；
+  - **子 agent 默认只用 Haiku 或 Sonnet 模型**；只有用户就当次任务明确许可时才可用 Opus（用户 2026-08-22 已就重构线明确许可）。默认之外的每一次都要用户点头，不得由主 agent 自行放宽；
   - 任务描述必须自包含（目标、边界、必读文档、验收标准），并重申本文件第 2、3 节纪律；
   - 子 agent 的产出由主 agent 复核后才算完成。
 - 不引入设计文档未承诺的依赖、模块或功能；MVP 范围以 `docs/roadmap.md` 与系统设计 §8 为准。

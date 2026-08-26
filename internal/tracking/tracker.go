@@ -44,7 +44,7 @@ func (t *Tracker) OpportunityFor(ctx context.Context, sessionID, assetID, shapeC
 	}
 	row := t.db.QueryRowContext(ctx, `
 		SELECT id, session_id, shape_class, shape_rule_version, asset_id, detector_version, detected_at
-		FROM opportunities WHERE session_id = ? AND asset_id = ? AND shape_class = ?`, sessionID, assetID, shapeClass)
+		FROM opportunities WHERE session_id = ? AND asset_id = ? AND shape_class = ? AND superseded_at IS NULL`, sessionID, assetID, shapeClass)
 	var opportunity Opportunity
 	var detectedAt string
 	if err := row.Scan(&opportunity.ID, &opportunity.SessionID, &opportunity.ShapeClass, &opportunity.ShapeRuleVersion, &opportunity.AssetID, &opportunity.DetectorVersion, &detectedAt); err != nil {
@@ -70,7 +70,8 @@ func (t *Tracker) Opportunities(ctx context.Context, assetID, shapeClass string,
 	query := `
 		SELECT id, session_id, shape_class, shape_rule_version, asset_id, detector_version, detected_at
 		FROM opportunities
-		WHERE asset_id = ? AND julianday(detected_at) >= julianday(?) AND julianday(detected_at) < julianday(?)`
+		WHERE superseded_at IS NULL AND asset_id = ?
+		  AND julianday(detected_at) >= julianday(?) AND julianday(detected_at) < julianday(?)`
 	args := []any{assetID, formatTime(start), formatTime(end)}
 	if shapeClass != "" {
 		query += " AND shape_class = ?"
@@ -166,7 +167,8 @@ func (t *Tracker) RecordSessionShape(ctx context.Context, shape SessionShape) (s
 		result, err := tx.ExecContext(ctx, `
 			INSERT INTO opportunities (session_id, shape_class, shape_rule_version, asset_id, detector_version, detected_at)
 			VALUES (?, ?, ?, ?, ?, ?)
-			ON CONFLICT (session_id, shape_class, asset_id) DO NOTHING`,
+			ON CONFLICT (session_id, shape_class, asset_id)
+			DO UPDATE SET superseded_at = NULL WHERE opportunities.superseded_at IS NOT NULL`,
 			shape.SessionID, class, ShapeRuleVersion, assetID, TrackerVersion, formatTime(shape.DetectedAt))
 		if err != nil {
 			return rollback(fmt.Errorf("tracking: record opportunity %s/%s: %w", shape.SessionID, assetID, err))
@@ -306,8 +308,9 @@ func (t *Tracker) Baseline(ctx context.Context, assetID, shapeClass string, star
 		FROM opportunities o
 		LEFT JOIN participations p
 			ON p.session_id = o.session_id
+			AND p.superseded_at IS NULL
 			AND p.asset_version_id IN (SELECT id FROM asset_versions WHERE asset_id = o.asset_id)
-		WHERE o.asset_id = ?
+		WHERE o.superseded_at IS NULL AND o.asset_id = ?
 		  AND o.shape_class = ?
 		  AND julianday(o.detected_at) >= julianday(?)
 		  AND julianday(o.detected_at) < julianday(?)`,
@@ -345,7 +348,7 @@ func (t *Tracker) CountOpportunities(ctx context.Context, assetID, shapeClass st
 	err := t.db.QueryRowContext(ctx, `
 		SELECT COUNT(DISTINCT session_id)
 		FROM opportunities
-		WHERE asset_id = ? AND shape_class = ?
+		WHERE superseded_at IS NULL AND asset_id = ? AND shape_class = ?
 		  AND julianday(detected_at) >= julianday(?)
 		  AND julianday(detected_at) < julianday(?)`,
 		assetID, shapeClass, formatTime(start), formatTime(end)).Scan(&n)
@@ -371,8 +374,9 @@ func (t *Tracker) CountParticipatingSessions(ctx context.Context, assetID, shape
 		FROM opportunities o
 		JOIN participations p
 			ON p.session_id = o.session_id
+			AND p.superseded_at IS NULL
 			AND p.asset_version_id IN (SELECT id FROM asset_versions WHERE asset_id = o.asset_id)
-		WHERE o.asset_id = ? AND o.shape_class = ?
+		WHERE o.superseded_at IS NULL AND o.asset_id = ? AND o.shape_class = ?
 		  AND julianday(o.detected_at) >= julianday(?)
 		  AND julianday(o.detected_at) < julianday(?)`,
 		assetID, shapeClass, formatTime(start), formatTime(end)).Scan(&n)

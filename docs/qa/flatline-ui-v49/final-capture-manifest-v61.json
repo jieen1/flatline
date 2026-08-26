@@ -1,0 +1,1366 @@
+{
+  "version": 61,
+  "server": "http://127.0.0.1:18899/",
+  "captures": [
+    {
+      "name": "wall",
+      "locale": "zh",
+      "theme": "light",
+      "path": "/tmp/flatline-capture-v61/wall-zh-light.png",
+      "state": {
+        "route": "wall",
+        "lang": "zh-CN",
+        "dark": false,
+        "title": "Flatline · 资产",
+        "textLength": 30395,
+        "hasPrototypeIcons": 319,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 10195,
+            "clientHeight": 948
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "sessions",
+      "locale": "zh",
+      "theme": "light",
+      "path": "/tmp/flatline-capture-v61/sessions-zh-light.png",
+      "state": {
+        "route": "sessions",
+        "lang": "zh-CN",
+        "dark": false,
+        "title": "Flatline · 资产",
+        "textLength": 183414,
+        "hasPrototypeIcons": 12,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 57074,
+            "clientHeight": 948
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "session-detail",
+      "locale": "zh",
+      "theme": "light",
+      "path": "/tmp/flatline-capture-v61/session-detail-zh-light.png",
+      "state": {
+        "route": "session-detail",
+        "lang": "zh-CN",
+        "dark": false,
+        "title": "Flatline · 资产",
+        "textLength": 412086,
+        "hasPrototypeIcons": 98,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "sr-only",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "session-event-scroll",
+            "scrollHeight": 105366,
+            "clientHeight": 736
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "asset-related",
+      "locale": "zh",
+      "theme": "light",
+      "path": "/tmp/flatline-capture-v61/asset-related-zh-light.png",
+      "state": {
+        "route": "asset-related",
+        "lang": "zh-CN",
+        "dark": false,
+        "title": "Flatline · 资产",
+        "textLength": 4533,
+        "hasPrototypeIcons": 92,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 4524,
+            "clientHeight": 902
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          },
+          {
+            "className": "",
+            "scrollHeight": 25,
+            "clientHeight": 22
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "asset-no-opportunity",
+      "locale": "zh",
+      "theme": "light",
+      "path": "/tmp/flatline-capture-v61/asset-no-opportunity-zh-light.png",
+      "state": {
+        "route": "asset-no-opportunity",
+        "lang": "zh-CN",
+        "dark": false,
+        "title": "Flatline · 资产",
+        "textLength": 1709,
+        "hasPrototypeIcons": 50,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 2245,
+            "clientHeight": 902
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "timeline",
+      "locale": "zh",
+      "theme": "light",
+      "path": "/tmp/flatline-capture-v61/timeline-zh-light.png",
+      "state": {
+        "route": "timeline",
+        "lang": "zh-CN",
+        "dark": false,
+        "title": "Flatline · 资产",
+        "textLength": 78485,
+        "hasPrototypeIcons": 836,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 69082,
+            "clientHeight": 948
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "stats",
+      "locale": "zh",
+      "theme": "light",
+      "path": "/tmp/flatline-capture-v61/stats-zh-light.png",
+      "state": {
+        "route": "stats",
+        "lang": "zh-CN",
+        "dark": false,
+        "title": "Flatline · 资产",
+        "textLength": 355,
+        "hasPrototypeIcons": 22,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "metric-grid",
+            "scrollHeight": 53,
+            "clientHeight": 49
+          },
+          {
+            "className": "stat-metric prototype-stat-metric",
+            "scrollHeight": 53,
+            "clientHeight": 49
+          },
+          {
+            "className": "stat-label",
+            "scrollHeight": 22,
+            "clientHeight": 16
+          },
+          {
+            "className": "stat-icon",
+            "scrollHeight": 20,
+            "clientHeight": 13
+          },
+          {
+            "className": "fl-metric",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          },
+          {
+            "className": "stat-metric prototype-stat-metric",
+            "scrollHeight": 53,
+            "clientHeight": 49
+          },
+          {
+            "className": "stat-label",
+            "scrollHeight": 22,
+            "clientHeight": 16
+          },
+          {
+            "className": "stat-icon",
+            "scrollHeight": 20,
+            "clientHeight": 13
+          },
+          {
+            "className": "fl-metric",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "cleanup",
+      "locale": "zh",
+      "theme": "light",
+      "path": "/tmp/flatline-capture-v61/cleanup-zh-light.png",
+      "state": {
+        "route": "cleanup",
+        "lang": "zh-CN",
+        "dark": false,
+        "title": "Flatline · 资产",
+        "textLength": 454,
+        "hasPrototypeIcons": 17,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "wall",
+      "locale": "zh",
+      "theme": "dark",
+      "path": "/tmp/flatline-capture-v61/wall-zh-dark.png",
+      "state": {
+        "route": "wall",
+        "lang": "zh-CN",
+        "dark": true,
+        "title": "Flatline · 资产",
+        "textLength": 30395,
+        "hasPrototypeIcons": 319,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 10195,
+            "clientHeight": 948
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "sessions",
+      "locale": "zh",
+      "theme": "dark",
+      "path": "/tmp/flatline-capture-v61/sessions-zh-dark.png",
+      "state": {
+        "route": "sessions",
+        "lang": "zh-CN",
+        "dark": true,
+        "title": "Flatline · 资产",
+        "textLength": 183414,
+        "hasPrototypeIcons": 12,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 57074,
+            "clientHeight": 948
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "session-detail",
+      "locale": "zh",
+      "theme": "dark",
+      "path": "/tmp/flatline-capture-v61/session-detail-zh-dark.png",
+      "state": {
+        "route": "session-detail",
+        "lang": "zh-CN",
+        "dark": true,
+        "title": "Flatline · 资产",
+        "textLength": 412086,
+        "hasPrototypeIcons": 98,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "sr-only",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "session-event-scroll",
+            "scrollHeight": 105366,
+            "clientHeight": 736
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "asset-related",
+      "locale": "zh",
+      "theme": "dark",
+      "path": "/tmp/flatline-capture-v61/asset-related-zh-dark.png",
+      "state": {
+        "route": "asset-related",
+        "lang": "zh-CN",
+        "dark": true,
+        "title": "Flatline · 资产",
+        "textLength": 4533,
+        "hasPrototypeIcons": 92,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 4524,
+            "clientHeight": 902
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          },
+          {
+            "className": "",
+            "scrollHeight": 25,
+            "clientHeight": 22
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "asset-no-opportunity",
+      "locale": "zh",
+      "theme": "dark",
+      "path": "/tmp/flatline-capture-v61/asset-no-opportunity-zh-dark.png",
+      "state": {
+        "route": "asset-no-opportunity",
+        "lang": "zh-CN",
+        "dark": true,
+        "title": "Flatline · 资产",
+        "textLength": 1709,
+        "hasPrototypeIcons": 50,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 2245,
+            "clientHeight": 902
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "timeline",
+      "locale": "zh",
+      "theme": "dark",
+      "path": "/tmp/flatline-capture-v61/timeline-zh-dark.png",
+      "state": {
+        "route": "timeline",
+        "lang": "zh-CN",
+        "dark": true,
+        "title": "Flatline · 资产",
+        "textLength": 78485,
+        "hasPrototypeIcons": 836,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 69082,
+            "clientHeight": 948
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "stats",
+      "locale": "zh",
+      "theme": "dark",
+      "path": "/tmp/flatline-capture-v61/stats-zh-dark.png",
+      "state": {
+        "route": "stats",
+        "lang": "zh-CN",
+        "dark": true,
+        "title": "Flatline · 资产",
+        "textLength": 355,
+        "hasPrototypeIcons": 22,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "metric-grid",
+            "scrollHeight": 53,
+            "clientHeight": 49
+          },
+          {
+            "className": "stat-metric prototype-stat-metric",
+            "scrollHeight": 53,
+            "clientHeight": 49
+          },
+          {
+            "className": "stat-label",
+            "scrollHeight": 22,
+            "clientHeight": 16
+          },
+          {
+            "className": "stat-icon",
+            "scrollHeight": 20,
+            "clientHeight": 13
+          },
+          {
+            "className": "fl-metric",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          },
+          {
+            "className": "stat-metric prototype-stat-metric",
+            "scrollHeight": 53,
+            "clientHeight": 49
+          },
+          {
+            "className": "stat-label",
+            "scrollHeight": 22,
+            "clientHeight": 16
+          },
+          {
+            "className": "stat-icon",
+            "scrollHeight": 20,
+            "clientHeight": 13
+          },
+          {
+            "className": "fl-metric",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "cleanup",
+      "locale": "zh",
+      "theme": "dark",
+      "path": "/tmp/flatline-capture-v61/cleanup-zh-dark.png",
+      "state": {
+        "route": "cleanup",
+        "lang": "zh-CN",
+        "dark": true,
+        "title": "Flatline · 资产",
+        "textLength": 454,
+        "hasPrototypeIcons": 17,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 20,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          },
+          {
+            "className": "",
+            "scrollHeight": 32,
+            "clientHeight": 28
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "wall",
+      "locale": "en",
+      "theme": "light",
+      "path": "/tmp/flatline-capture-v61/wall-en-light.png",
+      "state": {
+        "route": "wall",
+        "lang": "en",
+        "dark": false,
+        "title": "Flatline · Assets",
+        "textLength": 40189,
+        "hasPrototypeIcons": 319,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 19,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 16,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 9284,
+            "clientHeight": 948
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "sessions",
+      "locale": "en",
+      "theme": "light",
+      "path": "/tmp/flatline-capture-v61/sessions-en-light.png",
+      "state": {
+        "route": "sessions",
+        "lang": "en",
+        "dark": false,
+        "title": "Flatline · Assets",
+        "textLength": 203914,
+        "hasPrototypeIcons": 12,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 19,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 16,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 51812,
+            "clientHeight": 948
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "session-detail",
+      "locale": "en",
+      "theme": "light",
+      "path": "/tmp/flatline-capture-v61/session-detail-en-light.png",
+      "state": {
+        "route": "session-detail",
+        "lang": "en",
+        "dark": false,
+        "title": "Flatline · Assets",
+        "textLength": 428706,
+        "hasPrototypeIcons": 98,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 19,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 16,
+            "clientHeight": 1
+          },
+          {
+            "className": "sr-only",
+            "scrollHeight": 16,
+            "clientHeight": 1
+          },
+          {
+            "className": "session-event-scroll",
+            "scrollHeight": 103110,
+            "clientHeight": 739
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "asset-related",
+      "locale": "en",
+      "theme": "light",
+      "path": "/tmp/flatline-capture-v61/asset-related-en-light.png",
+      "state": {
+        "route": "asset-related",
+        "lang": "en",
+        "dark": false,
+        "title": "Flatline · Assets",
+        "textLength": 7308,
+        "hasPrototypeIcons": 92,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 19,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 16,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 4451,
+            "clientHeight": 902
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "asset-no-opportunity",
+      "locale": "en",
+      "theme": "light",
+      "path": "/tmp/flatline-capture-v61/asset-no-opportunity-en-light.png",
+      "state": {
+        "route": "asset-no-opportunity",
+        "lang": "en",
+        "dark": false,
+        "title": "Flatline · Assets",
+        "textLength": 2897,
+        "hasPrototypeIcons": 50,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 19,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 16,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 2173,
+            "clientHeight": 902
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "timeline",
+      "locale": "en",
+      "theme": "light",
+      "path": "/tmp/flatline-capture-v61/timeline-en-light.png",
+      "state": {
+        "route": "timeline",
+        "lang": "en",
+        "dark": false,
+        "title": "Flatline · Assets",
+        "textLength": 120986,
+        "hasPrototypeIcons": 836,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 19,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 16,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 66736,
+            "clientHeight": 948
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "stats",
+      "locale": "en",
+      "theme": "light",
+      "path": "/tmp/flatline-capture-v61/stats-en-light.png",
+      "state": {
+        "route": "stats",
+        "lang": "en",
+        "dark": false,
+        "title": "Flatline · Assets",
+        "textLength": 705,
+        "hasPrototypeIcons": 22,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 19,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 16,
+            "clientHeight": 1
+          },
+          {
+            "className": "stat-label",
+            "scrollHeight": 22,
+            "clientHeight": 16
+          },
+          {
+            "className": "stat-icon",
+            "scrollHeight": 20,
+            "clientHeight": 13
+          },
+          {
+            "className": "stat-label",
+            "scrollHeight": 22,
+            "clientHeight": 16
+          },
+          {
+            "className": "stat-icon",
+            "scrollHeight": 20,
+            "clientHeight": 13
+          },
+          {
+            "className": "stat-label",
+            "scrollHeight": 22,
+            "clientHeight": 16
+          },
+          {
+            "className": "stat-icon",
+            "scrollHeight": 20,
+            "clientHeight": 13
+          },
+          {
+            "className": "stat-label",
+            "scrollHeight": 22,
+            "clientHeight": 16
+          },
+          {
+            "className": "stat-icon",
+            "scrollHeight": 20,
+            "clientHeight": 13
+          },
+          {
+            "className": "stat-label",
+            "scrollHeight": 22,
+            "clientHeight": 16
+          },
+          {
+            "className": "stat-icon",
+            "scrollHeight": 20,
+            "clientHeight": 13
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "cleanup",
+      "locale": "en",
+      "theme": "light",
+      "path": "/tmp/flatline-capture-v61/cleanup-en-light.png",
+      "state": {
+        "route": "cleanup",
+        "lang": "en",
+        "dark": false,
+        "title": "Flatline · Assets",
+        "textLength": 1034,
+        "hasPrototypeIcons": 17,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 19,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 16,
+            "clientHeight": 1
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "wall",
+      "locale": "en",
+      "theme": "dark",
+      "path": "/tmp/flatline-capture-v61/wall-en-dark.png",
+      "state": {
+        "route": "wall",
+        "lang": "en",
+        "dark": true,
+        "title": "Flatline · Assets",
+        "textLength": 40190,
+        "hasPrototypeIcons": 319,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 19,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 16,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 9284,
+            "clientHeight": 948
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "sessions",
+      "locale": "en",
+      "theme": "dark",
+      "path": "/tmp/flatline-capture-v61/sessions-en-dark.png",
+      "state": {
+        "route": "sessions",
+        "lang": "en",
+        "dark": true,
+        "title": "Flatline · Assets",
+        "textLength": 203915,
+        "hasPrototypeIcons": 12,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 19,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 16,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 51812,
+            "clientHeight": 948
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "session-detail",
+      "locale": "en",
+      "theme": "dark",
+      "path": "/tmp/flatline-capture-v61/session-detail-en-dark.png",
+      "state": {
+        "route": "session-detail",
+        "lang": "en",
+        "dark": true,
+        "title": "Flatline · Assets",
+        "textLength": 428707,
+        "hasPrototypeIcons": 98,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 19,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 16,
+            "clientHeight": 1
+          },
+          {
+            "className": "sr-only",
+            "scrollHeight": 16,
+            "clientHeight": 1
+          },
+          {
+            "className": "session-event-scroll",
+            "scrollHeight": 103110,
+            "clientHeight": 739
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "asset-related",
+      "locale": "en",
+      "theme": "dark",
+      "path": "/tmp/flatline-capture-v61/asset-related-en-dark.png",
+      "state": {
+        "route": "asset-related",
+        "lang": "en",
+        "dark": true,
+        "title": "Flatline · Assets",
+        "textLength": 7309,
+        "hasPrototypeIcons": 92,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 19,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 16,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 4451,
+            "clientHeight": 902
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "asset-no-opportunity",
+      "locale": "en",
+      "theme": "dark",
+      "path": "/tmp/flatline-capture-v61/asset-no-opportunity-en-dark.png",
+      "state": {
+        "route": "asset-no-opportunity",
+        "lang": "en",
+        "dark": true,
+        "title": "Flatline · Assets",
+        "textLength": 2898,
+        "hasPrototypeIcons": 50,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 19,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 16,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 2173,
+            "clientHeight": 902
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "timeline",
+      "locale": "en",
+      "theme": "dark",
+      "path": "/tmp/flatline-capture-v61/timeline-en-dark.png",
+      "state": {
+        "route": "timeline",
+        "lang": "en",
+        "dark": true,
+        "title": "Flatline · Assets",
+        "textLength": 120987,
+        "hasPrototypeIcons": 836,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 19,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 16,
+            "clientHeight": 1
+          },
+          {
+            "className": "screen-scroll",
+            "scrollHeight": 66736,
+            "clientHeight": 948
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "stats",
+      "locale": "en",
+      "theme": "dark",
+      "path": "/tmp/flatline-capture-v61/stats-en-dark.png",
+      "state": {
+        "route": "stats",
+        "lang": "en",
+        "dark": true,
+        "title": "Flatline · Assets",
+        "textLength": 706,
+        "hasPrototypeIcons": 22,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 19,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 16,
+            "clientHeight": 1
+          },
+          {
+            "className": "stat-label",
+            "scrollHeight": 22,
+            "clientHeight": 16
+          },
+          {
+            "className": "stat-icon",
+            "scrollHeight": 20,
+            "clientHeight": 13
+          },
+          {
+            "className": "stat-label",
+            "scrollHeight": 22,
+            "clientHeight": 16
+          },
+          {
+            "className": "stat-icon",
+            "scrollHeight": 20,
+            "clientHeight": 13
+          },
+          {
+            "className": "stat-label",
+            "scrollHeight": 22,
+            "clientHeight": 16
+          },
+          {
+            "className": "stat-icon",
+            "scrollHeight": 20,
+            "clientHeight": 13
+          },
+          {
+            "className": "stat-label",
+            "scrollHeight": 22,
+            "clientHeight": 16
+          },
+          {
+            "className": "stat-icon",
+            "scrollHeight": 20,
+            "clientHeight": 13
+          },
+          {
+            "className": "stat-label",
+            "scrollHeight": 22,
+            "clientHeight": 16
+          },
+          {
+            "className": "stat-icon",
+            "scrollHeight": 20,
+            "clientHeight": 13
+          }
+        ],
+        "routeErrors": []
+      }
+    },
+    {
+      "name": "cleanup",
+      "locale": "en",
+      "theme": "dark",
+      "path": "/tmp/flatline-capture-v61/cleanup-en-dark.png",
+      "state": {
+        "route": "cleanup",
+        "lang": "en",
+        "dark": true,
+        "title": "Flatline · Assets",
+        "textLength": 1035,
+        "hasPrototypeIcons": 17,
+        "scrollNodes": [
+          {
+            "className": "",
+            "scrollHeight": 19,
+            "clientHeight": 1
+          },
+          {
+            "className": "",
+            "scrollHeight": 16,
+            "clientHeight": 1
+          }
+        ],
+        "routeErrors": []
+      }
+    }
+  ],
+  "interactions": {
+    "session": {
+      "initial": {
+        "trajectory": true,
+        "chat": false,
+        "groups": 82,
+        "rows": 2256
+      },
+      "chatClicked": true,
+      "chat": {
+        "chat": true,
+        "chatRows": 2256,
+        "overview": false
+      },
+      "trajectoryClicked": true,
+      "trajectory": {
+        "overview": true,
+        "groups": 82,
+        "rows": 2256
+      },
+      "turnsClicked": true,
+      "turns": {
+        "rowsBefore": 2256,
+        "rowsAfter": 0,
+        "pressed": "true"
+      },
+      "turnsRestoredClicked": true,
+      "turnsRestored": {
+        "rowsAfter": 2256,
+        "pressed": "false"
+      },
+      "callsClicked": true,
+      "calls": {
+        "rowsBefore": 2256,
+        "rowsAfter": 254,
+        "pressed": "true"
+      },
+      "frictionClicked": true,
+      "friction": {
+        "body": "摩擦轴\n这里只列出原生历史中明确记录的绕行或错误字段；普通工具结果不会被当成摩擦。\n未记录\n明确摩擦记录\n没有明确摩擦记录。\n没有摩擦字段时保持未记录，不把缺失当成正常。",
+        "active": "true"
+      },
+      "ecmClicked": true,
+      "ecm": {
+        "body": "会话证据上下文\n以下事实来自本地原生历史记录。\n来源\nClaude Code\n模型\ngpt-5.6-luna\n消息数\n2235\n事件数\n2256\n工作目录\n/home/bot/project/flatline\n采集时会限制 transcri",
+        "active": "true"
+      }
+    },
+    "search": {
+      "before": 948,
+      "after": 948,
+      "unchanged": true,
+      "panelPosition": "absolute",
+      "panelVisible": "block"
+    }
+  }
+}

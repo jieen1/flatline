@@ -1,0 +1,44 @@
+{
+  "session": {
+    "id": "session-demo-0001",
+    "title": "Ship the taskboard",
+    "task_text": "Ship the taskboard",
+    "started_at": "2026-08-11T09:43:03Z",
+    "ended_at": "2026-08-11T09:43:07Z",
+    "harness_version": "",
+    "model": "demo-model",
+    "cwd": "/home/dev/demo",
+    "thread_kind": "main",
+    "parent_session_id": "",
+    "agent_role": "standard",
+    "agent_nickname": "",
+    "originator": "dsh",
+    "usage": {
+      "input_tokens": 2000, "cached_input_tokens": 500, "cache_write_tokens": null,
+      "output_tokens": 420, "reasoning_tokens": null, "total_tokens": 2920,
+      "assistant_turns": 2, "user_turns": 1,
+      "lines_added": null, "lines_removed": null, "files_changed": null,
+      "active_ms": null, "context_window": 1000000,
+      "source": "dsh_message_usage"
+    }
+  },
+  "messages": [
+    {"id": "u1", "timestamp": "2026-08-11T09:43:03Z", "role": "user", "kind": "message",
+     "text": "Ship the taskboard", "asset_invocations": []},
+    {"id": "a1", "timestamp": "2026-08-11T09:43:04Z", "role": "assistant", "kind": "message",
+     "text": "Checking the tests.", "asset_invocations": []},
+    {"id": "call_ok", "timestamp": "2026-08-11T09:43:04Z", "role": "assistant", "kind": "tool_call",
+     "tool_name": "bash", "call_id": "call_ok", "tool_input": "{\"command\":\"go test ./...\"}",
+     "asset_invocations": []},
+    {"id": "call_ok", "timestamp": "2026-08-11T09:43:04Z", "role": "tool", "kind": "tool_result",
+     "call_id": "call_ok", "tool_output": "ok", "is_error": false, "asset_invocations": []},
+    {"id": "call_bad", "timestamp": "2026-08-11T09:43:05Z", "role": "assistant", "kind": "tool_call",
+     "tool_name": "read", "call_id": "call_bad", "tool_input": "{\"filePath\":\"/missing\"}",
+     "asset_invocations": []},
+    {"id": "call_bad", "timestamp": "2026-08-11T09:43:05Z", "role": "tool", "kind": "tool_result",
+     "call_id": "call_bad", "tool_output": "stale version", "is_error": true,
+     "asset_invocations": []},
+    {"id": "seq-10", "timestamp": "2026-08-11T09:43:07Z", "role": "system", "kind": "message",
+     "abort_reason": "aborted", "asset_invocations": []}
+  ]
+}

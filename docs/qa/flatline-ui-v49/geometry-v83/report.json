@@ -1,0 +1,1242 @@
+{
+  "generatedAt": "2026-08-21T02:37:33.881Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "assetIDs": {
+    "related": "skill:user:plugins:cache:caveman-repo:caveman:0.1.0:skills:caveman",
+    "noOpportunity": "agents_md:user:agents"
+  },
+  "sessionID": "codex:019daee1-e01c-71c2-80a5-a7ba35032823",
+  "prototype": [
+    {
+      "label": "wall",
+      "source": "prototype",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "htmlOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "rects": {
+        "shell": null,
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": null,
+        "header": null,
+        "scroll": {
+          "x": 0,
+          "y": 96,
+          "width": 255,
+          "height": 752
+        },
+        "content": null,
+        "row": {
+          "x": 268,
+          "y": 91,
+          "width": 1150,
+          "height": 57
+        },
+        "state": {
+          "x": 280,
+          "y": 109.22,
+          "width": 89.83,
+          "height": 20.55
+        },
+        "mark": {
+          "x": 16,
+          "y": 14,
+          "width": 22,
+          "height": 22
+        },
+        "spark": {
+          "x": 1170,
+          "y": 102.5,
+          "width": 104,
+          "height": 34
+        },
+        "card": null,
+        "head": null,
+        "funnel": null,
+        "legend": {
+          "x": 1236.44,
+          "y": 18.5,
+          "width": 187.56,
+          "height": 15
+        },
+        "toolbar": null,
+        "canvas": null,
+        "inspector": null
+      },
+      "styles": {
+        "row": {
+          "display": "flex",
+          "gap": "14px",
+          "padding": "11px 12px",
+          "minHeight": "auto",
+          "borderRadius": "15.6px",
+          "fontSize": "13.3333px",
+          "lineHeight": "normal",
+          "overflowY": "visible"
+        },
+        "state": {
+          "display": "flex",
+          "gap": "5px",
+          "padding": "3px 9px",
+          "minHeight": "auto",
+          "borderRadius": "9999px",
+          "fontSize": "10.7812px",
+          "lineHeight": "14.5547px",
+          "overflowY": "visible"
+        },
+        "spark": {
+          "display": "block",
+          "gap": "normal",
+          "padding": "0px",
+          "minHeight": "auto",
+          "borderRadius": "0px",
+          "fontSize": "13.3333px",
+          "lineHeight": "normal",
+          "overflowY": "visible"
+        },
+        "card": null,
+        "head": null,
+        "toolbar": null,
+        "inspector": null
+      },
+      "scrolls": [
+        {
+          "className": "fl-scroll",
+          "clientHeight": 848,
+          "scrollHeight": 1171,
+          "overflowY": "auto"
+        }
+      ],
+      "counts": {
+        "rows": 16,
+        "cards": 0,
+        "sparks": 16,
+        "funnels": 0,
+        "nodes": 0,
+        "toolbar": 0
+      }
+    },
+    {
+      "label": "sessions",
+      "source": "prototype",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "htmlOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "rects": {
+        "shell": null,
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": null,
+        "header": null,
+        "scroll": {
+          "x": 0,
+          "y": 96,
+          "width": 255,
+          "height": 752
+        },
+        "content": null,
+        "row": null,
+        "state": {
+          "x": 460.25,
+          "y": 70,
+          "width": 57.53,
+          "height": 20.55
+        },
+        "mark": {
+          "x": 16,
+          "y": 14,
+          "width": 22,
+          "height": 22
+        },
+        "spark": null,
+        "card": null,
+        "head": null,
+        "funnel": null,
+        "legend": null,
+        "toolbar": null,
+        "canvas": null,
+        "inspector": null
+      },
+      "styles": {
+        "row": null,
+        "state": {
+          "display": "flex",
+          "gap": "5px",
+          "padding": "3px 9px",
+          "minHeight": "auto",
+          "borderRadius": "9999px",
+          "fontSize": "10.7812px",
+          "lineHeight": "14.5547px",
+          "overflowY": "visible"
+        },
+        "spark": null,
+        "card": null,
+        "head": null,
+        "toolbar": null,
+        "inspector": null
+      },
+      "scrolls": [
+        {
+          "className": "fl-scroll",
+          "clientHeight": 848,
+          "scrollHeight": 922,
+          "overflowY": "auto"
+        }
+      ],
+      "counts": {
+        "rows": 0,
+        "cards": 0,
+        "sparks": 0,
+        "funnels": 0,
+        "nodes": 9,
+        "toolbar": 0
+      }
+    },
+    {
+      "label": "sessionDetail",
+      "source": "prototype",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "htmlOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "rects": {
+        "shell": null,
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": null,
+        "header": null,
+        "scroll": {
+          "x": 0,
+          "y": 96,
+          "width": 255,
+          "height": 752
+        },
+        "content": null,
+        "row": null,
+        "state": null,
+        "mark": {
+          "x": 16,
+          "y": 14,
+          "width": 22,
+          "height": 22
+        },
+        "spark": null,
+        "card": {
+          "x": 272,
+          "y": 56,
+          "width": 1142,
+          "height": 87
+        },
+        "head": {
+          "x": 293,
+          "y": 178,
+          "width": 1100,
+          "height": 18.98
+        },
+        "funnel": null,
+        "legend": null,
+        "toolbar": null,
+        "canvas": null,
+        "inspector": null
+      },
+      "styles": {
+        "row": null,
+        "state": null,
+        "spark": null,
+        "card": {
+          "display": "block",
+          "gap": "normal",
+          "padding": "18px 20px",
+          "minHeight": "auto",
+          "borderRadius": "32px",
+          "fontSize": "14.0625px",
+          "lineHeight": "normal",
+          "overflowY": "visible"
+        },
+        "head": {
+          "display": "flex",
+          "gap": "16px",
+          "padding": "0px",
+          "minHeight": "0px",
+          "borderRadius": "0px",
+          "fontSize": "14.0625px",
+          "lineHeight": "normal",
+          "overflowY": "visible"
+        },
+        "toolbar": null,
+        "inspector": null
+      },
+      "scrolls": [
+        {
+          "className": "fl-scroll",
+          "clientHeight": 848,
+          "scrollHeight": 1081,
+          "overflowY": "auto"
+        }
+      ],
+      "counts": {
+        "rows": 0,
+        "cards": 6,
+        "sparks": 0,
+        "funnels": 0,
+        "nodes": 0,
+        "toolbar": 0
+      }
+    },
+    {
+      "label": "assetDetail",
+      "source": "prototype",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "htmlOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "rects": {
+        "shell": null,
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": null,
+        "header": null,
+        "scroll": {
+          "x": 0,
+          "y": 96,
+          "width": 255,
+          "height": 752
+        },
+        "content": null,
+        "row": null,
+        "state": {
+          "x": 1193.34,
+          "y": 12.77,
+          "width": 104.88,
+          "height": 26.45
+        },
+        "mark": {
+          "x": 16,
+          "y": 14,
+          "width": 22,
+          "height": 22
+        },
+        "spark": {
+          "x": 293,
+          "y": 218.98,
+          "width": 748,
+          "height": 132
+        },
+        "card": {
+          "x": 272,
+          "y": 102,
+          "width": 790,
+          "height": 292.98
+        },
+        "head": {
+          "x": 293,
+          "y": 123,
+          "width": 748,
+          "height": 18.98
+        },
+        "funnel": {
+          "x": 293,
+          "y": 1138.2,
+          "width": 748,
+          "height": 88.66
+        },
+        "legend": {
+          "x": 607.27,
+          "y": 358.98,
+          "width": 120.38,
+          "height": 15
+        },
+        "toolbar": null,
+        "canvas": null,
+        "inspector": null
+      },
+      "styles": {
+        "row": null,
+        "state": {
+          "display": "flex",
+          "gap": "5px",
+          "padding": "5px 12px",
+          "minHeight": "auto",
+          "borderRadius": "9999px",
+          "fontSize": "12.1875px",
+          "lineHeight": "16.4531px",
+          "overflowY": "visible"
+        },
+        "spark": {
+          "display": "block",
+          "gap": "normal",
+          "padding": "0px",
+          "minHeight": "0px",
+          "borderRadius": "0px",
+          "fontSize": "14.0625px",
+          "lineHeight": "normal",
+          "overflowY": "visible"
+        },
+        "card": {
+          "display": "block",
+          "gap": "normal",
+          "padding": "20px",
+          "minHeight": "auto",
+          "borderRadius": "32px",
+          "fontSize": "14.0625px",
+          "lineHeight": "normal",
+          "overflowY": "visible"
+        },
+        "head": {
+          "display": "flex",
+          "gap": "16px",
+          "padding": "0px",
+          "minHeight": "0px",
+          "borderRadius": "0px",
+          "fontSize": "14.0625px",
+          "lineHeight": "normal",
+          "overflowY": "visible"
+        },
+        "toolbar": null,
+        "inspector": null
+      },
+      "scrolls": [
+        {
+          "className": "fl-scroll",
+          "clientHeight": 802,
+          "scrollHeight": 1437,
+          "overflowY": "auto"
+        }
+      ],
+      "counts": {
+        "rows": 0,
+        "cards": 7,
+        "sparks": 1,
+        "funnels": 1,
+        "nodes": 0,
+        "toolbar": 0
+      }
+    },
+    {
+      "label": "stats",
+      "source": "prototype",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "htmlOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "rects": {
+        "shell": null,
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": null,
+        "header": null,
+        "scroll": {
+          "x": 0,
+          "y": 96,
+          "width": 255,
+          "height": 752
+        },
+        "content": null,
+        "row": null,
+        "state": null,
+        "mark": {
+          "x": 16,
+          "y": 14,
+          "width": 22,
+          "height": 22
+        },
+        "spark": null,
+        "card": {
+          "x": 272,
+          "y": 56,
+          "width": 1142,
+          "height": 87
+        },
+        "head": {
+          "x": 293,
+          "y": 178,
+          "width": 1100,
+          "height": 18.98
+        },
+        "funnel": null,
+        "legend": null,
+        "toolbar": null,
+        "canvas": null,
+        "inspector": null
+      },
+      "styles": {
+        "row": null,
+        "state": null,
+        "spark": null,
+        "card": {
+          "display": "block",
+          "gap": "normal",
+          "padding": "18px 20px",
+          "minHeight": "auto",
+          "borderRadius": "32px",
+          "fontSize": "14.0625px",
+          "lineHeight": "normal",
+          "overflowY": "visible"
+        },
+        "head": {
+          "display": "flex",
+          "gap": "16px",
+          "padding": "0px",
+          "minHeight": "0px",
+          "borderRadius": "0px",
+          "fontSize": "14.0625px",
+          "lineHeight": "normal",
+          "overflowY": "visible"
+        },
+        "toolbar": null,
+        "inspector": null
+      },
+      "scrolls": [
+        {
+          "className": "fl-scroll",
+          "clientHeight": 848,
+          "scrollHeight": 1081,
+          "overflowY": "auto"
+        }
+      ],
+      "counts": {
+        "rows": 0,
+        "cards": 6,
+        "sparks": 0,
+        "funnels": 0,
+        "nodes": 0,
+        "toolbar": 0
+      }
+    }
+  ],
+  "current": [
+    {
+      "label": "wall",
+      "source": "current",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "htmlOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "header": null,
+        "scroll": null,
+        "content": null,
+        "row": null,
+        "state": null,
+        "mark": null,
+        "spark": null,
+        "card": null,
+        "head": null,
+        "funnel": null,
+        "legend": null,
+        "toolbar": null,
+        "canvas": null,
+        "inspector": null
+      },
+      "styles": {
+        "row": null,
+        "state": null,
+        "spark": null,
+        "card": null,
+        "head": null,
+        "toolbar": null,
+        "inspector": null
+      },
+      "scrolls": [],
+      "counts": {
+        "rows": 0,
+        "cards": 0,
+        "sparks": 0,
+        "funnels": 0,
+        "nodes": 0,
+        "toolbar": 0
+      }
+    },
+    {
+      "label": "sessions",
+      "source": "current",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "htmlOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 0,
+          "y": 88,
+          "width": 255,
+          "height": 721
+        },
+        "content": {
+          "x": 256,
+          "y": 52,
+          "width": 1174,
+          "height": 56337
+        },
+        "row": {
+          "x": 268,
+          "y": 269,
+          "width": 1150,
+          "height": 57
+        },
+        "state": {
+          "x": 280,
+          "y": 286.5,
+          "width": 78,
+          "height": 22
+        },
+        "mark": {
+          "x": 16,
+          "y": 14,
+          "width": 22,
+          "height": 22
+        },
+        "spark": {
+          "x": 1139.14,
+          "y": 280.5,
+          "width": 132,
+          "height": 34
+        },
+        "card": null,
+        "head": null,
+        "funnel": null,
+        "legend": {
+          "x": 1127,
+          "y": 20,
+          "width": 297,
+          "height": 12
+        },
+        "toolbar": null,
+        "canvas": null,
+        "inspector": null
+      },
+      "styles": {
+        "row": {
+          "display": "flex",
+          "gap": "14px",
+          "padding": "11px 12px",
+          "minHeight": "57px",
+          "borderRadius": "15.6px",
+          "fontSize": "14.0625px",
+          "lineHeight": "normal",
+          "overflowY": "visible"
+        },
+        "state": {
+          "display": "flex",
+          "gap": "5px",
+          "padding": "3px 9px",
+          "minHeight": "auto",
+          "borderRadius": "9999px",
+          "fontSize": "11.5px",
+          "lineHeight": "15.525px",
+          "overflowY": "visible"
+        },
+        "spark": {
+          "display": "block",
+          "gap": "normal",
+          "padding": "0px",
+          "minHeight": "auto",
+          "borderRadius": "0px",
+          "fontSize": "14.0625px",
+          "lineHeight": "normal",
+          "overflowY": "visible"
+        },
+        "card": null,
+        "head": null,
+        "toolbar": null,
+        "inspector": null
+      },
+      "scrolls": [
+        {
+          "className": "screen-scroll",
+          "clientHeight": 848,
+          "scrollHeight": 56337,
+          "overflowY": "auto"
+        }
+      ],
+      "counts": {
+        "rows": 118,
+        "cards": 0,
+        "sparks": 118,
+        "funnels": 0,
+        "nodes": 0,
+        "toolbar": 0
+      }
+    },
+    {
+      "label": "sessionDetail",
+      "source": "current",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "htmlOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "header": null,
+        "scroll": null,
+        "content": null,
+        "row": null,
+        "state": null,
+        "mark": null,
+        "spark": null,
+        "card": null,
+        "head": null,
+        "funnel": null,
+        "legend": null,
+        "toolbar": null,
+        "canvas": null,
+        "inspector": null
+      },
+      "styles": {
+        "row": null,
+        "state": null,
+        "spark": null,
+        "card": null,
+        "head": null,
+        "toolbar": null,
+        "inspector": null
+      },
+      "scrolls": [],
+      "counts": {
+        "rows": 0,
+        "cards": 0,
+        "sparks": 0,
+        "funnels": 0,
+        "nodes": 0,
+        "toolbar": 0
+      }
+    },
+    {
+      "label": "assetDetail",
+      "source": "current",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "htmlOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "header": null,
+        "scroll": null,
+        "content": null,
+        "row": null,
+        "state": null,
+        "mark": null,
+        "spark": null,
+        "card": null,
+        "head": null,
+        "funnel": null,
+        "legend": null,
+        "toolbar": null,
+        "canvas": null,
+        "inspector": null
+      },
+      "styles": {
+        "row": null,
+        "state": null,
+        "spark": null,
+        "card": null,
+        "head": null,
+        "toolbar": null,
+        "inspector": null
+      },
+      "scrolls": [],
+      "counts": {
+        "rows": 0,
+        "cards": 0,
+        "sparks": 0,
+        "funnels": 0,
+        "nodes": 0,
+        "toolbar": 0
+      }
+    },
+    {
+      "label": "assetNoOpportunity",
+      "source": "current",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "htmlOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 0,
+          "y": 88,
+          "width": 255,
+          "height": 721
+        },
+        "content": null,
+        "row": null,
+        "state": {
+          "x": 412.27,
+          "y": 2.72,
+          "width": 172.91,
+          "height": 27.55
+        },
+        "mark": {
+          "x": 16,
+          "y": 14,
+          "width": 22,
+          "height": 22
+        },
+        "spark": {
+          "x": 293,
+          "y": 217.25,
+          "width": 748,
+          "height": 132
+        },
+        "card": {
+          "x": 272,
+          "y": 102,
+          "width": 790,
+          "height": 372.03
+        },
+        "head": {
+          "x": 293,
+          "y": 123,
+          "width": 748,
+          "height": 20.25
+        },
+        "funnel": {
+          "x": 293,
+          "y": 690.28,
+          "width": 748,
+          "height": 126
+        },
+        "legend": {
+          "x": 564.22,
+          "y": 357.75,
+          "width": 205.56,
+          "height": 12
+        },
+        "toolbar": null,
+        "canvas": null,
+        "inspector": null
+      },
+      "styles": {
+        "row": null,
+        "state": {
+          "display": "flex",
+          "gap": "5px",
+          "padding": "5px 12px",
+          "minHeight": "auto",
+          "borderRadius": "9999px",
+          "fontSize": "13px",
+          "lineHeight": "17.55px",
+          "overflowY": "visible"
+        },
+        "spark": {
+          "display": "block",
+          "gap": "normal",
+          "padding": "0px",
+          "minHeight": "0px",
+          "borderRadius": "0px",
+          "fontSize": "14.0625px",
+          "lineHeight": "normal",
+          "overflowY": "visible"
+        },
+        "card": {
+          "display": "block",
+          "gap": "normal",
+          "padding": "20px",
+          "minHeight": "auto",
+          "borderRadius": "32px",
+          "fontSize": "14.0625px",
+          "lineHeight": "normal",
+          "overflowY": "visible"
+        },
+        "head": {
+          "display": "flex",
+          "gap": "16px",
+          "padding": "0px",
+          "minHeight": "0px",
+          "borderRadius": "0px",
+          "fontSize": "14.0625px",
+          "lineHeight": "normal",
+          "overflowY": "visible"
+        },
+        "toolbar": null,
+        "inspector": null
+      },
+      "scrolls": [
+        {
+          "className": "screen-scroll",
+          "clientHeight": 802,
+          "scrollHeight": 1696,
+          "overflowY": "auto"
+        }
+      ],
+      "counts": {
+        "rows": 0,
+        "cards": 5,
+        "sparks": 1,
+        "funnels": 1,
+        "nodes": 0,
+        "toolbar": 0
+      }
+    },
+    {
+      "label": "stats",
+      "source": "current",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "htmlOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 0,
+          "y": 88,
+          "width": 255,
+          "height": 721
+        },
+        "content": {
+          "x": 256,
+          "y": 52,
+          "width": 1174,
+          "height": 853.81
+        },
+        "row": null,
+        "state": null,
+        "mark": {
+          "x": 16,
+          "y": 14,
+          "width": 22,
+          "height": 22
+        },
+        "spark": null,
+        "card": {
+          "x": 272,
+          "y": 56,
+          "width": 1142,
+          "height": 221
+        },
+        "head": {
+          "x": 293,
+          "y": 312,
+          "width": 1100,
+          "height": 20.25
+        },
+        "funnel": null,
+        "legend": null,
+        "toolbar": null,
+        "canvas": null,
+        "inspector": null
+      },
+      "styles": {
+        "row": null,
+        "state": null,
+        "spark": null,
+        "card": {
+          "display": "block",
+          "gap": "normal",
+          "padding": "18px 20px",
+          "minHeight": "87px",
+          "borderRadius": "32px",
+          "fontSize": "14.0625px",
+          "lineHeight": "normal",
+          "overflowY": "visible"
+        },
+        "head": {
+          "display": "flex",
+          "gap": "16px",
+          "padding": "0px",
+          "minHeight": "0px",
+          "borderRadius": "0px",
+          "fontSize": "14.0625px",
+          "lineHeight": "normal",
+          "overflowY": "visible"
+        },
+        "toolbar": null,
+        "inspector": null
+      },
+      "scrolls": [
+        {
+          "className": "screen-scroll",
+          "clientHeight": 848,
+          "scrollHeight": 854,
+          "overflowY": "auto"
+        }
+      ],
+      "counts": {
+        "rows": 0,
+        "cards": 6,
+        "sparks": 0,
+        "funnels": 0,
+        "nodes": 0,
+        "toolbar": 0
+      }
+    }
+  ],
+  "comparisons": [
+    {
+      "label": "wall",
+      "rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "header": null,
+        "content": null,
+        "row": null,
+        "state": null,
+        "mark": null,
+        "spark": null,
+        "card": null,
+        "head": null,
+        "funnel": null,
+        "legend": null,
+        "toolbar": null,
+        "canvas": null,
+        "inspector": null
+      }
+    },
+    {
+      "label": "sessions",
+      "rects": {
+        "shell": null,
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "main": null,
+        "header": null,
+        "content": null,
+        "row": null,
+        "state": {
+          "x": -180.25,
+          "y": 216.5,
+          "width": 20.47,
+          "height": 1.45
+        },
+        "mark": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "spark": null,
+        "card": null,
+        "head": null,
+        "funnel": null,
+        "legend": null,
+        "toolbar": null,
+        "canvas": null,
+        "inspector": null
+      }
+    },
+    {
+      "label": "sessionDetail",
+      "rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "header": null,
+        "content": null,
+        "row": null,
+        "state": null,
+        "mark": null,
+        "spark": null,
+        "card": null,
+        "head": null,
+        "funnel": null,
+        "legend": null,
+        "toolbar": null,
+        "canvas": null,
+        "inspector": null
+      }
+    },
+    {
+      "label": "assetDetail",
+      "rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "header": null,
+        "content": null,
+        "row": null,
+        "state": null,
+        "mark": null,
+        "spark": null,
+        "card": null,
+        "head": null,
+        "funnel": null,
+        "legend": null,
+        "toolbar": null,
+        "canvas": null,
+        "inspector": null
+      }
+    },
+    {
+      "label": "stats",
+      "rects": {
+        "shell": null,
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "main": null,
+        "header": null,
+        "content": null,
+        "row": null,
+        "state": null,
+        "mark": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "spark": null,
+        "card": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 134
+        },
+        "head": {
+          "x": 0,
+          "y": 134,
+          "width": 0,
+          "height": 1.27
+        },
+        "funnel": null,
+        "legend": null,
+        "toolbar": null,
+        "canvas": null,
+        "inspector": null
+      }
+    }
+  ],
+  "scrollFailures": []
+}

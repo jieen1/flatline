@@ -6,7 +6,18 @@ These fixtures are fabricated inputs for the Claude Code and Codex source adapte
 
 ```text
 <source>/<scenario>.json
+native/claude/<session>.jsonl        native transcript shape
+native/claude/subagents/agent-*.jsonl
+native/codex/rollout-*.jsonl
 ```
+
+`native/` holds fabricated files in the *native* JSONL shape the history reader
+parses, rather than the adapter fixture shape. They cover the session hierarchy
+(a Codex subagent thread, a forked thread, a Claude Code sidechain transcript)
+and the command/file projections (Bash, exec_command, exec, apply_patch, Edit,
+Read). `rollout-subagent.jsonl` also carries a Codex `event_msg/turn_aborted`
+record with `reason: "interrupted"`, which is the source's explicit record of a
+user interrupt. Every path, id, prompt and output in them is invented.
 
 Each source has three required scenarios:
 

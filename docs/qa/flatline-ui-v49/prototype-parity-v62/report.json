@@ -1,0 +1,3461 @@
+{
+  "generatedAt": "2026-08-21T05:06:38.977Z",
+  "prototype": [
+    {
+      "label": "wall",
+      "source": "prototype",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#fefefd",
+        "--foreground": "oklch(0.2686 0 0)",
+        "--card": "oklch(1 0 0)",
+        "--primary": "#339cff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "oklch(0.9596 0.0275 251)",
+        "--secondary-foreground": "oklch(0.2868 0.0649 251)",
+        "--muted": "oklch(0.9702 0 0)",
+        "--muted-foreground": "oklch(0.5486 0 0)",
+        "--accent": "#ececec",
+        "--accent-foreground": "#262626",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#c99d00",
+        "--border": "oklch(0.9208 0.0101 251)",
+        "--input": "oklch(0.9208 0.0101 251)",
+        "--ring": "#262626",
+        "--control-accent": "#339cff",
+        "--verified": "#17b88b",
+        "--sidebar": "#ffffff",
+        "--sidebar-foreground": "oklch(0.1281 0.0179 251)",
+        "--sidebar-accent": "#ececec",
+        "--sidebar-border": "#f2f2f2",
+        "--nav-fg": "#383835",
+        "--nav-fg-muted": "#858279",
+        "--nav-surface-hover": "#f0f0f0",
+        "--nav-icon-idle": "#8f8f8f",
+        "--panel-surface": "#fefefd",
+        "--panel-surface-fg-muted": "#777779",
+        "--panel-input-surface": "#f5f5f5",
+        "--panel-surface-hover": "#ebebeb",
+        "--panel-slider-fg": "#9a9a9c",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "arrow-right",
+        "chart-column",
+        "chevron-down",
+        "chevron-right",
+        "chevron-up",
+        "folder",
+        "git-commit-horizontal",
+        "history",
+        "hourglass",
+        "layers",
+        "package",
+        "power-off",
+        "search",
+        "shield-off",
+        "trending-down",
+        "unlink"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "chevron-down": "<path d=\"m6 9 6 6 6-6\"></path>",
+        "power-off": "<path d=\"M18.36 6.64A9 9 0 0 1 20.77 15\"></path><path d=\"M6.16 6.16a9 9 0 1 0 12.68 12.68\"></path><path d=\"M12 2v4\"></path><path d=\"m2 2 20 20\"></path>",
+        "arrow-right": "<path d=\"M5 12h14\"></path><path d=\"m12 5 7 7-7 7\"></path>",
+        "unlink": "<path d=\"m18.84 12.25 1.72-1.71h-.02a5.004 5.004 0 0 0-.12-7.07 5.006 5.006 0 0 0-6.95 0l-1.72 1.71\"></path><path d=\"m5.17 11.75-1.71 1.71a5.004 5.004 0 0 0 .12 7.07 5.006 5.006 0 0 0 6.95 0l1.71-1.71\"></path><line x1=\"8\" x2=\"8\" y1=\"2\" y2=\"5\"></line><line x1=\"2\" x2=\"5\" y1=\"8\" y2=\"8\"></line><line x1=\"16\" x2=\"16\" y1=\"19\" y2=\"22\"></line><line x1=\"19\" x2=\"22\" y1=\"16\" y2=\"16\"></line>",
+        "shield-off": "<path d=\"m2 2 20 20\"></path><path d=\"M5 5a1 1 0 0 0-1 1v7c0 5 3.5 7.5 7.67 8.94a1 1 0 0 0 .67.01c2.35-.82 4.48-1.97 5.9-3.71\"></path><path d=\"M9.309 3.652A12.252 12.252 0 0 0 11.24 2.28a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1v7a9.784 9.784 0 0 1-.08 1.264\"></path>",
+        "history": "<path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"></path><path d=\"M3 3v5h5\"></path><path d=\"M12 7v5l4 2\"></path>",
+        "trending-down": "<polyline points=\"22 17 13.5 8.5 8.5 13.5 2 7\"></polyline><polyline points=\"16 17 22 17 22 11\"></polyline>",
+        "hourglass": "<path d=\"M5 22h14\"></path><path d=\"M5 2h14\"></path><path d=\"M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22\"></path><path d=\"M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2\"></path>",
+        "chevron-right": "<path d=\"m9 18 6-6-6-6\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 16,
+        ".elevated-card": 0,
+        ".fl-spark": 16,
+        ".fl-funnel": 0,
+        ".fl-list": 0,
+        ".fl-node": 0,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 0,
+          "y": 96,
+          "width": 255,
+          "height": 752
+        },
+        "firstRow": {
+          "x": 268,
+          "y": 90,
+          "width": 1150,
+          "height": 56
+        },
+        "firstCard": null
+      },
+      "scrollNodes": [
+        {
+          "className": "fl-scroll",
+          "clientHeight": 848,
+          "scrollHeight": 1152
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n变化时间线\n统计\n项目\n全部项目\n24\npayments-gateway\n9\nweb-console\n11\ninfra-scripts\n4\n数据源\nclaude-code 2.15.0\n99.2%\ncodex 0.48.0\n96.1%\ndsh 0.9.4\n88.4%\nL\n本地模式\n资产\n24 个 · 4 需要注意 · 5 几乎未使用\n资产变更\n环境变化\n恢复使用\n需要注意\n4\n不再被使用\nskills/sql-migrations\nSkill · payments-gateway · 8月2日\n7\n/10\n0\n/8\n引用失效\nhooks/migration-guard.sh\nHook · payments-gateway · 8月16日\n5\n/11\n5\n/11\n调用后未遵循\nrules/no-force-push.md\nRule · 全局 · 8月18日\n12\n/12\n4\n/8\n不再被使用\nskills/test-conventions\nSkill · web-console · 7月28日\n历史回测\n6\n/11\n0\n/9\n观察中\n2\n使用减少\nskills/api-error-shape\nSkill · payments-gateway · 8月17日\n8\n/10\n3\n/10\n待验证\nskills/gocache-fix\nSkill · payments-gateway · 改于 8月18日\n4\n/10\n0\n/3\n正常\n10\n正常\npayments-gateway/CLAUDE.md\nInstructions · payments-gateway · 今天 09:14\n41\n/41\n12\n/12\n正常\npayments-gateway/AGENTS.md\nInstructions · Codex · 昨天 16:22\n13\n/13\n6\n/6\n正常\nskills/commit-style\nSkill · 全局 · 今天 11:03\n17\n/20\n9\n/10\n正常\nskills/sql-review\nSkill · payments-gateway · 8月17日\n11\n/20\n6\n/10\n正常\nskills/deploy-checklist\nSkill · infra-scripts · 8月15日\n4\n/12\n2\n/6\n正常\nskills/go-error-wrap\nSkill · payments-gateway · 今天 09:41\n13\n/20\n7\n/10\n正常\nrules/react-hooks-rules.md\nRule · web-console · 今天 11:03\n18\n/19\n10\n/10\n正常\nweb-console/CLAUDE.md\nInstructions · web-console · 今天 11:03\n22\n/22\n8\n/8\n正常\nskills/tsx-conventions\nSkill · web-console · 昨天17:20\n15\n/20\n8\n/10\n正常\nhooks/terraform-fmt.sh\nHook · infra-scripts · 8月15日\n6\n/14\n3\n/6\n几乎未使用\n5\n描述合计约占每次会话 1.4k token\n整理\n无同类任务 · 无使用数据 · 已归档\n3"
+    },
+    {
+      "label": "sessions",
+      "source": "prototype",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#fefefd",
+        "--foreground": "oklch(0.2686 0 0)",
+        "--card": "oklch(1 0 0)",
+        "--primary": "#339cff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "oklch(0.9596 0.0275 251)",
+        "--secondary-foreground": "oklch(0.2868 0.0649 251)",
+        "--muted": "oklch(0.9702 0 0)",
+        "--muted-foreground": "oklch(0.5486 0 0)",
+        "--accent": "#ececec",
+        "--accent-foreground": "#262626",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#c99d00",
+        "--border": "oklch(0.9208 0.0101 251)",
+        "--input": "oklch(0.9208 0.0101 251)",
+        "--ring": "#262626",
+        "--control-accent": "#339cff",
+        "--verified": "#17b88b",
+        "--sidebar": "#ffffff",
+        "--sidebar-foreground": "oklch(0.1281 0.0179 251)",
+        "--sidebar-accent": "#ececec",
+        "--sidebar-border": "#f2f2f2",
+        "--nav-fg": "#383835",
+        "--nav-fg-muted": "#858279",
+        "--nav-surface-hover": "#f0f0f0",
+        "--nav-icon-idle": "#8f8f8f",
+        "--panel-surface": "#fefefd",
+        "--panel-surface-fg-muted": "#777779",
+        "--panel-input-surface": "#f5f5f5",
+        "--panel-surface-hover": "#ebebeb",
+        "--panel-slider-fg": "#9a9a9c",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "chart-column",
+        "chevron-up",
+        "folder",
+        "git-commit-horizontal",
+        "layers",
+        "package",
+        "search",
+        "slash"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "slash": "<path d=\"M22 2 2 22\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 6,
+        ".elevated-card": 0,
+        ".fl-spark": 0,
+        ".fl-funnel": 0,
+        ".fl-list": 0,
+        ".fl-node": 0,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 0,
+          "y": 96,
+          "width": 255,
+          "height": 752
+        },
+        "firstRow": {
+          "x": 268,
+          "y": 56,
+          "width": 1160,
+          "height": 59.921875
+        },
+        "firstCard": null
+      },
+      "scrollNodes": [],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n变化时间线\n统计\n项目\n全部项目\n24\npayments-gateway\n9\nweb-console\n11\ninfra-scripts\n4\n数据源\nclaude-code 2.15.0\n99.2%\ncodex 0.48.0\n96.1%\ndsh 0.9.4\n88.4%\nL\n本地模式\n会话\n全部项目\n6 / 6 个会话\n给 payments 表加 settled_at 字段\n恢复使用\npayments-gateway · 今天 14:32 · s-8f3c1d\n3 个资产被使用\n2m51s\n重写 toast 队列的去重逻辑\nweb-console · 今天 11:03 · s-c0d94a\n2 个资产被使用\n1h12m\n接入 Stripe webhook 重放校验\nsql-migrations 未调用\npayments-gateway · 8 月 16 日 · s-2b7106\n1 个资产被使用\n28m\n为 payments 建 status 复合索引\nsql-migrations 未调用\npayments-gateway · 8 月 17 日 · s-45f28b\n2 个资产被使用\n52m\n修复 toast 堆叠时的层级错乱\nweb-console · 8 月 12 日 · s-9e10f7\n1 个资产被使用\n34m\n整理部署脚本的环境变量\ninfra-scripts · 8 月 15 日 · s-77ae03\n无使用数据\n19m"
+    },
+    {
+      "label": "sessionDetail",
+      "source": "prototype",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#fefefd",
+        "--foreground": "oklch(0.2686 0 0)",
+        "--card": "oklch(1 0 0)",
+        "--primary": "#339cff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "oklch(0.9596 0.0275 251)",
+        "--secondary-foreground": "oklch(0.2868 0.0649 251)",
+        "--muted": "oklch(0.9702 0 0)",
+        "--muted-foreground": "oklch(0.5486 0 0)",
+        "--accent": "#ececec",
+        "--accent-foreground": "#262626",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#c99d00",
+        "--border": "oklch(0.9208 0.0101 251)",
+        "--input": "oklch(0.9208 0.0101 251)",
+        "--ring": "#262626",
+        "--control-accent": "#339cff",
+        "--verified": "#17b88b",
+        "--sidebar": "#ffffff",
+        "--sidebar-foreground": "oklch(0.1281 0.0179 251)",
+        "--sidebar-accent": "#ececec",
+        "--sidebar-border": "#f2f2f2",
+        "--nav-fg": "#383835",
+        "--nav-fg-muted": "#858279",
+        "--nav-surface-hover": "#f0f0f0",
+        "--nav-icon-idle": "#8f8f8f",
+        "--panel-surface": "#fefefd",
+        "--panel-surface-fg-muted": "#777779",
+        "--panel-input-surface": "#f5f5f5",
+        "--panel-surface-hover": "#ebebeb",
+        "--panel-slider-fg": "#9a9a9c",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "arrow-left",
+        "arrow-right",
+        "chart-column",
+        "chevron-up",
+        "clock",
+        "folder",
+        "git-commit-horizontal",
+        "layers",
+        "list-collapse",
+        "package",
+        "rows-2",
+        "search"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "arrow-left": "<path d=\"m12 19-7-7 7-7\"></path><path d=\"M19 12H5\"></path>",
+        "clock": "<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><polyline points=\"12 6 12 12 16 14\"></polyline>",
+        "rows-2": "<rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"></rect><path d=\"M3 12h18\"></path>",
+        "list-collapse": "<path d=\"m3 10 2.5-2.5L3 5\"></path><path d=\"m3 19 2.5-2.5L3 14\"></path><path d=\"M10 6h11\"></path><path d=\"M10 12h11\"></path><path d=\"M10 18h11\"></path>",
+        "arrow-right": "<path d=\"M5 12h14\"></path><path d=\"m12 5 7 7-7 7\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 0,
+        ".elevated-card": 0,
+        ".fl-spark": 0,
+        ".fl-funnel": 0,
+        ".fl-list": 2,
+        ".fl-node": 0,
+        ".fl-tbtn": 3,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 0,
+          "y": 96,
+          "width": 255,
+          "height": 752
+        },
+        "firstRow": null,
+        "firstCard": null
+      },
+      "scrollNodes": [
+        {
+          "className": "fl-scroll",
+          "clientHeight": 642,
+          "scrollHeight": 932
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n变化时间线\n统计\n项目\n全部项目\n24\npayments-gateway\n9\nweb-console\n11\ninfra-scripts\n4\n数据源\nclaude-code 2.15.0\n99.2%\ncodex 0.48.0\n96.1%\ndsh 0.9.4\n88.4%\nL\n本地模式\n会话\ns-8f3c1d · payments-gateway\nsql-migrations 恢复使用\n任务\n给 payments 表加 settled_at 字段，跑通迁移和 store 层的测试\n轨迹\n对话\n总览\n实际耗时 · 2m51s\n21 条记录 · 4 轮\nInput\nModel\nTools\nDuration\nTurns\nCalls\n第 1 轮\n9 条\n#1\n系统\nsystem prompt · 6 sections · 3,204 tok\n—\n#2\n上下文\nCLAUDE.md v9 注入 · 4,812 tok\n参与\n—\n#3\n上下文\nskill catalog · Claude Code 不记录候选清单\n—\n#4\n用户\n给 payments 表加 settled_at 字段，跑通迁移和 store 层的测试\n—\n#5\n消息\n先确认现有迁移目录的约定\n42\n8.1k\n42\n180\n8.4s\n#6\n工具\nGlob internal/store/migrations/*.sql\n0001_init.up.sql 0006_add_refunds.up.sql 0007_idx_payments_status.up.sql\n1.2s\n#7\n消息\n目录里已有 7 条迁移，命名沿用 seq 前缀\n88\n8.4k\n88\n1.2k\n11.0s\n#8\n工具\nSkill(sql-migrations) id=toolu_01H9xKq2\n已加载 SKILL.md v5 · 2,140 tok\n恢复使用\n0.90s\n#9\n消息\n已加载 sql-migrations。按约定先用 migrate create 生成迁移对\n96\n8.6k\n96\n420\n9.5s\n第 2 轮\n5 条\n#10\n工具\nmigrate create -ext sql -dir internal/store/migrations -seq add_settled_at\n0008_add_settled_at.up.sql 0008_add_settled_at.down.sql\n2.4s\n#11\n工具\npython tools/check_migrations.py\n8 files checked · sequence contiguous · all pairs present\n遵循\n5.1s\n#12\n消息\n校验通过。补 up/down 两侧的 SQL\n212\n9.4k\n212\n1.9k\n12.5s\n#13\n工具\nEdit internal/store/migrations/0008_add_settled_at.up.sql\n+3 −0\n1.8s\n#14\n工具\nEdit internal/store/migrations/0008_add_settled_at.down.sql\n+2 −0\n1.5s\n第 3 轮\n3 条\n#15\n压缩\ncompaction · 42 → 11 条消息 · 回收 38.2k tok\n4.2s\n#16\n工具\ngo test -tags fts5 ./internal/store/...\nok github.com/acme/payments-gateway/internal/store 41.0s\n41.0s\n#17\n消息\nstore 层测试通过，未发现违背 SKILL.md 的操作\n148\n10.6k\n148\n860\n1"
+    },
+    {
+      "label": "timeline",
+      "source": "prototype",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#fefefd",
+        "--foreground": "oklch(0.2686 0 0)",
+        "--card": "oklch(1 0 0)",
+        "--primary": "#339cff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "oklch(0.9596 0.0275 251)",
+        "--secondary-foreground": "oklch(0.2868 0.0649 251)",
+        "--muted": "oklch(0.9702 0 0)",
+        "--muted-foreground": "oklch(0.5486 0 0)",
+        "--accent": "#ececec",
+        "--accent-foreground": "#262626",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#c99d00",
+        "--border": "oklch(0.9208 0.0101 251)",
+        "--input": "oklch(0.9208 0.0101 251)",
+        "--ring": "#262626",
+        "--control-accent": "#339cff",
+        "--verified": "#17b88b",
+        "--sidebar": "#ffffff",
+        "--sidebar-foreground": "oklch(0.1281 0.0179 251)",
+        "--sidebar-accent": "#ececec",
+        "--sidebar-border": "#f2f2f2",
+        "--nav-fg": "#383835",
+        "--nav-fg-muted": "#858279",
+        "--nav-surface-hover": "#f0f0f0",
+        "--nav-icon-idle": "#8f8f8f",
+        "--panel-surface": "#fefefd",
+        "--panel-surface-fg-muted": "#777779",
+        "--panel-input-surface": "#f5f5f5",
+        "--panel-surface-hover": "#ebebeb",
+        "--panel-slider-fg": "#9a9a9c",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "camera",
+        "chart-column",
+        "chevron-up",
+        "cpu",
+        "file-diff",
+        "folder",
+        "git-commit-horizontal",
+        "layers",
+        "package",
+        "power-off",
+        "search",
+        "shield-off",
+        "unlink",
+        "volume-x"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "file-diff": "<path d=\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z\"></path><path d=\"M9 10h6\"></path><path d=\"M12 13V7\"></path><path d=\"M9 17h6\"></path>",
+        "unlink": "<path d=\"m18.84 12.25 1.72-1.71h-.02a5.004 5.004 0 0 0-.12-7.07 5.006 5.006 0 0 0-6.95 0l-1.72 1.71\"></path><path d=\"m5.17 11.75-1.71 1.71a5.004 5.004 0 0 0 .12 7.07 5.006 5.006 0 0 0 6.95 0l1.71-1.71\"></path><line x1=\"8\" x2=\"8\" y1=\"2\" y2=\"5\"></line><line x1=\"2\" x2=\"5\" y1=\"8\" y2=\"8\"></line><line x1=\"16\" x2=\"16\" y1=\"19\" y2=\"22\"></line><line x1=\"19\" x2=\"22\" y1=\"16\" y2=\"16\"></line>",
+        "shield-off": "<path d=\"m2 2 20 20\"></path><path d=\"M5 5a1 1 0 0 0-1 1v7c0 5 3.5 7.5 7.67 8.94a1 1 0 0 0 .67.01c2.35-.82 4.48-1.97 5.9-3.71\"></path><path d=\"M9.309 3.652A12.252 12.252 0 0 0 11.24 2.28a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1v7a9.784 9.784 0 0 1-.08 1.264\"></path>",
+        "volume-x": "<polygon points=\"11 5 6 9 2 9 2 15 6 15 11 19 11 5\"></polygon><line x1=\"22\" x2=\"16\" y1=\"9\" y2=\"15\"></line><line x1=\"16\" x2=\"22\" y1=\"9\" y2=\"15\"></line>",
+        "power-off": "<path d=\"M18.36 6.64A9 9 0 0 1 20.77 15\"></path><path d=\"M6.16 6.16a9 9 0 1 0 12.68 12.68\"></path><path d=\"M12 2v4\"></path><path d=\"m2 2 20 20\"></path>",
+        "cpu": "<rect width=\"16\" height=\"16\" x=\"4\" y=\"4\" rx=\"2\"></rect><rect width=\"6\" height=\"6\" x=\"9\" y=\"9\" rx=\"1\"></rect><path d=\"M15 2v2\"></path><path d=\"M15 20v2\"></path><path d=\"M2 15h2\"></path><path d=\"M2 9h2\"></path><path d=\"M20 15h2\"></path><path d=\"M20 9h2\"></path><path d=\"M9 2v2\"></path><path d=\"M9 20v2\"></path>",
+        "camera": "<path d=\"M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z\"></path><circle cx=\"12\" cy=\"13\" r=\"3\"></circle>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 0,
+        ".elevated-card": 0,
+        ".fl-spark": 0,
+        ".fl-funnel": 0,
+        ".fl-list": 0,
+        ".fl-node": 9,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 0,
+          "y": 96,
+          "width": 255,
+          "height": 752
+        },
+        "firstRow": null,
+        "firstCard": null
+      },
+      "scrollNodes": [
+        {
+          "className": "fl-scroll",
+          "clientHeight": 848,
+          "scrollHeight": 922
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n变化时间线\n统计\n项目\n全部项目\n24\npayments-gateway\n9\nweb-console\n11\ninfra-scripts\n4\n数据源\nclaude-code 2.15.0\n99.2%\ncodex 0.48.0\n96.1%\ndsh 0.9.4\n88.4%\nL\n本地模式\n变化时间线\n9 条 · 近 12 週\n全部\n状态迁移\n资产变更\n环境变化\n08-19 14:32\n状态迁移\n正常\nsql-migrations 已恢复使用：修改后首次被调用，未发现违背。\n会话 s-8f3c1d · 1 / 1 次同类任务\n查看那次调用\n08-18 10:20\n资产变更\nsql-migrations v5：校验脚本路径更新为 tools/check_migrations.py。\n用户修改\n08-18 09:02\n资产变更\ngocache-fix v3：构建缓存目录改为项目内路径。\n用户修改\n08-14 11:40\n状态迁移\n引用失效\nmigration-guard 引用失效：引用体检发现 hooks 目录下的 psql 包装脚本缺失。\n引用体检 · 4 项中 1 项失败\n08-12 16:05\n状态迁移\n调用后未遵循\nno-force-push 调用后未遵循：显式调用后仍执行 git push --force。\n12/12 → 4/8 次同类任务中被遵循\n升级后 5 天内 3 个资产先后不再被调用：sql-migrations、test-conventions、api-error-shape\n08-05 09:12\n状态迁移\n不再被使用\nsql-migrations 不再被使用：此前 10 次同类任务中 7 次被调用；最近 8 次 0 次。\n起点前 2 天：Claude Code 升级 2.14.0\n打开诊断页\n08-04 15:30\n资产变更\n新增 skills/sql-review，与 sql-migrations 描述相似度 0.71。\n外部变化\n08-03 08:47\n环境变化\nClaude Code 升级 2.13.4 → 2.14.0。\n参照窗口锚点\n07-28 12:00\n环境变化\nAsset Snapshotter 安装\n此前的判定标记为历史回测"
+    },
+    {
+      "label": "stats",
+      "source": "prototype",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#fefefd",
+        "--foreground": "oklch(0.2686 0 0)",
+        "--card": "oklch(1 0 0)",
+        "--primary": "#339cff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "oklch(0.9596 0.0275 251)",
+        "--secondary-foreground": "oklch(0.2868 0.0649 251)",
+        "--muted": "oklch(0.9702 0 0)",
+        "--muted-foreground": "oklch(0.5486 0 0)",
+        "--accent": "#ececec",
+        "--accent-foreground": "#262626",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#c99d00",
+        "--border": "oklch(0.9208 0.0101 251)",
+        "--input": "oklch(0.9208 0.0101 251)",
+        "--ring": "#262626",
+        "--control-accent": "#339cff",
+        "--verified": "#17b88b",
+        "--sidebar": "#ffffff",
+        "--sidebar-foreground": "oklch(0.1281 0.0179 251)",
+        "--sidebar-accent": "#ececec",
+        "--sidebar-border": "#f2f2f2",
+        "--nav-fg": "#383835",
+        "--nav-fg-muted": "#858279",
+        "--nav-surface-hover": "#f0f0f0",
+        "--nav-icon-idle": "#8f8f8f",
+        "--panel-surface": "#fefefd",
+        "--panel-surface-fg-muted": "#777779",
+        "--panel-input-surface": "#f5f5f5",
+        "--panel-surface-hover": "#ebebeb",
+        "--panel-slider-fg": "#9a9a9c",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "archive",
+        "chart-column",
+        "chevron-up",
+        "circle-slash",
+        "eye-off",
+        "folder",
+        "git-commit-horizontal",
+        "hash",
+        "hourglass",
+        "layers",
+        "package",
+        "package-open",
+        "power-off",
+        "search",
+        "shield-off",
+        "trending-down",
+        "triangle-alert",
+        "unlink",
+        "wallet"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "triangle-alert": "<path d=\"m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3\"></path><path d=\"M12 9v4\"></path><path d=\"M12 17h.01\"></path>",
+        "package-open": "<path d=\"M12 22v-9\"></path><path d=\"M15.17 2.21a1.67 1.67 0 0 1 1.63 0L21 4.57a1.93 1.93 0 0 1 0 3.36L8.82 14.79a1.655 1.655 0 0 1-1.64 0L3 12.43a1.93 1.93 0 0 1 0-3.36z\"></path><path d=\"M20 13v3.87a2.06 2.06 0 0 1-1.11 1.83l-6 3.08a1.93 1.93 0 0 1-1.78 0l-6-3.08A2.06 2.06 0 0 1 4 16.87V13\"></path><path d=\"M21 12.43a1.93 1.93 0 0 0 0-3.36L8.83 2.2a1.64 1.64 0 0 0-1.63 0L3 4.57a1.93 1.93 0 0 0 0 3.36l12.18 6.86a1.636 1.636 0 0 0 1.63 0z\"></path>",
+        "wallet": "<path d=\"M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1\"></path><path d=\"M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4\"></path>",
+        "hash": "<line x1=\"4\" x2=\"20\" y1=\"9\" y2=\"9\"></line><line x1=\"4\" x2=\"20\" y1=\"15\" y2=\"15\"></line><line x1=\"10\" x2=\"8\" y1=\"3\" y2=\"21\"></line><line x1=\"16\" x2=\"14\" y1=\"3\" y2=\"21\"></line>",
+        "trending-down": "<polyline points=\"22 17 13.5 8.5 8.5 13.5 2 7\"></polyline><polyline points=\"16 17 22 17 22 11\"></polyline>",
+        "power-off": "<path d=\"M18.36 6.64A9 9 0 0 1 20.77 15\"></path><path d=\"M6.16 6.16a9 9 0 1 0 12.68 12.68\"></path><path d=\"M12 2v4\"></path><path d=\"m2 2 20 20\"></path>",
+        "unlink": "<path d=\"m18.84 12.25 1.72-1.71h-.02a5.004 5.004 0 0 0-.12-7.07 5.006 5.006 0 0 0-6.95 0l-1.72 1.71\"></path><path d=\"m5.17 11.75-1.71 1.71a5.004 5.004 0 0 0 .12 7.07 5.006 5.006 0 0 0 6.95 0l1.71-1.71\"></path><line x1=\"8\" x2=\"8\" y1=\"2\" y2=\"5\"></line><line x1=\"2\" x2=\"5\" y1=\"8\" y2=\"8\"></line><line x1=\"16\" x2=\"16\" y1=\"19\" y2=\"22\"></line><line x1=\"19\" x2=\"22\" y1=\"16\" y2=\"16\"></line>",
+        "shield-off": "<path d=\"m2 2 20 20\"></path><path d=\"M5 5a1 1 0 0 0-1 1v7c0 5 3.5 7.5 7.67 8.94a1 1 0 0 0 .67.01c2.35-.82 4.48-1.97 5.9-3.71\"></path><path d=\"M9.309 3.652A12.252 12.252 0 0 0 11.24 2.28a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1v7a9.784 9.784 0 0 1-.08 1.264\"></path>",
+        "hourglass": "<path d=\"M5 22h14\"></path><path d=\"M5 2h14\"></path><path d=\"M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22\"></path><path d=\"M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2\"></path>",
+        "circle-slash": "<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"9\" x2=\"15\" y1=\"15\" y2=\"9\"></line>",
+        "eye-off": "<path d=\"M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49\"></path><path d=\"M14.084 14.158a3 3 0 0 1-4.242-4.242\"></path><path d=\"M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143\"></path><path d=\"m2 2 20 20\"></path>",
+        "archive": "<rect width=\"20\" height=\"5\" x=\"2\" y=\"3\" rx=\"1\"></rect><path d=\"M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8\"></path><path d=\"M10 12h4\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 0,
+        ".elevated-card": 6,
+        ".fl-spark": 0,
+        ".fl-funnel": 0,
+        ".fl-list": 3,
+        ".fl-node": 0,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 0,
+          "y": 96,
+          "width": 255,
+          "height": 752
+        },
+        "firstRow": null,
+        "firstCard": {
+          "x": 272,
+          "y": 56,
+          "width": 1142,
+          "height": 87
+        }
+      },
+      "scrollNodes": [
+        {
+          "className": "fl-scroll",
+          "clientHeight": 848,
+          "scrollHeight": 1081
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n变化时间线\n统计\n项目\n全部项目\n24\npayments-gateway\n9\nweb-console\n11\ninfra-scripts\n4\n数据源\nclaude-code 2.15.0\n99.2%\ncodex 0.48.0\n96.1%\ndsh 0.9.4\n88.4%\nL\n本地模式\n统计\n近 30 天\n导出\n资产\n24\n会话\n41\n需要注意\n4\n几乎未使用\n5\n成本\n$38.42\nToken 数\n12.4M\n活动\n近 52 週 · 每格一天\n2025-08\n少\n多\n2026-08\n状态分布\n24 个资产\n正常\n10\n使用减少\n1\n不再被使用\n2\n引用失效\n1\n调用后未遵循\n1\n待验证\n1\n几乎未使用\n5\n无同类任务\n1\n无使用数据\n1\n已归档\n1\n数据源\n41 个会话\nclaude-code 2.15.0\n26\n99.2%\ncodex 0.48.0\n11\n96.1%\ndsh 0.9.4\n4\n88.4%\n每日成本\n$38.42 · 14 天\n08-04\n08-17\n上下文开销\n每次会话\nCLAUDE.md\nv9\n4,812\n$0.59\nsql-migrations\nv4\n2,140\n$0.12\nAGENTS.md\nv3\n1,760\n$0.06\nrelease-notes\nv2\n未使用\n420\n$0.00"
+    },
+    {
+      "label": "assetDetail",
+      "source": "prototype",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#fefefd",
+        "--foreground": "oklch(0.2686 0 0)",
+        "--card": "oklch(1 0 0)",
+        "--primary": "#339cff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "oklch(0.9596 0.0275 251)",
+        "--secondary-foreground": "oklch(0.2868 0.0649 251)",
+        "--muted": "oklch(0.9702 0 0)",
+        "--muted-foreground": "oklch(0.5486 0 0)",
+        "--accent": "#ececec",
+        "--accent-foreground": "#262626",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#c99d00",
+        "--border": "oklch(0.9208 0.0101 251)",
+        "--input": "oklch(0.9208 0.0101 251)",
+        "--ring": "#262626",
+        "--control-accent": "#339cff",
+        "--verified": "#17b88b",
+        "--sidebar": "#ffffff",
+        "--sidebar-foreground": "oklch(0.1281 0.0179 251)",
+        "--sidebar-accent": "#ececec",
+        "--sidebar-border": "#f2f2f2",
+        "--nav-fg": "#383835",
+        "--nav-fg-muted": "#858279",
+        "--nav-surface-hover": "#f0f0f0",
+        "--nav-icon-idle": "#8f8f8f",
+        "--panel-surface": "#fefefd",
+        "--panel-surface-fg-muted": "#777779",
+        "--panel-input-surface": "#f5f5f5",
+        "--panel-surface-hover": "#ebebeb",
+        "--panel-slider-fg": "#9a9a9c",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "archive",
+        "arrow-left",
+        "arrow-right",
+        "bell-off",
+        "book-open",
+        "calendar",
+        "chart-column",
+        "check",
+        "chevron-up",
+        "cpu",
+        "eye-off",
+        "file-diff",
+        "folder",
+        "git-commit-horizontal",
+        "history",
+        "layers",
+        "package",
+        "power-off",
+        "search",
+        "slash",
+        "unlink"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "arrow-left": "<path d=\"m12 19-7-7 7-7\"></path><path d=\"M19 12H5\"></path>",
+        "book-open": "<path d=\"M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z\"></path><path d=\"M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z\"></path>",
+        "power-off": "<path d=\"M18.36 6.64A9 9 0 0 1 20.77 15\"></path><path d=\"M6.16 6.16a9 9 0 1 0 12.68 12.68\"></path><path d=\"M12 2v4\"></path><path d=\"m2 2 20 20\"></path>",
+        "history": "<path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"></path><path d=\"M3 3v5h5\"></path><path d=\"M12 7v5l4 2\"></path>",
+        "arrow-right": "<path d=\"M5 12h14\"></path><path d=\"m12 5 7 7-7 7\"></path>",
+        "calendar": "<path d=\"M8 2v4\"></path><path d=\"M16 2v4\"></path><rect width=\"18\" height=\"18\" x=\"3\" y=\"4\" rx=\"2\"></rect><path d=\"M3 10h18\"></path>",
+        "cpu": "<rect width=\"16\" height=\"16\" x=\"4\" y=\"4\" rx=\"2\"></rect><rect width=\"6\" height=\"6\" x=\"9\" y=\"9\" rx=\"1\"></rect><path d=\"M15 2v2\"></path><path d=\"M15 20v2\"></path><path d=\"M2 15h2\"></path><path d=\"M2 9h2\"></path><path d=\"M20 15h2\"></path><path d=\"M20 9h2\"></path><path d=\"M9 2v2\"></path><path d=\"M9 20v2\"></path>",
+        "file-diff": "<path d=\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z\"></path><path d=\"M9 10h6\"></path><path d=\"M12 13V7\"></path><path d=\"M9 17h6\"></path>",
+        "slash": "<path d=\"M22 2 2 22\"></path>",
+        "unlink": "<path d=\"m18.84 12.25 1.72-1.71h-.02a5.004 5.004 0 0 0-.12-7.07 5.006 5.006 0 0 0-6.95 0l-1.72 1.71\"></path><path d=\"m5.17 11.75-1.71 1.71a5.004 5.004 0 0 0 .12 7.07 5.006 5.006 0 0 0 6.95 0l1.71-1.71\"></path><line x1=\"8\" x2=\"8\" y1=\"2\" y2=\"5\"></line><line x1=\"2\" x2=\"5\" y1=\"8\" y2=\"8\"></line><line x1=\"16\" x2=\"16\" y1=\"19\" y2=\"22\"></line><line x1=\"19\" x2=\"22\" y1=\"16\" y2=\"16\"></line>",
+        "check": "<path d=\"M20 6 9 17l-5-5\"></path>",
+        "archive": "<rect width=\"20\" height=\"5\" x=\"2\" y=\"3\" rx=\"1\"></rect><path d=\"M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8\"></path><path d=\"M10 12h4\"></path>",
+        "bell-off": "<path d=\"M8.7 3A6 6 0 0 1 18 8a21.3 21.3 0 0 0 .6 5\"></path><path d=\"M17 17H3s3-2 3-9a4.67 4.67 0 0 1 .3-1.7\"></path><path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\"></path><path d=\"m2 2 20 20\"></path>",
+        "eye-off": "<path d=\"M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49\"></path><path d=\"M14.084 14.158a3 3 0 0 1-4.242-4.242\"></path><path d=\"M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143\"></path><path d=\"m2 2 20 20\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 0,
+        ".elevated-card": 7,
+        ".fl-spark": 1,
+        ".fl-funnel": 1,
+        ".fl-list": 5,
+        ".fl-node": 0,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 0,
+          "y": 96,
+          "width": 255,
+          "height": 752
+        },
+        "firstRow": null,
+        "firstCard": {
+          "x": 272,
+          "y": 102,
+          "width": 790,
+          "height": 292.984375
+        }
+      },
+      "scrollNodes": [
+        {
+          "className": "fl-scroll",
+          "clientHeight": 802,
+          "scrollHeight": 1437
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n变化时间线\n统计\n项目\n全部项目\n24\npayments-gateway\n9\nweb-console\n11\ninfra-scripts\n4\n数据源\nclaude-code 2.15.0\n99.2%\ncodex 0.48.0\n96.1%\ndsh 0.9.4\n88.4%\nL\n本地模式\nskills/sql-migrations\nSkill · payments-gateway · v4\n不再被使用\n在编辑器中打开\n诊断\n原文\n版本\n处置历史\n判定依据\n直接观测\n7 / 10\n基线参与 · 06-18 → 08-02\n0 / 8\n近期参与 · 08-05 → 08-19\n8 月 5 日\n状态起点\n2026-05-27\n资产变更\n环境变化\n2026-08-19\n起点前后对齐\n起点 8 月 5 日 ± 3 天\n08-03\n环境变化\nClaude Code 升级 2.13.4 → 2.14.0\n起点前 2 天\n08-04\n资产变更\n同目录新增 skills/sql-review，描述与本资产相似度 0.71\n起点前 1 天\n08-06\n环境变化\n默认模型 claude-sonnet-4-5 → claude-sonnet-4-6\n起点后 1 天\n候选原因\n按证据强度排序 · 4 条\n强\n引用腐烂：迁移脚本路径已改名\n直接观测\n证据：SKILL.md 第 12 行引用 scripts/check_migrations.py，该路径于 8 月 4 日随目录重命名为 tools/check_migrations.py，本机不存在。引用体检 4 项中 1 项失败。\n查看体检结果\n中\n描述拥挤：新增相似资产\n规则推导\n证据：8 月 4 日新增 skills/sql-review，两者描述向量相似度 0.71（阈值 0.65）。此后 8 次同类任务中 sql-review 被调用 5 次，本资产 0 次。\n对比两份描述\n弱\n环境变化对齐：Claude Code 2.14.0\n推断\n证据：状态起点在升级后 2 天内。同期另有 2 个资产在该锚点后 5 天内先后不再被调用。\n在时间线中查看\n—\n未知原因（无支持证据）\n未记录\n证据：无。同类任务仍在正常出现（8 次），任务形状未变，模型切换与状态起点相隔 1 天但方向不明。\n参与漏斗\n基线 → 现在\n候选\n未记录\nClaude Code 不记录\n加载\n推断\n0 / 8\n基线 7 / 10\n调用\n直接观测\n0 / 8\n基线 7 / 10\n遵循\n直接观测\n无调用点\n引用体检\n4 项 · 1 项失败\ntools/check_migrations.py\nSKILL.md 第 12 行引用为 scripts/check_migrations.py；该目录已于 8 月 4 日重命名。\n缺失\nmigrate\n存在\npsql\n存在\ninternal/store/migrations/\n存在\n处置\n在编辑器中打开\n归档\n停止监测\n忽略此状态\n类型\nSkill · 项目作用域\n当前版本\nv4 · 3f0ab7e1\n状态起点\n8 月 5 日（14 天前）\n判定阈值\n连续 8 次同类任务零使用 · 阈值版本 v2\n关联会话\n最近 3 次同类任务\n为 payments 建 status 复合索引\ns-45f28b · 08-17\n本该用到，未调用\n接入 Stripe webhook 重放校验\ns-2b7106 · 08-16\n本该用到，未调用\n补 refunds 表的 down 迁移\ns-1a6355 · 08-11\n改用了 sql-review"
+    },
+    {
+      "label": "wall",
+      "source": "prototype",
+      "theme": "dark",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#181818",
+        "--foreground": "#ececec",
+        "--card": "#212121",
+        "--primary": "#4dabff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "#242424",
+        "--secondary-foreground": "#ececec",
+        "--muted": "#242424",
+        "--muted-foreground": "#9b9b9b",
+        "--accent": "#2e2e2e",
+        "--accent-foreground": "#ececec",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#ffd60a",
+        "--border": "#303030",
+        "--input": "#303030",
+        "--ring": "#ececec",
+        "--control-accent": "#4dabff",
+        "--verified": "#17b88b",
+        "--sidebar": "#1f1f1f",
+        "--sidebar-foreground": "#ececec",
+        "--sidebar-accent": "#2a2a2a",
+        "--sidebar-border": "#2a2a2a",
+        "--nav-fg": "#c9c9c9",
+        "--nav-fg-muted": "#969696",
+        "--nav-surface-hover": "#2a2a2a",
+        "--nav-icon-idle": "#5c5c5c",
+        "--panel-surface": "#181818",
+        "--panel-surface-fg-muted": "#ababab",
+        "--panel-input-surface": "rgba(255, 255, 255, 0.07)",
+        "--panel-surface-hover": "#333333",
+        "--panel-slider-fg": "#ababab",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "arrow-right",
+        "chart-column",
+        "chevron-down",
+        "chevron-right",
+        "chevron-up",
+        "folder",
+        "git-commit-horizontal",
+        "history",
+        "hourglass",
+        "layers",
+        "package",
+        "power-off",
+        "search",
+        "shield-off",
+        "trending-down",
+        "unlink"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "chevron-down": "<path d=\"m6 9 6 6 6-6\"></path>",
+        "power-off": "<path d=\"M18.36 6.64A9 9 0 0 1 20.77 15\"></path><path d=\"M6.16 6.16a9 9 0 1 0 12.68 12.68\"></path><path d=\"M12 2v4\"></path><path d=\"m2 2 20 20\"></path>",
+        "arrow-right": "<path d=\"M5 12h14\"></path><path d=\"m12 5 7 7-7 7\"></path>",
+        "unlink": "<path d=\"m18.84 12.25 1.72-1.71h-.02a5.004 5.004 0 0 0-.12-7.07 5.006 5.006 0 0 0-6.95 0l-1.72 1.71\"></path><path d=\"m5.17 11.75-1.71 1.71a5.004 5.004 0 0 0 .12 7.07 5.006 5.006 0 0 0 6.95 0l1.71-1.71\"></path><line x1=\"8\" x2=\"8\" y1=\"2\" y2=\"5\"></line><line x1=\"2\" x2=\"5\" y1=\"8\" y2=\"8\"></line><line x1=\"16\" x2=\"16\" y1=\"19\" y2=\"22\"></line><line x1=\"19\" x2=\"22\" y1=\"16\" y2=\"16\"></line>",
+        "shield-off": "<path d=\"m2 2 20 20\"></path><path d=\"M5 5a1 1 0 0 0-1 1v7c0 5 3.5 7.5 7.67 8.94a1 1 0 0 0 .67.01c2.35-.82 4.48-1.97 5.9-3.71\"></path><path d=\"M9.309 3.652A12.252 12.252 0 0 0 11.24 2.28a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1v7a9.784 9.784 0 0 1-.08 1.264\"></path>",
+        "history": "<path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"></path><path d=\"M3 3v5h5\"></path><path d=\"M12 7v5l4 2\"></path>",
+        "trending-down": "<polyline points=\"22 17 13.5 8.5 8.5 13.5 2 7\"></polyline><polyline points=\"16 17 22 17 22 11\"></polyline>",
+        "hourglass": "<path d=\"M5 22h14\"></path><path d=\"M5 2h14\"></path><path d=\"M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22\"></path><path d=\"M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2\"></path>",
+        "chevron-right": "<path d=\"m9 18 6-6-6-6\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 16,
+        ".elevated-card": 0,
+        ".fl-spark": 16,
+        ".fl-funnel": 0,
+        ".fl-list": 0,
+        ".fl-node": 0,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 0,
+          "y": 96,
+          "width": 256,
+          "height": 752
+        },
+        "firstRow": {
+          "x": 268,
+          "y": 91,
+          "width": 1150,
+          "height": 57
+        },
+        "firstCard": null
+      },
+      "scrollNodes": [
+        {
+          "className": "fl-scroll",
+          "clientHeight": 848,
+          "scrollHeight": 1171
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n变化时间线\n统计\n项目\n全部项目\n24\npayments-gateway\n9\nweb-console\n11\ninfra-scripts\n4\n数据源\nclaude-code 2.15.0\n99.2%\ncodex 0.48.0\n96.1%\ndsh 0.9.4\n88.4%\nL\n本地模式\n资产\n24 个 · 4 需要注意 · 5 几乎未使用\n资产变更\n环境变化\n恢复使用\n需要注意\n4\n不再被使用\nskills/sql-migrations\nSkill · payments-gateway · 8月2日\n7\n/10\n0\n/8\n引用失效\nhooks/migration-guard.sh\nHook · payments-gateway · 8月16日\n5\n/11\n5\n/11\n调用后未遵循\nrules/no-force-push.md\nRule · 全局 · 8月18日\n12\n/12\n4\n/8\n不再被使用\nskills/test-conventions\nSkill · web-console · 7月28日\n历史回测\n6\n/11\n0\n/9\n观察中\n2\n使用减少\nskills/api-error-shape\nSkill · payments-gateway · 8月17日\n8\n/10\n3\n/10\n待验证\nskills/gocache-fix\nSkill · payments-gateway · 改于 8月18日\n4\n/10\n0\n/3\n正常\n10\n正常\npayments-gateway/CLAUDE.md\nInstructions · payments-gateway · 今天 09:14\n41\n/41\n12\n/12\n正常\npayments-gateway/AGENTS.md\nInstructions · Codex · 昨天 16:22\n13\n/13\n6\n/6\n正常\nskills/commit-style\nSkill · 全局 · 今天 11:03\n17\n/20\n9\n/10\n正常\nskills/sql-review\nSkill · payments-gateway · 8月17日\n11\n/20\n6\n/10\n正常\nskills/deploy-checklist\nSkill · infra-scripts · 8月15日\n4\n/12\n2\n/6\n正常\nskills/go-error-wrap\nSkill · payments-gateway · 今天 09:41\n13\n/20\n7\n/10\n正常\nrules/react-hooks-rules.md\nRule · web-console · 今天 11:03\n18\n/19\n10\n/10\n正常\nweb-console/CLAUDE.md\nInstructions · web-console · 今天 11:03\n22\n/22\n8\n/8\n正常\nskills/tsx-conventions\nSkill · web-console · 昨天17:20\n15\n/20\n8\n/10\n正常\nhooks/terraform-fmt.sh\nHook · infra-scripts · 8月15日\n6\n/14\n3\n/6\n几乎未使用\n5\n描述合计约占每次会话 1.4k token\n整理\n无同类任务 · 无使用数据 · 已归档\n3"
+    },
+    {
+      "label": "sessions",
+      "source": "prototype",
+      "theme": "dark",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#fefefd",
+        "--foreground": "oklch(0.2686 0 0)",
+        "--card": "oklch(1 0 0)",
+        "--primary": "#339cff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "oklch(0.9596 0.0275 251)",
+        "--secondary-foreground": "oklch(0.2868 0.0649 251)",
+        "--muted": "oklch(0.9702 0 0)",
+        "--muted-foreground": "oklch(0.5486 0 0)",
+        "--accent": "#ececec",
+        "--accent-foreground": "#262626",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#c99d00",
+        "--border": "oklch(0.9208 0.0101 251)",
+        "--input": "oklch(0.9208 0.0101 251)",
+        "--ring": "#262626",
+        "--control-accent": "#339cff",
+        "--verified": "#17b88b",
+        "--sidebar": "#ffffff",
+        "--sidebar-foreground": "oklch(0.1281 0.0179 251)",
+        "--sidebar-accent": "#ececec",
+        "--sidebar-border": "#f2f2f2",
+        "--nav-fg": "#383835",
+        "--nav-fg-muted": "#858279",
+        "--nav-surface-hover": "#f0f0f0",
+        "--nav-icon-idle": "#8f8f8f",
+        "--panel-surface": "#fefefd",
+        "--panel-surface-fg-muted": "#777779",
+        "--panel-input-surface": "#f5f5f5",
+        "--panel-surface-hover": "#ebebeb",
+        "--panel-slider-fg": "#9a9a9c",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "chart-column",
+        "chevron-up",
+        "folder",
+        "git-commit-horizontal",
+        "layers",
+        "package",
+        "search",
+        "slash"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "slash": "<path d=\"M22 2 2 22\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 6,
+        ".elevated-card": 0,
+        ".fl-spark": 0,
+        ".fl-funnel": 0,
+        ".fl-list": 0,
+        ".fl-node": 0,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 0,
+          "y": 96,
+          "width": 255,
+          "height": 752
+        },
+        "firstRow": {
+          "x": 268,
+          "y": 56,
+          "width": 1160,
+          "height": 59.921875
+        },
+        "firstCard": null
+      },
+      "scrollNodes": [],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n变化时间线\n统计\n项目\n全部项目\n24\npayments-gateway\n9\nweb-console\n11\ninfra-scripts\n4\n数据源\nclaude-code 2.15.0\n99.2%\ncodex 0.48.0\n96.1%\ndsh 0.9.4\n88.4%\nL\n本地模式\n会话\n全部项目\n6 / 6 个会话\n给 payments 表加 settled_at 字段\n恢复使用\npayments-gateway · 今天 14:32 · s-8f3c1d\n3 个资产被使用\n2m51s\n重写 toast 队列的去重逻辑\nweb-console · 今天 11:03 · s-c0d94a\n2 个资产被使用\n1h12m\n接入 Stripe webhook 重放校验\nsql-migrations 未调用\npayments-gateway · 8 月 16 日 · s-2b7106\n1 个资产被使用\n28m\n为 payments 建 status 复合索引\nsql-migrations 未调用\npayments-gateway · 8 月 17 日 · s-45f28b\n2 个资产被使用\n52m\n修复 toast 堆叠时的层级错乱\nweb-console · 8 月 12 日 · s-9e10f7\n1 个资产被使用\n34m\n整理部署脚本的环境变量\ninfra-scripts · 8 月 15 日 · s-77ae03\n无使用数据\n19m"
+    },
+    {
+      "label": "sessionDetail",
+      "source": "prototype",
+      "theme": "dark",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#fefefd",
+        "--foreground": "oklch(0.2686 0 0)",
+        "--card": "oklch(1 0 0)",
+        "--primary": "#339cff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "oklch(0.9596 0.0275 251)",
+        "--secondary-foreground": "oklch(0.2868 0.0649 251)",
+        "--muted": "oklch(0.9702 0 0)",
+        "--muted-foreground": "oklch(0.5486 0 0)",
+        "--accent": "#ececec",
+        "--accent-foreground": "#262626",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#c99d00",
+        "--border": "oklch(0.9208 0.0101 251)",
+        "--input": "oklch(0.9208 0.0101 251)",
+        "--ring": "#262626",
+        "--control-accent": "#339cff",
+        "--verified": "#17b88b",
+        "--sidebar": "#ffffff",
+        "--sidebar-foreground": "oklch(0.1281 0.0179 251)",
+        "--sidebar-accent": "#ececec",
+        "--sidebar-border": "#f2f2f2",
+        "--nav-fg": "#383835",
+        "--nav-fg-muted": "#858279",
+        "--nav-surface-hover": "#f0f0f0",
+        "--nav-icon-idle": "#8f8f8f",
+        "--panel-surface": "#fefefd",
+        "--panel-surface-fg-muted": "#777779",
+        "--panel-input-surface": "#f5f5f5",
+        "--panel-surface-hover": "#ebebeb",
+        "--panel-slider-fg": "#9a9a9c",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "arrow-left",
+        "arrow-right",
+        "chart-column",
+        "chevron-up",
+        "clock",
+        "folder",
+        "git-commit-horizontal",
+        "layers",
+        "list-collapse",
+        "package",
+        "rows-2",
+        "search"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "arrow-left": "<path d=\"m12 19-7-7 7-7\"></path><path d=\"M19 12H5\"></path>",
+        "clock": "<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><polyline points=\"12 6 12 12 16 14\"></polyline>",
+        "rows-2": "<rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"></rect><path d=\"M3 12h18\"></path>",
+        "list-collapse": "<path d=\"m3 10 2.5-2.5L3 5\"></path><path d=\"m3 19 2.5-2.5L3 14\"></path><path d=\"M10 6h11\"></path><path d=\"M10 12h11\"></path><path d=\"M10 18h11\"></path>",
+        "arrow-right": "<path d=\"M5 12h14\"></path><path d=\"m12 5 7 7-7 7\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 0,
+        ".elevated-card": 0,
+        ".fl-spark": 0,
+        ".fl-funnel": 0,
+        ".fl-list": 2,
+        ".fl-node": 0,
+        ".fl-tbtn": 3,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 0,
+          "y": 96,
+          "width": 255,
+          "height": 752
+        },
+        "firstRow": null,
+        "firstCard": null
+      },
+      "scrollNodes": [
+        {
+          "className": "fl-scroll",
+          "clientHeight": 642,
+          "scrollHeight": 932
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n变化时间线\n统计\n项目\n全部项目\n24\npayments-gateway\n9\nweb-console\n11\ninfra-scripts\n4\n数据源\nclaude-code 2.15.0\n99.2%\ncodex 0.48.0\n96.1%\ndsh 0.9.4\n88.4%\nL\n本地模式\n会话\ns-8f3c1d · payments-gateway\nsql-migrations 恢复使用\n任务\n给 payments 表加 settled_at 字段，跑通迁移和 store 层的测试\n轨迹\n对话\n总览\n实际耗时 · 2m51s\n21 条记录 · 4 轮\nInput\nModel\nTools\nDuration\nTurns\nCalls\n第 1 轮\n9 条\n#1\n系统\nsystem prompt · 6 sections · 3,204 tok\n—\n#2\n上下文\nCLAUDE.md v9 注入 · 4,812 tok\n参与\n—\n#3\n上下文\nskill catalog · Claude Code 不记录候选清单\n—\n#4\n用户\n给 payments 表加 settled_at 字段，跑通迁移和 store 层的测试\n—\n#5\n消息\n先确认现有迁移目录的约定\n42\n8.1k\n42\n180\n8.4s\n#6\n工具\nGlob internal/store/migrations/*.sql\n0001_init.up.sql 0006_add_refunds.up.sql 0007_idx_payments_status.up.sql\n1.2s\n#7\n消息\n目录里已有 7 条迁移，命名沿用 seq 前缀\n88\n8.4k\n88\n1.2k\n11.0s\n#8\n工具\nSkill(sql-migrations) id=toolu_01H9xKq2\n已加载 SKILL.md v5 · 2,140 tok\n恢复使用\n0.90s\n#9\n消息\n已加载 sql-migrations。按约定先用 migrate create 生成迁移对\n96\n8.6k\n96\n420\n9.5s\n第 2 轮\n5 条\n#10\n工具\nmigrate create -ext sql -dir internal/store/migrations -seq add_settled_at\n0008_add_settled_at.up.sql 0008_add_settled_at.down.sql\n2.4s\n#11\n工具\npython tools/check_migrations.py\n8 files checked · sequence contiguous · all pairs present\n遵循\n5.1s\n#12\n消息\n校验通过。补 up/down 两侧的 SQL\n212\n9.4k\n212\n1.9k\n12.5s\n#13\n工具\nEdit internal/store/migrations/0008_add_settled_at.up.sql\n+3 −0\n1.8s\n#14\n工具\nEdit internal/store/migrations/0008_add_settled_at.down.sql\n+2 −0\n1.5s\n第 3 轮\n3 条\n#15\n压缩\ncompaction · 42 → 11 条消息 · 回收 38.2k tok\n4.2s\n#16\n工具\ngo test -tags fts5 ./internal/store/...\nok github.com/acme/payments-gateway/internal/store 41.0s\n41.0s\n#17\n消息\nstore 层测试通过，未发现违背 SKILL.md 的操作\n148\n10.6k\n148\n860\n1"
+    },
+    {
+      "label": "timeline",
+      "source": "prototype",
+      "theme": "dark",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#fefefd",
+        "--foreground": "oklch(0.2686 0 0)",
+        "--card": "oklch(1 0 0)",
+        "--primary": "#339cff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "oklch(0.9596 0.0275 251)",
+        "--secondary-foreground": "oklch(0.2868 0.0649 251)",
+        "--muted": "oklch(0.9702 0 0)",
+        "--muted-foreground": "oklch(0.5486 0 0)",
+        "--accent": "#ececec",
+        "--accent-foreground": "#262626",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#c99d00",
+        "--border": "oklch(0.9208 0.0101 251)",
+        "--input": "oklch(0.9208 0.0101 251)",
+        "--ring": "#262626",
+        "--control-accent": "#339cff",
+        "--verified": "#17b88b",
+        "--sidebar": "#ffffff",
+        "--sidebar-foreground": "oklch(0.1281 0.0179 251)",
+        "--sidebar-accent": "#ececec",
+        "--sidebar-border": "#f2f2f2",
+        "--nav-fg": "#383835",
+        "--nav-fg-muted": "#858279",
+        "--nav-surface-hover": "#f0f0f0",
+        "--nav-icon-idle": "#8f8f8f",
+        "--panel-surface": "#fefefd",
+        "--panel-surface-fg-muted": "#777779",
+        "--panel-input-surface": "#f5f5f5",
+        "--panel-surface-hover": "#ebebeb",
+        "--panel-slider-fg": "#9a9a9c",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "camera",
+        "chart-column",
+        "chevron-up",
+        "cpu",
+        "file-diff",
+        "folder",
+        "git-commit-horizontal",
+        "layers",
+        "package",
+        "power-off",
+        "search",
+        "shield-off",
+        "unlink",
+        "volume-x"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "file-diff": "<path d=\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z\"></path><path d=\"M9 10h6\"></path><path d=\"M12 13V7\"></path><path d=\"M9 17h6\"></path>",
+        "unlink": "<path d=\"m18.84 12.25 1.72-1.71h-.02a5.004 5.004 0 0 0-.12-7.07 5.006 5.006 0 0 0-6.95 0l-1.72 1.71\"></path><path d=\"m5.17 11.75-1.71 1.71a5.004 5.004 0 0 0 .12 7.07 5.006 5.006 0 0 0 6.95 0l1.71-1.71\"></path><line x1=\"8\" x2=\"8\" y1=\"2\" y2=\"5\"></line><line x1=\"2\" x2=\"5\" y1=\"8\" y2=\"8\"></line><line x1=\"16\" x2=\"16\" y1=\"19\" y2=\"22\"></line><line x1=\"19\" x2=\"22\" y1=\"16\" y2=\"16\"></line>",
+        "shield-off": "<path d=\"m2 2 20 20\"></path><path d=\"M5 5a1 1 0 0 0-1 1v7c0 5 3.5 7.5 7.67 8.94a1 1 0 0 0 .67.01c2.35-.82 4.48-1.97 5.9-3.71\"></path><path d=\"M9.309 3.652A12.252 12.252 0 0 0 11.24 2.28a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1v7a9.784 9.784 0 0 1-.08 1.264\"></path>",
+        "volume-x": "<polygon points=\"11 5 6 9 2 9 2 15 6 15 11 19 11 5\"></polygon><line x1=\"22\" x2=\"16\" y1=\"9\" y2=\"15\"></line><line x1=\"16\" x2=\"22\" y1=\"9\" y2=\"15\"></line>",
+        "power-off": "<path d=\"M18.36 6.64A9 9 0 0 1 20.77 15\"></path><path d=\"M6.16 6.16a9 9 0 1 0 12.68 12.68\"></path><path d=\"M12 2v4\"></path><path d=\"m2 2 20 20\"></path>",
+        "cpu": "<rect width=\"16\" height=\"16\" x=\"4\" y=\"4\" rx=\"2\"></rect><rect width=\"6\" height=\"6\" x=\"9\" y=\"9\" rx=\"1\"></rect><path d=\"M15 2v2\"></path><path d=\"M15 20v2\"></path><path d=\"M2 15h2\"></path><path d=\"M2 9h2\"></path><path d=\"M20 15h2\"></path><path d=\"M20 9h2\"></path><path d=\"M9 2v2\"></path><path d=\"M9 20v2\"></path>",
+        "camera": "<path d=\"M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z\"></path><circle cx=\"12\" cy=\"13\" r=\"3\"></circle>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 0,
+        ".elevated-card": 0,
+        ".fl-spark": 0,
+        ".fl-funnel": 0,
+        ".fl-list": 0,
+        ".fl-node": 9,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 0,
+          "y": 96,
+          "width": 255,
+          "height": 752
+        },
+        "firstRow": null,
+        "firstCard": null
+      },
+      "scrollNodes": [
+        {
+          "className": "fl-scroll",
+          "clientHeight": 848,
+          "scrollHeight": 922
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n变化时间线\n统计\n项目\n全部项目\n24\npayments-gateway\n9\nweb-console\n11\ninfra-scripts\n4\n数据源\nclaude-code 2.15.0\n99.2%\ncodex 0.48.0\n96.1%\ndsh 0.9.4\n88.4%\nL\n本地模式\n变化时间线\n9 条 · 近 12 週\n全部\n状态迁移\n资产变更\n环境变化\n08-19 14:32\n状态迁移\n正常\nsql-migrations 已恢复使用：修改后首次被调用，未发现违背。\n会话 s-8f3c1d · 1 / 1 次同类任务\n查看那次调用\n08-18 10:20\n资产变更\nsql-migrations v5：校验脚本路径更新为 tools/check_migrations.py。\n用户修改\n08-18 09:02\n资产变更\ngocache-fix v3：构建缓存目录改为项目内路径。\n用户修改\n08-14 11:40\n状态迁移\n引用失效\nmigration-guard 引用失效：引用体检发现 hooks 目录下的 psql 包装脚本缺失。\n引用体检 · 4 项中 1 项失败\n08-12 16:05\n状态迁移\n调用后未遵循\nno-force-push 调用后未遵循：显式调用后仍执行 git push --force。\n12/12 → 4/8 次同类任务中被遵循\n升级后 5 天内 3 个资产先后不再被调用：sql-migrations、test-conventions、api-error-shape\n08-05 09:12\n状态迁移\n不再被使用\nsql-migrations 不再被使用：此前 10 次同类任务中 7 次被调用；最近 8 次 0 次。\n起点前 2 天：Claude Code 升级 2.14.0\n打开诊断页\n08-04 15:30\n资产变更\n新增 skills/sql-review，与 sql-migrations 描述相似度 0.71。\n外部变化\n08-03 08:47\n环境变化\nClaude Code 升级 2.13.4 → 2.14.0。\n参照窗口锚点\n07-28 12:00\n环境变化\nAsset Snapshotter 安装\n此前的判定标记为历史回测"
+    },
+    {
+      "label": "stats",
+      "source": "prototype",
+      "theme": "dark",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#fefefd",
+        "--foreground": "oklch(0.2686 0 0)",
+        "--card": "oklch(1 0 0)",
+        "--primary": "#339cff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "oklch(0.9596 0.0275 251)",
+        "--secondary-foreground": "oklch(0.2868 0.0649 251)",
+        "--muted": "oklch(0.9702 0 0)",
+        "--muted-foreground": "oklch(0.5486 0 0)",
+        "--accent": "#ececec",
+        "--accent-foreground": "#262626",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#c99d00",
+        "--border": "oklch(0.9208 0.0101 251)",
+        "--input": "oklch(0.9208 0.0101 251)",
+        "--ring": "#262626",
+        "--control-accent": "#339cff",
+        "--verified": "#17b88b",
+        "--sidebar": "#ffffff",
+        "--sidebar-foreground": "oklch(0.1281 0.0179 251)",
+        "--sidebar-accent": "#ececec",
+        "--sidebar-border": "#f2f2f2",
+        "--nav-fg": "#383835",
+        "--nav-fg-muted": "#858279",
+        "--nav-surface-hover": "#f0f0f0",
+        "--nav-icon-idle": "#8f8f8f",
+        "--panel-surface": "#fefefd",
+        "--panel-surface-fg-muted": "#777779",
+        "--panel-input-surface": "#f5f5f5",
+        "--panel-surface-hover": "#ebebeb",
+        "--panel-slider-fg": "#9a9a9c",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "archive",
+        "chart-column",
+        "chevron-up",
+        "circle-slash",
+        "eye-off",
+        "folder",
+        "git-commit-horizontal",
+        "hash",
+        "hourglass",
+        "layers",
+        "package",
+        "package-open",
+        "power-off",
+        "search",
+        "shield-off",
+        "trending-down",
+        "triangle-alert",
+        "unlink",
+        "wallet"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "triangle-alert": "<path d=\"m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3\"></path><path d=\"M12 9v4\"></path><path d=\"M12 17h.01\"></path>",
+        "package-open": "<path d=\"M12 22v-9\"></path><path d=\"M15.17 2.21a1.67 1.67 0 0 1 1.63 0L21 4.57a1.93 1.93 0 0 1 0 3.36L8.82 14.79a1.655 1.655 0 0 1-1.64 0L3 12.43a1.93 1.93 0 0 1 0-3.36z\"></path><path d=\"M20 13v3.87a2.06 2.06 0 0 1-1.11 1.83l-6 3.08a1.93 1.93 0 0 1-1.78 0l-6-3.08A2.06 2.06 0 0 1 4 16.87V13\"></path><path d=\"M21 12.43a1.93 1.93 0 0 0 0-3.36L8.83 2.2a1.64 1.64 0 0 0-1.63 0L3 4.57a1.93 1.93 0 0 0 0 3.36l12.18 6.86a1.636 1.636 0 0 0 1.63 0z\"></path>",
+        "wallet": "<path d=\"M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1\"></path><path d=\"M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4\"></path>",
+        "hash": "<line x1=\"4\" x2=\"20\" y1=\"9\" y2=\"9\"></line><line x1=\"4\" x2=\"20\" y1=\"15\" y2=\"15\"></line><line x1=\"10\" x2=\"8\" y1=\"3\" y2=\"21\"></line><line x1=\"16\" x2=\"14\" y1=\"3\" y2=\"21\"></line>",
+        "trending-down": "<polyline points=\"22 17 13.5 8.5 8.5 13.5 2 7\"></polyline><polyline points=\"16 17 22 17 22 11\"></polyline>",
+        "power-off": "<path d=\"M18.36 6.64A9 9 0 0 1 20.77 15\"></path><path d=\"M6.16 6.16a9 9 0 1 0 12.68 12.68\"></path><path d=\"M12 2v4\"></path><path d=\"m2 2 20 20\"></path>",
+        "unlink": "<path d=\"m18.84 12.25 1.72-1.71h-.02a5.004 5.004 0 0 0-.12-7.07 5.006 5.006 0 0 0-6.95 0l-1.72 1.71\"></path><path d=\"m5.17 11.75-1.71 1.71a5.004 5.004 0 0 0 .12 7.07 5.006 5.006 0 0 0 6.95 0l1.71-1.71\"></path><line x1=\"8\" x2=\"8\" y1=\"2\" y2=\"5\"></line><line x1=\"2\" x2=\"5\" y1=\"8\" y2=\"8\"></line><line x1=\"16\" x2=\"16\" y1=\"19\" y2=\"22\"></line><line x1=\"19\" x2=\"22\" y1=\"16\" y2=\"16\"></line>",
+        "shield-off": "<path d=\"m2 2 20 20\"></path><path d=\"M5 5a1 1 0 0 0-1 1v7c0 5 3.5 7.5 7.67 8.94a1 1 0 0 0 .67.01c2.35-.82 4.48-1.97 5.9-3.71\"></path><path d=\"M9.309 3.652A12.252 12.252 0 0 0 11.24 2.28a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1v7a9.784 9.784 0 0 1-.08 1.264\"></path>",
+        "hourglass": "<path d=\"M5 22h14\"></path><path d=\"M5 2h14\"></path><path d=\"M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22\"></path><path d=\"M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2\"></path>",
+        "circle-slash": "<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"9\" x2=\"15\" y1=\"15\" y2=\"9\"></line>",
+        "eye-off": "<path d=\"M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49\"></path><path d=\"M14.084 14.158a3 3 0 0 1-4.242-4.242\"></path><path d=\"M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143\"></path><path d=\"m2 2 20 20\"></path>",
+        "archive": "<rect width=\"20\" height=\"5\" x=\"2\" y=\"3\" rx=\"1\"></rect><path d=\"M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8\"></path><path d=\"M10 12h4\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 0,
+        ".elevated-card": 6,
+        ".fl-spark": 0,
+        ".fl-funnel": 0,
+        ".fl-list": 3,
+        ".fl-node": 0,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 0,
+          "y": 96,
+          "width": 255,
+          "height": 752
+        },
+        "firstRow": null,
+        "firstCard": {
+          "x": 272,
+          "y": 56,
+          "width": 1142,
+          "height": 87
+        }
+      },
+      "scrollNodes": [
+        {
+          "className": "fl-scroll",
+          "clientHeight": 848,
+          "scrollHeight": 1081
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n变化时间线\n统计\n项目\n全部项目\n24\npayments-gateway\n9\nweb-console\n11\ninfra-scripts\n4\n数据源\nclaude-code 2.15.0\n99.2%\ncodex 0.48.0\n96.1%\ndsh 0.9.4\n88.4%\nL\n本地模式\n统计\n近 30 天\n导出\n资产\n24\n会话\n41\n需要注意\n4\n几乎未使用\n5\n成本\n$38.42\nToken 数\n12.4M\n活动\n近 52 週 · 每格一天\n2025-08\n少\n多\n2026-08\n状态分布\n24 个资产\n正常\n10\n使用减少\n1\n不再被使用\n2\n引用失效\n1\n调用后未遵循\n1\n待验证\n1\n几乎未使用\n5\n无同类任务\n1\n无使用数据\n1\n已归档\n1\n数据源\n41 个会话\nclaude-code 2.15.0\n26\n99.2%\ncodex 0.48.0\n11\n96.1%\ndsh 0.9.4\n4\n88.4%\n每日成本\n$38.42 · 14 天\n08-04\n08-17\n上下文开销\n每次会话\nCLAUDE.md\nv9\n4,812\n$0.59\nsql-migrations\nv4\n2,140\n$0.12\nAGENTS.md\nv3\n1,760\n$0.06\nrelease-notes\nv2\n未使用\n420\n$0.00"
+    },
+    {
+      "label": "assetDetail",
+      "source": "prototype",
+      "theme": "dark",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#fefefd",
+        "--foreground": "oklch(0.2686 0 0)",
+        "--card": "oklch(1 0 0)",
+        "--primary": "#339cff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "oklch(0.9596 0.0275 251)",
+        "--secondary-foreground": "oklch(0.2868 0.0649 251)",
+        "--muted": "oklch(0.9702 0 0)",
+        "--muted-foreground": "oklch(0.5486 0 0)",
+        "--accent": "#ececec",
+        "--accent-foreground": "#262626",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#c99d00",
+        "--border": "oklch(0.9208 0.0101 251)",
+        "--input": "oklch(0.9208 0.0101 251)",
+        "--ring": "#262626",
+        "--control-accent": "#339cff",
+        "--verified": "#17b88b",
+        "--sidebar": "#ffffff",
+        "--sidebar-foreground": "oklch(0.1281 0.0179 251)",
+        "--sidebar-accent": "#ececec",
+        "--sidebar-border": "#f2f2f2",
+        "--nav-fg": "#383835",
+        "--nav-fg-muted": "#858279",
+        "--nav-surface-hover": "#f0f0f0",
+        "--nav-icon-idle": "#8f8f8f",
+        "--panel-surface": "#fefefd",
+        "--panel-surface-fg-muted": "#777779",
+        "--panel-input-surface": "#f5f5f5",
+        "--panel-surface-hover": "#ebebeb",
+        "--panel-slider-fg": "#9a9a9c",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "archive",
+        "arrow-left",
+        "arrow-right",
+        "bell-off",
+        "book-open",
+        "calendar",
+        "chart-column",
+        "check",
+        "chevron-up",
+        "cpu",
+        "eye-off",
+        "file-diff",
+        "folder",
+        "git-commit-horizontal",
+        "history",
+        "layers",
+        "package",
+        "power-off",
+        "search",
+        "slash",
+        "unlink"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "arrow-left": "<path d=\"m12 19-7-7 7-7\"></path><path d=\"M19 12H5\"></path>",
+        "book-open": "<path d=\"M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z\"></path><path d=\"M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z\"></path>",
+        "power-off": "<path d=\"M18.36 6.64A9 9 0 0 1 20.77 15\"></path><path d=\"M6.16 6.16a9 9 0 1 0 12.68 12.68\"></path><path d=\"M12 2v4\"></path><path d=\"m2 2 20 20\"></path>",
+        "history": "<path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"></path><path d=\"M3 3v5h5\"></path><path d=\"M12 7v5l4 2\"></path>",
+        "arrow-right": "<path d=\"M5 12h14\"></path><path d=\"m12 5 7 7-7 7\"></path>",
+        "calendar": "<path d=\"M8 2v4\"></path><path d=\"M16 2v4\"></path><rect width=\"18\" height=\"18\" x=\"3\" y=\"4\" rx=\"2\"></rect><path d=\"M3 10h18\"></path>",
+        "cpu": "<rect width=\"16\" height=\"16\" x=\"4\" y=\"4\" rx=\"2\"></rect><rect width=\"6\" height=\"6\" x=\"9\" y=\"9\" rx=\"1\"></rect><path d=\"M15 2v2\"></path><path d=\"M15 20v2\"></path><path d=\"M2 15h2\"></path><path d=\"M2 9h2\"></path><path d=\"M20 15h2\"></path><path d=\"M20 9h2\"></path><path d=\"M9 2v2\"></path><path d=\"M9 20v2\"></path>",
+        "file-diff": "<path d=\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z\"></path><path d=\"M9 10h6\"></path><path d=\"M12 13V7\"></path><path d=\"M9 17h6\"></path>",
+        "slash": "<path d=\"M22 2 2 22\"></path>",
+        "unlink": "<path d=\"m18.84 12.25 1.72-1.71h-.02a5.004 5.004 0 0 0-.12-7.07 5.006 5.006 0 0 0-6.95 0l-1.72 1.71\"></path><path d=\"m5.17 11.75-1.71 1.71a5.004 5.004 0 0 0 .12 7.07 5.006 5.006 0 0 0 6.95 0l1.71-1.71\"></path><line x1=\"8\" x2=\"8\" y1=\"2\" y2=\"5\"></line><line x1=\"2\" x2=\"5\" y1=\"8\" y2=\"8\"></line><line x1=\"16\" x2=\"16\" y1=\"19\" y2=\"22\"></line><line x1=\"19\" x2=\"22\" y1=\"16\" y2=\"16\"></line>",
+        "check": "<path d=\"M20 6 9 17l-5-5\"></path>",
+        "archive": "<rect width=\"20\" height=\"5\" x=\"2\" y=\"3\" rx=\"1\"></rect><path d=\"M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8\"></path><path d=\"M10 12h4\"></path>",
+        "bell-off": "<path d=\"M8.7 3A6 6 0 0 1 18 8a21.3 21.3 0 0 0 .6 5\"></path><path d=\"M17 17H3s3-2 3-9a4.67 4.67 0 0 1 .3-1.7\"></path><path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\"></path><path d=\"m2 2 20 20\"></path>",
+        "eye-off": "<path d=\"M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49\"></path><path d=\"M14.084 14.158a3 3 0 0 1-4.242-4.242\"></path><path d=\"M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143\"></path><path d=\"m2 2 20 20\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 0,
+        ".elevated-card": 7,
+        ".fl-spark": 1,
+        ".fl-funnel": 1,
+        ".fl-list": 5,
+        ".fl-node": 0,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 0,
+          "y": 96,
+          "width": 255,
+          "height": 752
+        },
+        "firstRow": null,
+        "firstCard": {
+          "x": 272,
+          "y": 102,
+          "width": 790,
+          "height": 292.984375
+        }
+      },
+      "scrollNodes": [
+        {
+          "className": "fl-scroll",
+          "clientHeight": 802,
+          "scrollHeight": 1437
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n变化时间线\n统计\n项目\n全部项目\n24\npayments-gateway\n9\nweb-console\n11\ninfra-scripts\n4\n数据源\nclaude-code 2.15.0\n99.2%\ncodex 0.48.0\n96.1%\ndsh 0.9.4\n88.4%\nL\n本地模式\nskills/sql-migrations\nSkill · payments-gateway · v4\n不再被使用\n在编辑器中打开\n诊断\n原文\n版本\n处置历史\n判定依据\n直接观测\n7 / 10\n基线参与 · 06-18 → 08-02\n0 / 8\n近期参与 · 08-05 → 08-19\n8 月 5 日\n状态起点\n2026-05-27\n资产变更\n环境变化\n2026-08-19\n起点前后对齐\n起点 8 月 5 日 ± 3 天\n08-03\n环境变化\nClaude Code 升级 2.13.4 → 2.14.0\n起点前 2 天\n08-04\n资产变更\n同目录新增 skills/sql-review，描述与本资产相似度 0.71\n起点前 1 天\n08-06\n环境变化\n默认模型 claude-sonnet-4-5 → claude-sonnet-4-6\n起点后 1 天\n候选原因\n按证据强度排序 · 4 条\n强\n引用腐烂：迁移脚本路径已改名\n直接观测\n证据：SKILL.md 第 12 行引用 scripts/check_migrations.py，该路径于 8 月 4 日随目录重命名为 tools/check_migrations.py，本机不存在。引用体检 4 项中 1 项失败。\n查看体检结果\n中\n描述拥挤：新增相似资产\n规则推导\n证据：8 月 4 日新增 skills/sql-review，两者描述向量相似度 0.71（阈值 0.65）。此后 8 次同类任务中 sql-review 被调用 5 次，本资产 0 次。\n对比两份描述\n弱\n环境变化对齐：Claude Code 2.14.0\n推断\n证据：状态起点在升级后 2 天内。同期另有 2 个资产在该锚点后 5 天内先后不再被调用。\n在时间线中查看\n—\n未知原因（无支持证据）\n未记录\n证据：无。同类任务仍在正常出现（8 次），任务形状未变，模型切换与状态起点相隔 1 天但方向不明。\n参与漏斗\n基线 → 现在\n候选\n未记录\nClaude Code 不记录\n加载\n推断\n0 / 8\n基线 7 / 10\n调用\n直接观测\n0 / 8\n基线 7 / 10\n遵循\n直接观测\n无调用点\n引用体检\n4 项 · 1 项失败\ntools/check_migrations.py\nSKILL.md 第 12 行引用为 scripts/check_migrations.py；该目录已于 8 月 4 日重命名。\n缺失\nmigrate\n存在\npsql\n存在\ninternal/store/migrations/\n存在\n处置\n在编辑器中打开\n归档\n停止监测\n忽略此状态\n类型\nSkill · 项目作用域\n当前版本\nv4 · 3f0ab7e1\n状态起点\n8 月 5 日（14 天前）\n判定阈值\n连续 8 次同类任务零使用 · 阈值版本 v2\n关联会话\n最近 3 次同类任务\n为 payments 建 status 复合索引\ns-45f28b · 08-17\n本该用到，未调用\n接入 Stripe webhook 重放校验\ns-2b7106 · 08-16\n本该用到，未调用\n补 refunds 表的 down 迁移\ns-1a6355 · 08-11\n改用了 sql-review"
+    }
+  ],
+  "current": [
+    {
+      "label": "wall",
+      "source": "current",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#fefefd",
+        "--foreground": "oklch(0.2686 0 0)",
+        "--card": "oklch(1 0 0)",
+        "--primary": "#339cff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "oklch(0.9596 0.0275 251)",
+        "--secondary-foreground": "oklch(0.2868 0.0649 251)",
+        "--muted": "oklch(0.9702 0 0)",
+        "--muted-foreground": "oklch(0.5486 0 0)",
+        "--accent": "#ececec",
+        "--accent-foreground": "#262626",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#c99d00",
+        "--border": "oklch(0.9208 0.0101 251)",
+        "--input": "oklch(0.9208 0.0101 251)",
+        "--ring": "#262626",
+        "--control-accent": "#339cff",
+        "--verified": "#17b88b",
+        "--sidebar": "#ffffff",
+        "--sidebar-foreground": "oklch(0.1281 0.0179 251)",
+        "--sidebar-accent": "#ececec",
+        "--sidebar-border": "#f2f2f2",
+        "--nav-fg": "#383835",
+        "--nav-fg-muted": "#858279",
+        "--nav-surface-hover": "#f0f0f0",
+        "--nav-icon-idle": "#8f8f8f",
+        "--panel-surface": "#fefefd",
+        "--panel-surface-fg-muted": "#777779",
+        "--panel-input-surface": "#f5f5f5",
+        "--panel-surface-hover": "#ebebeb",
+        "--panel-slider-fg": "#9a9a9c",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "arrow-right",
+        "chart-column",
+        "chevron-down",
+        "chevron-up",
+        "circle-slash",
+        "folder",
+        "git-commit-horizontal",
+        "layers",
+        "package",
+        "search",
+        "slash"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "arrow-right": "<path d=\"M5 12h14\"></path><path d=\"m12 5 7 7-7 7\"></path>",
+        "chevron-down": "<path d=\"m6 9 6 6 6-6\"></path>",
+        "circle-slash": "<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"9\" x2=\"15\" y1=\"15\" y2=\"9\"></line>",
+        "slash": "<path d=\"M22 2 2 22\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 118,
+        ".elevated-card": 0,
+        ".fl-spark": 118,
+        ".fl-funnel": 0,
+        ".fl-list": 0,
+        ".fl-node": 0,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 256,
+          "y": 52,
+          "width": 1184,
+          "height": 848
+        },
+        "firstRow": {
+          "x": 268,
+          "y": 272,
+          "width": 1150,
+          "height": 61
+        },
+        "firstCard": null
+      },
+      "scrollNodes": [
+        {
+          "className": "screen-scroll",
+          "clientHeight": 848,
+          "scrollHeight": 56530
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n878\n变化时间线\n统计\n项目\n全部项目\n932\n项目级\n5\n用户级\n927\n数据源\nClaude Code\n23 条会话\nCodex\n855 条会话\nL\n本地模式\n数据不离开本机\nEnglish\n深色模式\n资产\n932 个资产 · 0 个需要注意 · 910 个没有相关任务记录或已归档\n资产变更\n环境变化\n恢复使用\n需要注意\n0\n过去 14 天没有状态变化。\n观察中\n0\n当前没有处于观察中的资产。\n正常\n22\n正常\nagents\nAGENTS.md · 项目级 · /home/bot/project/flatline/AGENTS.md\n1/1\n最后参与 8/19 23:37\n正常\nplugins:cache:caveman-repo:caveman:0.1.0:skills:caveman\nSkill · 用户级 · /home/bot/.codex/plugins/cache/caveman-repo/caveman/0.1.0/skills/caveman/SKILL.md\n2/2\n最后参与 4/23 14:10\n正常\nplugins:cache:caveman-repo:caveman:0.1.0:skills:compress\nSkill · 用户级 · /home/bot/.codex/plugins/cache/caveman-repo/caveman/0.1.0/skills/compress/SKILL.md\n1/1\n最后参与 4/23 14:10\n正常\nplugins:marketplaces:claude-plugins-official:plugins:frontend-design:skills:frontend-design\nSkill · 用户级 · /home/bot/.claude/plugins/marketplaces/claude-plugins-official/plugins/frontend-design/skills/frontend-design/SKILL.md\n1/1\n最后参与 7/10 23:16\n正常\nplugins:marketplaces:claude-plugins-official:plugins:hookify:hooks:__init__\nHook · 用户级 · /home/bot/.claude/plugins/marketplaces/claude-plugins-official/plugins/hookify/hooks/__init__.py\n9/9\n8/8\n最后参与 8/20 19:20\n正常\nplugins:marketplaces:claude-plugins-official:plugins:security-guidance:hooks:_base\nHook · 用户级 · /home/bot/.claude/plugins/marketplaces/claude-plugins-official/plugins/security-guidance/hooks/_base.py\n1/1\n最后参与 5/12 20:35\n正常\nplugins:marketplaces:claude-plugins-official:plugins:security-guidance:hooks:llm\nHook · 用户级 · /home/bot/.claude/plugins/marketplaces/claude-plugins-official/plugins/security-guidance/hooks/llm.py\n1/1\n最后参与 8/19 08:45\n正常\nskills:.system:openai-d"
+    },
+    {
+      "label": "sessions",
+      "source": "current",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#fefefd",
+        "--foreground": "oklch(0.2686 0 0)",
+        "--card": "oklch(1 0 0)",
+        "--primary": "#339cff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "oklch(0.9596 0.0275 251)",
+        "--secondary-foreground": "oklch(0.2868 0.0649 251)",
+        "--muted": "oklch(0.9702 0 0)",
+        "--muted-foreground": "oklch(0.5486 0 0)",
+        "--accent": "#ececec",
+        "--accent-foreground": "#262626",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#c99d00",
+        "--border": "oklch(0.9208 0.0101 251)",
+        "--input": "oklch(0.9208 0.0101 251)",
+        "--ring": "#262626",
+        "--control-accent": "#339cff",
+        "--verified": "#17b88b",
+        "--sidebar": "#ffffff",
+        "--sidebar-foreground": "oklch(0.1281 0.0179 251)",
+        "--sidebar-accent": "#ececec",
+        "--sidebar-border": "#f2f2f2",
+        "--nav-fg": "#383835",
+        "--nav-fg-muted": "#858279",
+        "--nav-surface-hover": "#f0f0f0",
+        "--nav-icon-idle": "#8f8f8f",
+        "--panel-surface": "#fefefd",
+        "--panel-surface-fg-muted": "#777779",
+        "--panel-input-surface": "#f5f5f5",
+        "--panel-surface-hover": "#ebebeb",
+        "--panel-slider-fg": "#9a9a9c",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "chart-column",
+        "chevron-up",
+        "folder",
+        "git-commit-horizontal",
+        "layers",
+        "package",
+        "search",
+        "slash"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "slash": "<path d=\"M22 2 2 22\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 120,
+        ".elevated-card": 0,
+        ".fl-spark": 0,
+        ".fl-funnel": 0,
+        ".fl-list": 0,
+        ".fl-node": 0,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 256,
+          "y": 52,
+          "width": 1184,
+          "height": 848
+        },
+        "firstRow": {
+          "x": 268,
+          "y": 101,
+          "width": 1140,
+          "height": 64
+        },
+        "firstCard": null
+      },
+      "scrollNodes": [
+        {
+          "className": "session-list-scroll",
+          "clientHeight": 779,
+          "scrollHeight": 51780
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n878\n变化时间线\n统计\n项目\n全部项目\n932\n项目级\n5\n用户级\n927\n数据源\nClaude Code\n23 条会话\nCodex\n855 条会话\nL\n本地模式\n数据不离开本机\nEnglish\n深色模式\n会话\n浏览与筛选会话\n878 个会话\n重新扫描\n全部 harness\nClaude Code\nCodex\n只看有 transcript 的会话\n最近开始\n事件最多\n我先做一个类似openscreen Screen Studio 这样的一个软件 但是是在鸿蒙系统开发 你帮我起一个应用的名称 最好符合鸿蒙系统的逻辑且比较吸引人，也让人容易理解\n没有相关资产记录\nCodex · /home/bot/project · 8/21 10:17 · codex:01a02214…e6da\n没有资产被使用\n7m49s\n只读架构审查，不修改任何文件，不启动/停止服务。针对当前 /home/bot/project/qwen-sm120-runtime 计划接入 Q8_0 split layout（每 block 32-byte q payload + row-tail FP16 d，总 34 bytes/block），对照现有 Q6_K…\n有资产参与记录\nCodex · /home/bot/project/qwen-sm120-runtime · 8/21 03:07 · codex:01a02092…6cd4\n1 个资产被使用\n4m11s\n只读代码审查，不修改任何文件，不启动/停止服务。审查 /home/bot/project/qwen-sm120-runtime 当前源码中计划的 Q8_0 零额外字节 split layout：runtime/kernels/gguf_qk_sm120.cu、runtime/model/gguf_linear.py、r…\n有资产参与记录\nCodex · /home/bot/project/qwen-sm120-runtime · 8/21 03:07 · codex:01a02092…1759\n1 个资产被使用\n5m18s\n所以呢 这样就结束了？？？\n有资产参与记录\nCodex · /home/bot/project/qwen-sm120-runtime · 8/21 03:07 · codex:01a02091…7e1a\n2 个资产被使用\n7m19s\nruff问题你都不修复啊？？？ 别逗我 别扯什么遗留 以及你这个性能和我汇报啥呀 滚去做啊 原生支持啊 不要糊一个东西就拿给我！！滚去做 高质量的完整全面的接入！！\n有资产参与记录\nCodex · /home/bot/project/qwen-sm120-runtime · 8/20 16:15 · codex:01a01e3d…b796\n1 个资产被使用\n4h24m\nRead-only external research for implementation. Use official primary sources only where possible: SGLang DFlash2 implementation/config/loading, llama.cpp DFlash…\n没有相关资产记录\nCodex · /home/bot/project/qwen-sm120-runtime · 8/20 13:43 · codex:01a01db2…2ca7\n没有资产被使用\n5m52s\nRead-only repository exploration for the requested feature. In /home/bot/project/qwen-sm120-runtime, map the exact cu"
+    },
+    {
+      "label": "sessionDetail",
+      "source": "current",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#fefefd",
+        "--foreground": "oklch(0.2686 0 0)",
+        "--card": "oklch(1 0 0)",
+        "--primary": "#339cff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "oklch(0.9596 0.0275 251)",
+        "--secondary-foreground": "oklch(0.2868 0.0649 251)",
+        "--muted": "oklch(0.9702 0 0)",
+        "--muted-foreground": "oklch(0.5486 0 0)",
+        "--accent": "#ececec",
+        "--accent-foreground": "#262626",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#c99d00",
+        "--border": "oklch(0.9208 0.0101 251)",
+        "--input": "oklch(0.9208 0.0101 251)",
+        "--ring": "#262626",
+        "--control-accent": "#339cff",
+        "--verified": "#17b88b",
+        "--sidebar": "#ffffff",
+        "--sidebar-foreground": "oklch(0.1281 0.0179 251)",
+        "--sidebar-accent": "#ececec",
+        "--sidebar-border": "#f2f2f2",
+        "--nav-fg": "#383835",
+        "--nav-fg-muted": "#858279",
+        "--nav-surface-hover": "#f0f0f0",
+        "--nav-icon-idle": "#8f8f8f",
+        "--panel-surface": "#fefefd",
+        "--panel-surface-fg-muted": "#777779",
+        "--panel-input-surface": "#f5f5f5",
+        "--panel-surface-hover": "#ebebeb",
+        "--panel-slider-fg": "#9a9a9c",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "arrow-left",
+        "chart-column",
+        "chevron-up",
+        "clock",
+        "folder",
+        "git-commit-horizontal",
+        "layers",
+        "list-collapse",
+        "package",
+        "rows-2",
+        "search"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "arrow-left": "<path d=\"m12 19-7-7 7-7\"></path><path d=\"M19 12H5\"></path>",
+        "clock": "<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><polyline points=\"12 6 12 12 16 14\"></polyline>",
+        "rows-2": "<rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"></rect><path d=\"M3 12h18\"></path>",
+        "list-collapse": "<path d=\"m3 10 2.5-2.5L3 5\"></path><path d=\"m3 19 2.5-2.5L3 14\"></path><path d=\"M10 6h11\"></path><path d=\"M10 12h11\"></path><path d=\"M10 18h11\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 0,
+        ".elevated-card": 0,
+        ".fl-spark": 0,
+        ".fl-funnel": 0,
+        ".fl-list": 3,
+        ".fl-node": 0,
+        ".fl-tbtn": 3,
+        ".session-ledger-row": 143,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 256,
+          "y": 129,
+          "width": 1184,
+          "height": 771
+        },
+        "firstRow": {
+          "x": 272,
+          "y": 298,
+          "width": 738,
+          "height": 45
+        },
+        "firstCard": null
+      },
+      "scrollNodes": [
+        {
+          "className": "session-event-scroll",
+          "clientHeight": 644,
+          "scrollHeight": 52502
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n878\n变化时间线\n统计\n项目\n全部项目\n932\n项目级\n5\n用户级\n927\n数据源\nClaude Code\n23 条会话\nCodex\n855 条会话\nL\n本地模式\n数据不离开本机\nEnglish\n深色模式\n会话\nclaude_code:8548a8cb…b58a · Claude Code · /home/bot/project/flatline\n已记录\n任务\n加到项目的记忆中：所有子agent都使用haiku或sonnet！！\n轨迹\n对话\n总览\n实际耗时 · 9h09m\n已加载 1000 / 2256 条记录 · 31 个已加载回合\n输入\n模型\n工具\n耗时\n回合\n调用\n搜索事件\n第 1 轮\n3 条记录\n输入\n输出\n思考\n耗时\n#1\n系统\n会话开始\n未记录（unknown） · 参与形式未记录\n—\n—\n—\n—\n#2\n上下文\n环境变化\n推断（inferred） · 参与形式未记录\n—\n—\n—\n0 ms\n#3\n上下文\n环境变化\n推断（inferred） · 参与形式未记录\n—\n—\n—\n0 ms\n第 2 轮\n10 条记录\n输入\n输出\n思考\n耗时\n#4\n用户\n加到项目的记忆中：所有子agent都使用haiku或sonnet！！\n加到项目的记忆中：所有子agent都使用haiku或sonnet！！\n—\n—\n—\n9m 0s\n#5\n工具\nRead\n{\"file_path\":\"/home/bot/.claude/projects/-home-bot-project-flatline/memory/MEMORY.md\"}\n86 B\n—\nRead\n14.7 s\n#6\n工具\nBash\n{\"command\":\"find /home/bot/.claude/projects/-home-bot-project-flatline/memory -maxdepth 1 -type f -printf '%f\\\\n'\",\"description\":\"List existing memory files\"}\n158 B\n—\nBash\n13 ms\n#7\n└\n工具\n工具结果\nFile does not exist. Note: your current working directory is /home/bot/project/flatline.\n—\n88 B\n工具输出\n25 ms\n#8\n└\n工具\n工具结果\n(Bash completed with no output)\n—\n31 B\n工具输出\n98 ms\n#9\n工具\nWrite\n{\"content\":\"---\\nname: subagent-model-preference\\ndescription: 用户要求所有子 agent 仅使用 Haiku 或 Sonnet 模型\\nmetadata:\\n type: feedback\\n---\\n\\n所有子 agent 都使用 Haiku 或 So…\n530 B\n—\nWrite\n22.7 s\n#10\n工具\nWrite\n{\"content\":\"- [Subagent model preference](subagent-model-preference.md) — 所有子 agent 仅使用 Haiku 或 Sonnet\\n\",\"file_path\":\"/home/bot/.claude/projects/-home-bot-pro…\n207 B\n—\nWrite\n11 ms\n#11\n└\n工具\n工具结果\nFile created successfully at: /home/bot/.claude/projects/-home-bot-project-flatline/memory/subagent-model-preference."
+    },
+    {
+      "label": "assetDetail",
+      "source": "current",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#fefefd",
+        "--foreground": "oklch(0.2686 0 0)",
+        "--card": "oklch(1 0 0)",
+        "--primary": "#339cff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "oklch(0.9596 0.0275 251)",
+        "--secondary-foreground": "oklch(0.2868 0.0649 251)",
+        "--muted": "oklch(0.9702 0 0)",
+        "--muted-foreground": "oklch(0.5486 0 0)",
+        "--accent": "#ececec",
+        "--accent-foreground": "#262626",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#c99d00",
+        "--border": "oklch(0.9208 0.0101 251)",
+        "--input": "oklch(0.9208 0.0101 251)",
+        "--ring": "#262626",
+        "--control-accent": "#339cff",
+        "--verified": "#17b88b",
+        "--sidebar": "#ffffff",
+        "--sidebar-foreground": "oklch(0.1281 0.0179 251)",
+        "--sidebar-accent": "#ececec",
+        "--sidebar-border": "#f2f2f2",
+        "--nav-fg": "#383835",
+        "--nav-fg-muted": "#858279",
+        "--nav-surface-hover": "#f0f0f0",
+        "--nav-icon-idle": "#8f8f8f",
+        "--panel-surface": "#fefefd",
+        "--panel-surface-fg-muted": "#777779",
+        "--panel-input-surface": "#f5f5f5",
+        "--panel-surface-hover": "#ebebeb",
+        "--panel-slider-fg": "#9a9a9c",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "archive",
+        "arrow-left",
+        "arrow-right",
+        "bell-off",
+        "calendar",
+        "chart-column",
+        "check",
+        "chevron-up",
+        "cpu",
+        "eye-off",
+        "file-diff",
+        "file-text",
+        "folder",
+        "git-commit-horizontal",
+        "history",
+        "layers",
+        "package",
+        "search",
+        "slash"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "arrow-left": "<path d=\"m12 19-7-7 7-7\"></path><path d=\"M19 12H5\"></path>",
+        "file-text": "<path d=\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z\"></path><path d=\"M14 2v4a2 2 0 0 0 2 2h4\"></path><path d=\"M10 9H8\"></path><path d=\"M16 13H8\"></path><path d=\"M16 17H8\"></path>",
+        "history": "<path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"></path><path d=\"M3 3v5h5\"></path><path d=\"M12 7v5l4 2\"></path>",
+        "arrow-right": "<path d=\"M5 12h14\"></path><path d=\"m12 5 7 7-7 7\"></path>",
+        "calendar": "<path d=\"M8 2v4\"></path><path d=\"M16 2v4\"></path><rect width=\"18\" height=\"18\" x=\"3\" y=\"4\" rx=\"2\"></rect><path d=\"M3 10h18\"></path>",
+        "cpu": "<rect width=\"16\" height=\"16\" x=\"4\" y=\"4\" rx=\"2\"></rect><rect width=\"6\" height=\"6\" x=\"9\" y=\"9\" rx=\"1\"></rect><path d=\"M15 2v2\"></path><path d=\"M15 20v2\"></path><path d=\"M2 15h2\"></path><path d=\"M2 9h2\"></path><path d=\"M20 15h2\"></path><path d=\"M20 9h2\"></path><path d=\"M9 2v2\"></path><path d=\"M9 20v2\"></path>",
+        "file-diff": "<path d=\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z\"></path><path d=\"M9 10h6\"></path><path d=\"M12 13V7\"></path><path d=\"M9 17h6\"></path>",
+        "slash": "<path d=\"M22 2 2 22\"></path>",
+        "check": "<path d=\"M20 6 9 17l-5-5\"></path>",
+        "archive": "<rect width=\"20\" height=\"5\" x=\"2\" y=\"3\" rx=\"1\"></rect><path d=\"M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8\"></path><path d=\"M10 12h4\"></path>",
+        "bell-off": "<path d=\"M8.7 3A6 6 0 0 1 18 8a21.3 21.3 0 0 0 .6 5\"></path><path d=\"M17 17H3s3-2 3-9a4.67 4.67 0 0 1 .3-1.7\"></path><path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\"></path><path d=\"m2 2 20 20\"></path>",
+        "eye-off": "<path d=\"M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49\"></path><path d=\"M14.084 14.158a3 3 0 0 1-4.242-4.242\"></path><path d=\"M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143\"></path><path d=\"m2 2 20 20\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 0,
+        ".elevated-card": 7,
+        ".fl-spark": 1,
+        ".fl-funnel": 1,
+        ".fl-list": 5,
+        ".fl-node": 0,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 256,
+          "y": 98,
+          "width": 1184,
+          "height": 802
+        },
+        "firstRow": null,
+        "firstCard": {
+          "x": 272,
+          "y": 102,
+          "width": 790,
+          "height": 360.4375
+        }
+      },
+      "scrollNodes": [
+        {
+          "className": "screen-scroll",
+          "clientHeight": 802,
+          "scrollHeight": 6519
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n878\n变化时间线\n统计\n项目\n全部项目\n932\n项目级\n5\n用户级\n927\n数据源\nClaude Code\n23 条会话\nCodex\n855 条会话\nL\n本地模式\n数据不离开本机\nEnglish\n深色模式\nagents\n正常\nAGENTS.md · 项目级 · /home/bot/project/flatline/AGENTS.md\n在编辑器中打开\n诊断\n原文\n版本\n判定依据\n已加载（loaded）\n未记录\n基线 · 分子 / 分母\n1/1\n当前 · 分子 / 分母\n8/21 00:42\n状态起点\n8/20 09:40\n资产变更\n环境变化\n8/20 09:40\n\n判定规则：当前没有触发不再被使用、使用减少或引用失效规则。\n\n当前没有触发不再被使用、使用减少或引用失效判定。 · 当前判定没有记录分子 / 分母。\n\n起点前后对齐\n±3 天 · 时间对齐\n8/19 02:05\n环境变化\n环境变化已记录：model（gpt-5.6-luna → gpt-5.4-mini）\n-1.9 d\n8/19 02:05\n环境变化\n环境变化已记录：model（gpt-5.6-luna → gpt-5.4-mini）\n-1.9 d\n8/19 06:34\n环境变化\n环境变化已记录：model（gpt-5.4-mini → gpt-5.4）\n-1.7 d\n8/19 06:34\n环境变化\n环境变化已记录：model（gpt-5.4-mini → gpt-5.4）\n-1.8 d\n8/19 08:40\n环境变化\n环境变化已记录：model（gpt-5.4 → gpt-5.6-luna）\n-1.7 d\n8/19 08:40\n环境变化\n环境变化已记录：model（gpt-5.4 → gpt-5.6-luna）\n-1.7 d\n8/19 08:43\n环境变化\n环境变化已记录：model（gpt-5.6-luna → gpt-5.4）\n-1.7 d\n8/19 08:43\n环境变化\n环境变化已记录：model（gpt-5.6-luna → gpt-5.4）\n-1.7 d\n8/19 08:54\n环境变化\n环境变化已记录：model（gpt-5.4 → gpt-5.3-codex-spark）\n-1.7 d\n8/19 08:54\n环境变化\n环境变化已记录：model（gpt-5.4 → gpt-5.3-codex-spark）\n-1.7 d\n8/19 08:54\n环境变化\n环境变化已记录：model（gpt-5.3-codex-spark → gpt-5.4-mini）\n-1.7 d\n8/19 08:54\n环境变化\n环境变化已记录：model（gpt-5.3-codex-spark → gpt-5.4-mini）\n-1.7 d\n8/19 20:21\n环境变化\n环境变化已记录：model（gpt-5.4-mini → gpt-5.6-luna）\n-1.2 d\n8/19 20:21\n环境变化\n环境变化已记录：model（gpt-5.4-mini → gpt-5.6-luna）\n-1.2 d\n8/19 21:20\n环境变化\n环境变化已记录：harness_version（2.1.221 → 2.1.235）\n-1.1 d\n8/19 21:20\n环境变化\n环境变化已记录：harness_version（2.1.221 → 2.1.235）\n-1.1 d\n8/19 21:27\n环境变化\n环境变化已记录：harness_version（2.1.221 → 2.1.235）\n-1.1 d\n8/19 21:27\n环境变化\n环境变化已记录：model（laguna-s-2.1 → gpt-5.6-luna）\n-1.1 d\n8/19 21:27\n环境变化\n环"
+    },
+    {
+      "label": "timeline",
+      "source": "current",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#fefefd",
+        "--foreground": "oklch(0.2686 0 0)",
+        "--card": "oklch(1 0 0)",
+        "--primary": "#339cff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "oklch(0.9596 0.0275 251)",
+        "--secondary-foreground": "oklch(0.2868 0.0649 251)",
+        "--muted": "oklch(0.9702 0 0)",
+        "--muted-foreground": "oklch(0.5486 0 0)",
+        "--accent": "#ececec",
+        "--accent-foreground": "#262626",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#c99d00",
+        "--border": "oklch(0.9208 0.0101 251)",
+        "--input": "oklch(0.9208 0.0101 251)",
+        "--ring": "#262626",
+        "--control-accent": "#339cff",
+        "--verified": "#17b88b",
+        "--sidebar": "#ffffff",
+        "--sidebar-foreground": "oklch(0.1281 0.0179 251)",
+        "--sidebar-accent": "#ececec",
+        "--sidebar-border": "#f2f2f2",
+        "--nav-fg": "#383835",
+        "--nav-fg-muted": "#858279",
+        "--nav-surface-hover": "#f0f0f0",
+        "--nav-icon-idle": "#8f8f8f",
+        "--panel-surface": "#fefefd",
+        "--panel-surface-fg-muted": "#777779",
+        "--panel-input-surface": "#f5f5f5",
+        "--panel-surface-hover": "#ebebeb",
+        "--panel-slider-fg": "#9a9a9c",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "chart-column",
+        "chevron-up",
+        "circle-slash",
+        "cpu",
+        "file-diff",
+        "folder",
+        "git-commit-horizontal",
+        "layers",
+        "package",
+        "package-open",
+        "search"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "cpu": "<rect width=\"16\" height=\"16\" x=\"4\" y=\"4\" rx=\"2\"></rect><rect width=\"6\" height=\"6\" x=\"9\" y=\"9\" rx=\"1\"></rect><path d=\"M15 2v2\"></path><path d=\"M15 20v2\"></path><path d=\"M2 15h2\"></path><path d=\"M2 9h2\"></path><path d=\"M20 15h2\"></path><path d=\"M20 9h2\"></path><path d=\"M9 2v2\"></path><path d=\"M9 20v2\"></path>",
+        "file-diff": "<path d=\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z\"></path><path d=\"M9 10h6\"></path><path d=\"M12 13V7\"></path><path d=\"M9 17h6\"></path>",
+        "circle-slash": "<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"9\" x2=\"15\" y1=\"15\" y2=\"9\"></line>",
+        "package-open": "<path d=\"M12 22v-9\"></path><path d=\"M15.17 2.21a1.67 1.67 0 0 1 1.63 0L21 4.57a1.93 1.93 0 0 1 0 3.36L8.82 14.79a1.655 1.655 0 0 1-1.64 0L3 12.43a1.93 1.93 0 0 1 0-3.36z\"></path><path d=\"M20 13v3.87a2.06 2.06 0 0 1-1.11 1.83l-6 3.08a1.93 1.93 0 0 1-1.78 0l-6-3.08A2.06 2.06 0 0 1 4 16.87V13\"></path><path d=\"M21 12.43a1.93 1.93 0 0 0 0-3.36L8.83 2.2a1.64 1.64 0 0 0-1.63 0L3 4.57a1.93 1.93 0 0 0 0 3.36l12.18 6.86a1.636 1.636 0 0 0 1.63 0z\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 0,
+        ".elevated-card": 0,
+        ".fl-spark": 0,
+        ".fl-funnel": 0,
+        ".fl-list": 0,
+        ".fl-node": 2238,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 256,
+          "y": 52,
+          "width": 1184,
+          "height": 848
+        },
+        "firstRow": null,
+        "firstCard": null
+      },
+      "scrollNodes": [
+        {
+          "className": "screen-scroll",
+          "clientHeight": 848,
+          "scrollHeight": 259614
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n878\n变化时间线\n统计\n项目\n全部项目\n932\n项目级\n5\n用户级\n927\n数据源\nClaude Code\n23 条会话\nCodex\n855 条会话\nL\n本地模式\n数据不离开本机\nEnglish\n深色模式\n变化时间线\n2238 条 · 本地事实\n全部\n状态迁移\n资产变更\n环境变化\n8/21 10:17\n环境变化\n环境变化已记录：model（gpt-5.4 → gpt-5.6-luna）\n时间对齐记录可下钻\n8/21 07:53\n状态迁移\n正常\nskills:web-clone · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:visual-verdict · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:ralplan · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:ralph · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:plan · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:note · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:help · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:code-review · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:cancel · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:analyze · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:ai-slop-cleaner · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:.system:skill-creator · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:.system:openai-docs · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nplugins:cache:caveman-repo:caveman:0.1.0:skills:compress · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nplugins:cache:caveman-repo:caveman:0.1.0"
+    },
+    {
+      "label": "stats",
+      "source": "current",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#fefefd",
+        "--foreground": "oklch(0.2686 0 0)",
+        "--card": "oklch(1 0 0)",
+        "--primary": "#339cff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "oklch(0.9596 0.0275 251)",
+        "--secondary-foreground": "oklch(0.2868 0.0649 251)",
+        "--muted": "oklch(0.9702 0 0)",
+        "--muted-foreground": "oklch(0.5486 0 0)",
+        "--accent": "#ececec",
+        "--accent-foreground": "#262626",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#c99d00",
+        "--border": "oklch(0.9208 0.0101 251)",
+        "--input": "oklch(0.9208 0.0101 251)",
+        "--ring": "#262626",
+        "--control-accent": "#339cff",
+        "--verified": "#17b88b",
+        "--sidebar": "#ffffff",
+        "--sidebar-foreground": "oklch(0.1281 0.0179 251)",
+        "--sidebar-accent": "#ececec",
+        "--sidebar-border": "#f2f2f2",
+        "--nav-fg": "#383835",
+        "--nav-fg-muted": "#858279",
+        "--nav-surface-hover": "#f0f0f0",
+        "--nav-icon-idle": "#8f8f8f",
+        "--panel-surface": "#fefefd",
+        "--panel-surface-fg-muted": "#777779",
+        "--panel-input-surface": "#f5f5f5",
+        "--panel-surface-hover": "#ebebeb",
+        "--panel-slider-fg": "#9a9a9c",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "chart-column",
+        "chevron-up",
+        "circle-slash",
+        "folder",
+        "git-commit-horizontal",
+        "hash",
+        "layers",
+        "package",
+        "package-open",
+        "search",
+        "slash",
+        "triangle-alert",
+        "wallet"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "triangle-alert": "<path d=\"m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3\"></path><path d=\"M12 9v4\"></path><path d=\"M12 17h.01\"></path>",
+        "package-open": "<path d=\"M12 22v-9\"></path><path d=\"M15.17 2.21a1.67 1.67 0 0 1 1.63 0L21 4.57a1.93 1.93 0 0 1 0 3.36L8.82 14.79a1.655 1.655 0 0 1-1.64 0L3 12.43a1.93 1.93 0 0 1 0-3.36z\"></path><path d=\"M20 13v3.87a2.06 2.06 0 0 1-1.11 1.83l-6 3.08a1.93 1.93 0 0 1-1.78 0l-6-3.08A2.06 2.06 0 0 1 4 16.87V13\"></path><path d=\"M21 12.43a1.93 1.93 0 0 0 0-3.36L8.83 2.2a1.64 1.64 0 0 0-1.63 0L3 4.57a1.93 1.93 0 0 0 0 3.36l12.18 6.86a1.636 1.636 0 0 0 1.63 0z\"></path>",
+        "wallet": "<path d=\"M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1\"></path><path d=\"M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4\"></path>",
+        "hash": "<line x1=\"4\" x2=\"20\" y1=\"9\" y2=\"9\"></line><line x1=\"4\" x2=\"20\" y1=\"15\" y2=\"15\"></line><line x1=\"10\" x2=\"8\" y1=\"3\" y2=\"21\"></line><line x1=\"16\" x2=\"14\" y1=\"3\" y2=\"21\"></line>",
+        "circle-slash": "<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"9\" x2=\"15\" y1=\"15\" y2=\"9\"></line>",
+        "slash": "<path d=\"M22 2 2 22\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 0,
+        ".elevated-card": 6,
+        ".fl-spark": 0,
+        ".fl-funnel": 0,
+        ".fl-list": 3,
+        ".fl-node": 0,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 6,
+        ".heat-cell": 364
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 256,
+          "y": 52,
+          "width": 1184,
+          "height": 848
+        },
+        "firstRow": null,
+        "firstCard": {
+          "x": 272,
+          "y": 56,
+          "width": 1142,
+          "height": 221
+        }
+      },
+      "scrollNodes": [
+        {
+          "className": "screen-scroll",
+          "clientHeight": 848,
+          "scrollHeight": 857
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n878\n变化时间线\n统计\n项目\n全部项目\n932\n项目级\n5\n用户级\n927\n数据源\nClaude Code\n23 条会话\nCodex\n855 条会话\nL\n本地模式\n数据不离开本机\nEnglish\n深色模式\n统计\n近 30 天\n导出\n资产\n932\n会话\n878\n需要注意\n0\n几乎未使用\n未记录\n成本\n未记录\nToken 数\n未记录\n活动\n近 52 周 · 每格一天\n2025-08\n未记录\n事件更多\n2026-08\n状态分布\n932\n正常\n22\n没有相关任务记录\n910\n数据源\n878 个会话\nClaude Code\n23\n未记录\nCodex\n855\n未记录\n每日成本\n未记录\n每日成本未记录。\n上下文开销\n每次会话\nToken 与上下文开销未记录。"
+    },
+    {
+      "label": "cleanup",
+      "source": "current",
+      "theme": "light",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#fefefd",
+        "--foreground": "oklch(0.2686 0 0)",
+        "--card": "oklch(1 0 0)",
+        "--primary": "#339cff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "oklch(0.9596 0.0275 251)",
+        "--secondary-foreground": "oklch(0.2868 0.0649 251)",
+        "--muted": "oklch(0.9702 0 0)",
+        "--muted-foreground": "oklch(0.5486 0 0)",
+        "--accent": "#ececec",
+        "--accent-foreground": "#262626",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#c99d00",
+        "--border": "oklch(0.9208 0.0101 251)",
+        "--input": "oklch(0.9208 0.0101 251)",
+        "--ring": "#262626",
+        "--control-accent": "#339cff",
+        "--verified": "#17b88b",
+        "--sidebar": "#ffffff",
+        "--sidebar-foreground": "oklch(0.1281 0.0179 251)",
+        "--sidebar-accent": "#ececec",
+        "--sidebar-border": "#f2f2f2",
+        "--nav-fg": "#383835",
+        "--nav-fg-muted": "#858279",
+        "--nav-surface-hover": "#f0f0f0",
+        "--nav-icon-idle": "#8f8f8f",
+        "--panel-surface": "#fefefd",
+        "--panel-surface-fg-muted": "#777779",
+        "--panel-input-surface": "#f5f5f5",
+        "--panel-surface-hover": "#ebebeb",
+        "--panel-slider-fg": "#9a9a9c",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "archive",
+        "arrow-left",
+        "chart-column",
+        "check",
+        "chevron-up",
+        "folder",
+        "git-commit-horizontal",
+        "hash",
+        "layers",
+        "package",
+        "search",
+        "wallet"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "arrow-left": "<path d=\"m12 19-7-7 7-7\"></path><path d=\"M19 12H5\"></path>",
+        "hash": "<line x1=\"4\" x2=\"20\" y1=\"9\" y2=\"9\"></line><line x1=\"4\" x2=\"20\" y1=\"15\" y2=\"15\"></line><line x1=\"10\" x2=\"8\" y1=\"3\" y2=\"21\"></line><line x1=\"16\" x2=\"14\" y1=\"3\" y2=\"21\"></line>",
+        "archive": "<rect width=\"20\" height=\"5\" x=\"2\" y=\"3\" rx=\"1\"></rect><path d=\"M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8\"></path><path d=\"M10 12h4\"></path>",
+        "wallet": "<path d=\"M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1\"></path><path d=\"M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4\"></path>",
+        "check": "<path d=\"M20 6 9 17l-5-5\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 0,
+        ".elevated-card": 3,
+        ".fl-spark": 0,
+        ".fl-funnel": 0,
+        ".fl-list": 0,
+        ".fl-node": 0,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 256,
+          "y": 52,
+          "width": 1184,
+          "height": 848
+        },
+        "firstRow": null,
+        "firstCard": {
+          "x": 272,
+          "y": 56,
+          "width": 1142,
+          "height": 89
+        }
+      },
+      "scrollNodes": [],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n878\n变化时间线\n统计\n项目\n全部项目\n932\n项目级\n5\n用户级\n927\n数据源\nClaude Code\n23 条会话\nCodex\n855 条会话\nL\n本地模式\n数据不离开本机\nEnglish\n深色模式\n整理几乎未使用的资产\n存在 ≥ 30 天，累计参与 ≤ 2 次 · 0 个候选\n确认整理所选资产\n未记录\n每次会话可省\n0\n已选择归档\n未记录\n已核实源文件大小\n按建议全选\n几乎未使用的资产\n存在 ≥ 30 天，累计参与 ≤ 2 次\n当前没有符合条件的资产。\n没有把缺失记录当成低参与，也没有生成空的清理收益。\n\n尚未选择任何资产。\n\n确认整理所选资产\n将执行的操作\n逻辑归档 · 可回滚\n$ flatline cleanup --logical-archive\n仅在用户确认后写入处置记录；source_files_changed: false\n已核实大小：未记录\n\nFlatline 不会删除、改写或重命名任何源文件。\n\n确认整理所选资产"
+    },
+    {
+      "label": "wall",
+      "source": "current",
+      "theme": "dark",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#181818",
+        "--foreground": "#ececec",
+        "--card": "#212121",
+        "--primary": "#4dabff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "#242424",
+        "--secondary-foreground": "#ececec",
+        "--muted": "#242424",
+        "--muted-foreground": "#9b9b9b",
+        "--accent": "#2e2e2e",
+        "--accent-foreground": "#ececec",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#ffd60a",
+        "--border": "#303030",
+        "--input": "#303030",
+        "--ring": "#ececec",
+        "--control-accent": "#4dabff",
+        "--verified": "#17b88b",
+        "--sidebar": "#1f1f1f",
+        "--sidebar-foreground": "#ececec",
+        "--sidebar-accent": "#2a2a2a",
+        "--sidebar-border": "#2a2a2a",
+        "--nav-fg": "#c9c9c9",
+        "--nav-fg-muted": "#969696",
+        "--nav-surface-hover": "#2a2a2a",
+        "--nav-icon-idle": "#5c5c5c",
+        "--panel-surface": "#181818",
+        "--panel-surface-fg-muted": "#ababab",
+        "--panel-input-surface": "rgba(255, 255, 255, 0.07)",
+        "--panel-surface-hover": "#333333",
+        "--panel-slider-fg": "#ababab",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "arrow-right",
+        "chart-column",
+        "chevron-down",
+        "chevron-up",
+        "circle-slash",
+        "folder",
+        "git-commit-horizontal",
+        "layers",
+        "package",
+        "search",
+        "slash"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "arrow-right": "<path d=\"M5 12h14\"></path><path d=\"m12 5 7 7-7 7\"></path>",
+        "chevron-down": "<path d=\"m6 9 6 6 6-6\"></path>",
+        "circle-slash": "<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"9\" x2=\"15\" y1=\"15\" y2=\"9\"></line>",
+        "slash": "<path d=\"M22 2 2 22\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 118,
+        ".elevated-card": 0,
+        ".fl-spark": 118,
+        ".fl-funnel": 0,
+        ".fl-list": 0,
+        ".fl-node": 0,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 256,
+          "y": 52,
+          "width": 1184,
+          "height": 848
+        },
+        "firstRow": {
+          "x": 268,
+          "y": 272,
+          "width": 1150,
+          "height": 61
+        },
+        "firstCard": null
+      },
+      "scrollNodes": [
+        {
+          "className": "screen-scroll",
+          "clientHeight": 848,
+          "scrollHeight": 56530
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n878\n变化时间线\n统计\n项目\n全部项目\n932\n项目级\n5\n用户级\n927\n数据源\nClaude Code\n23 条会话\nCodex\n855 条会话\nL\n本地模式\n数据不离开本机\nEnglish\n浅色模式\n资产\n932 个资产 · 0 个需要注意 · 910 个没有相关任务记录或已归档\n资产变更\n环境变化\n恢复使用\n需要注意\n0\n过去 14 天没有状态变化。\n观察中\n0\n当前没有处于观察中的资产。\n正常\n22\n正常\nagents\nAGENTS.md · 项目级 · /home/bot/project/flatline/AGENTS.md\n1/1\n最后参与 8/19 23:37\n正常\nplugins:cache:caveman-repo:caveman:0.1.0:skills:caveman\nSkill · 用户级 · /home/bot/.codex/plugins/cache/caveman-repo/caveman/0.1.0/skills/caveman/SKILL.md\n2/2\n最后参与 4/23 14:10\n正常\nplugins:cache:caveman-repo:caveman:0.1.0:skills:compress\nSkill · 用户级 · /home/bot/.codex/plugins/cache/caveman-repo/caveman/0.1.0/skills/compress/SKILL.md\n1/1\n最后参与 4/23 14:10\n正常\nplugins:marketplaces:claude-plugins-official:plugins:frontend-design:skills:frontend-design\nSkill · 用户级 · /home/bot/.claude/plugins/marketplaces/claude-plugins-official/plugins/frontend-design/skills/frontend-design/SKILL.md\n1/1\n最后参与 7/10 23:16\n正常\nplugins:marketplaces:claude-plugins-official:plugins:hookify:hooks:__init__\nHook · 用户级 · /home/bot/.claude/plugins/marketplaces/claude-plugins-official/plugins/hookify/hooks/__init__.py\n9/9\n8/8\n最后参与 8/20 19:20\n正常\nplugins:marketplaces:claude-plugins-official:plugins:security-guidance:hooks:_base\nHook · 用户级 · /home/bot/.claude/plugins/marketplaces/claude-plugins-official/plugins/security-guidance/hooks/_base.py\n1/1\n最后参与 5/12 20:35\n正常\nplugins:marketplaces:claude-plugins-official:plugins:security-guidance:hooks:llm\nHook · 用户级 · /home/bot/.claude/plugins/marketplaces/claude-plugins-official/plugins/security-guidance/hooks/llm.py\n1/1\n最后参与 8/19 08:45\n正常\nskills:.system:openai-d"
+    },
+    {
+      "label": "sessions",
+      "source": "current",
+      "theme": "dark",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#181818",
+        "--foreground": "#ececec",
+        "--card": "#212121",
+        "--primary": "#4dabff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "#242424",
+        "--secondary-foreground": "#ececec",
+        "--muted": "#242424",
+        "--muted-foreground": "#9b9b9b",
+        "--accent": "#2e2e2e",
+        "--accent-foreground": "#ececec",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#ffd60a",
+        "--border": "#303030",
+        "--input": "#303030",
+        "--ring": "#ececec",
+        "--control-accent": "#4dabff",
+        "--verified": "#17b88b",
+        "--sidebar": "#1f1f1f",
+        "--sidebar-foreground": "#ececec",
+        "--sidebar-accent": "#2a2a2a",
+        "--sidebar-border": "#2a2a2a",
+        "--nav-fg": "#c9c9c9",
+        "--nav-fg-muted": "#969696",
+        "--nav-surface-hover": "#2a2a2a",
+        "--nav-icon-idle": "#5c5c5c",
+        "--panel-surface": "#181818",
+        "--panel-surface-fg-muted": "#ababab",
+        "--panel-input-surface": "rgba(255, 255, 255, 0.07)",
+        "--panel-surface-hover": "#333333",
+        "--panel-slider-fg": "#ababab",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "chart-column",
+        "chevron-up",
+        "folder",
+        "git-commit-horizontal",
+        "layers",
+        "package",
+        "search",
+        "slash"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "slash": "<path d=\"M22 2 2 22\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 120,
+        ".elevated-card": 0,
+        ".fl-spark": 0,
+        ".fl-funnel": 0,
+        ".fl-list": 0,
+        ".fl-node": 0,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 256,
+          "y": 52,
+          "width": 1184,
+          "height": 848
+        },
+        "firstRow": {
+          "x": 268,
+          "y": 101,
+          "width": 1140,
+          "height": 64
+        },
+        "firstCard": null
+      },
+      "scrollNodes": [
+        {
+          "className": "session-list-scroll",
+          "clientHeight": 779,
+          "scrollHeight": 51780
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n878\n变化时间线\n统计\n项目\n全部项目\n932\n项目级\n5\n用户级\n927\n数据源\nClaude Code\n23 条会话\nCodex\n855 条会话\nL\n本地模式\n数据不离开本机\nEnglish\n浅色模式\n会话\n浏览与筛选会话\n878 个会话\n重新扫描\n全部 harness\nClaude Code\nCodex\n只看有 transcript 的会话\n最近开始\n事件最多\n我先做一个类似openscreen Screen Studio 这样的一个软件 但是是在鸿蒙系统开发 你帮我起一个应用的名称 最好符合鸿蒙系统的逻辑且比较吸引人，也让人容易理解\n没有相关资产记录\nCodex · /home/bot/project · 8/21 10:17 · codex:01a02214…e6da\n没有资产被使用\n7m49s\n只读架构审查，不修改任何文件，不启动/停止服务。针对当前 /home/bot/project/qwen-sm120-runtime 计划接入 Q8_0 split layout（每 block 32-byte q payload + row-tail FP16 d，总 34 bytes/block），对照现有 Q6_K…\n有资产参与记录\nCodex · /home/bot/project/qwen-sm120-runtime · 8/21 03:07 · codex:01a02092…6cd4\n1 个资产被使用\n4m11s\n只读代码审查，不修改任何文件，不启动/停止服务。审查 /home/bot/project/qwen-sm120-runtime 当前源码中计划的 Q8_0 零额外字节 split layout：runtime/kernels/gguf_qk_sm120.cu、runtime/model/gguf_linear.py、r…\n有资产参与记录\nCodex · /home/bot/project/qwen-sm120-runtime · 8/21 03:07 · codex:01a02092…1759\n1 个资产被使用\n5m18s\n所以呢 这样就结束了？？？\n有资产参与记录\nCodex · /home/bot/project/qwen-sm120-runtime · 8/21 03:07 · codex:01a02091…7e1a\n2 个资产被使用\n7m19s\nruff问题你都不修复啊？？？ 别逗我 别扯什么遗留 以及你这个性能和我汇报啥呀 滚去做啊 原生支持啊 不要糊一个东西就拿给我！！滚去做 高质量的完整全面的接入！！\n有资产参与记录\nCodex · /home/bot/project/qwen-sm120-runtime · 8/20 16:15 · codex:01a01e3d…b796\n1 个资产被使用\n4h24m\nRead-only external research for implementation. Use official primary sources only where possible: SGLang DFlash2 implementation/config/loading, llama.cpp DFlash…\n没有相关资产记录\nCodex · /home/bot/project/qwen-sm120-runtime · 8/20 13:43 · codex:01a01db2…2ca7\n没有资产被使用\n5m52s\nRead-only repository exploration for the requested feature. In /home/bot/project/qwen-sm120-runtime, map the exact cu"
+    },
+    {
+      "label": "sessionDetail",
+      "source": "current",
+      "theme": "dark",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#181818",
+        "--foreground": "#ececec",
+        "--card": "#212121",
+        "--primary": "#4dabff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "#242424",
+        "--secondary-foreground": "#ececec",
+        "--muted": "#242424",
+        "--muted-foreground": "#9b9b9b",
+        "--accent": "#2e2e2e",
+        "--accent-foreground": "#ececec",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#ffd60a",
+        "--border": "#303030",
+        "--input": "#303030",
+        "--ring": "#ececec",
+        "--control-accent": "#4dabff",
+        "--verified": "#17b88b",
+        "--sidebar": "#1f1f1f",
+        "--sidebar-foreground": "#ececec",
+        "--sidebar-accent": "#2a2a2a",
+        "--sidebar-border": "#2a2a2a",
+        "--nav-fg": "#c9c9c9",
+        "--nav-fg-muted": "#969696",
+        "--nav-surface-hover": "#2a2a2a",
+        "--nav-icon-idle": "#5c5c5c",
+        "--panel-surface": "#181818",
+        "--panel-surface-fg-muted": "#ababab",
+        "--panel-input-surface": "rgba(255, 255, 255, 0.07)",
+        "--panel-surface-hover": "#333333",
+        "--panel-slider-fg": "#ababab",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "arrow-left",
+        "chart-column",
+        "chevron-up",
+        "clock",
+        "folder",
+        "git-commit-horizontal",
+        "layers",
+        "list-collapse",
+        "package",
+        "rows-2",
+        "search"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "arrow-left": "<path d=\"m12 19-7-7 7-7\"></path><path d=\"M19 12H5\"></path>",
+        "clock": "<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><polyline points=\"12 6 12 12 16 14\"></polyline>",
+        "rows-2": "<rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"></rect><path d=\"M3 12h18\"></path>",
+        "list-collapse": "<path d=\"m3 10 2.5-2.5L3 5\"></path><path d=\"m3 19 2.5-2.5L3 14\"></path><path d=\"M10 6h11\"></path><path d=\"M10 12h11\"></path><path d=\"M10 18h11\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 0,
+        ".elevated-card": 0,
+        ".fl-spark": 0,
+        ".fl-funnel": 0,
+        ".fl-list": 3,
+        ".fl-node": 0,
+        ".fl-tbtn": 3,
+        ".session-ledger-row": 143,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 256,
+          "y": 129,
+          "width": 1184,
+          "height": 771
+        },
+        "firstRow": {
+          "x": 272,
+          "y": 298,
+          "width": 738,
+          "height": 45
+        },
+        "firstCard": null
+      },
+      "scrollNodes": [
+        {
+          "className": "session-event-scroll",
+          "clientHeight": 644,
+          "scrollHeight": 52502
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n878\n变化时间线\n统计\n项目\n全部项目\n932\n项目级\n5\n用户级\n927\n数据源\nClaude Code\n23 条会话\nCodex\n855 条会话\nL\n本地模式\n数据不离开本机\nEnglish\n浅色模式\n会话\nclaude_code:8548a8cb…b58a · Claude Code · /home/bot/project/flatline\n已记录\n任务\n加到项目的记忆中：所有子agent都使用haiku或sonnet！！\n轨迹\n对话\n总览\n实际耗时 · 9h09m\n已加载 1000 / 2256 条记录 · 31 个已加载回合\n输入\n模型\n工具\n耗时\n回合\n调用\n搜索事件\n第 1 轮\n3 条记录\n输入\n输出\n思考\n耗时\n#1\n系统\n会话开始\n未记录（unknown） · 参与形式未记录\n—\n—\n—\n—\n#2\n上下文\n环境变化\n推断（inferred） · 参与形式未记录\n—\n—\n—\n0 ms\n#3\n上下文\n环境变化\n推断（inferred） · 参与形式未记录\n—\n—\n—\n0 ms\n第 2 轮\n10 条记录\n输入\n输出\n思考\n耗时\n#4\n用户\n加到项目的记忆中：所有子agent都使用haiku或sonnet！！\n加到项目的记忆中：所有子agent都使用haiku或sonnet！！\n—\n—\n—\n9m 0s\n#5\n工具\nRead\n{\"file_path\":\"/home/bot/.claude/projects/-home-bot-project-flatline/memory/MEMORY.md\"}\n86 B\n—\nRead\n14.7 s\n#6\n工具\nBash\n{\"command\":\"find /home/bot/.claude/projects/-home-bot-project-flatline/memory -maxdepth 1 -type f -printf '%f\\\\n'\",\"description\":\"List existing memory files\"}\n158 B\n—\nBash\n13 ms\n#7\n└\n工具\n工具结果\nFile does not exist. Note: your current working directory is /home/bot/project/flatline.\n—\n88 B\n工具输出\n25 ms\n#8\n└\n工具\n工具结果\n(Bash completed with no output)\n—\n31 B\n工具输出\n98 ms\n#9\n工具\nWrite\n{\"content\":\"---\\nname: subagent-model-preference\\ndescription: 用户要求所有子 agent 仅使用 Haiku 或 Sonnet 模型\\nmetadata:\\n type: feedback\\n---\\n\\n所有子 agent 都使用 Haiku 或 So…\n530 B\n—\nWrite\n22.7 s\n#10\n工具\nWrite\n{\"content\":\"- [Subagent model preference](subagent-model-preference.md) — 所有子 agent 仅使用 Haiku 或 Sonnet\\n\",\"file_path\":\"/home/bot/.claude/projects/-home-bot-pro…\n207 B\n—\nWrite\n11 ms\n#11\n└\n工具\n工具结果\nFile created successfully at: /home/bot/.claude/projects/-home-bot-project-flatline/memory/subagent-model-preference."
+    },
+    {
+      "label": "assetDetail",
+      "source": "current",
+      "theme": "dark",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#181818",
+        "--foreground": "#ececec",
+        "--card": "#212121",
+        "--primary": "#4dabff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "#242424",
+        "--secondary-foreground": "#ececec",
+        "--muted": "#242424",
+        "--muted-foreground": "#9b9b9b",
+        "--accent": "#2e2e2e",
+        "--accent-foreground": "#ececec",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#ffd60a",
+        "--border": "#303030",
+        "--input": "#303030",
+        "--ring": "#ececec",
+        "--control-accent": "#4dabff",
+        "--verified": "#17b88b",
+        "--sidebar": "#1f1f1f",
+        "--sidebar-foreground": "#ececec",
+        "--sidebar-accent": "#2a2a2a",
+        "--sidebar-border": "#2a2a2a",
+        "--nav-fg": "#c9c9c9",
+        "--nav-fg-muted": "#969696",
+        "--nav-surface-hover": "#2a2a2a",
+        "--nav-icon-idle": "#5c5c5c",
+        "--panel-surface": "#181818",
+        "--panel-surface-fg-muted": "#ababab",
+        "--panel-input-surface": "rgba(255, 255, 255, 0.07)",
+        "--panel-surface-hover": "#333333",
+        "--panel-slider-fg": "#ababab",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "archive",
+        "arrow-left",
+        "arrow-right",
+        "bell-off",
+        "calendar",
+        "chart-column",
+        "check",
+        "chevron-up",
+        "cpu",
+        "eye-off",
+        "file-diff",
+        "file-text",
+        "folder",
+        "git-commit-horizontal",
+        "history",
+        "layers",
+        "package",
+        "search",
+        "slash"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "arrow-left": "<path d=\"m12 19-7-7 7-7\"></path><path d=\"M19 12H5\"></path>",
+        "file-text": "<path d=\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z\"></path><path d=\"M14 2v4a2 2 0 0 0 2 2h4\"></path><path d=\"M10 9H8\"></path><path d=\"M16 13H8\"></path><path d=\"M16 17H8\"></path>",
+        "history": "<path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"></path><path d=\"M3 3v5h5\"></path><path d=\"M12 7v5l4 2\"></path>",
+        "arrow-right": "<path d=\"M5 12h14\"></path><path d=\"m12 5 7 7-7 7\"></path>",
+        "calendar": "<path d=\"M8 2v4\"></path><path d=\"M16 2v4\"></path><rect width=\"18\" height=\"18\" x=\"3\" y=\"4\" rx=\"2\"></rect><path d=\"M3 10h18\"></path>",
+        "cpu": "<rect width=\"16\" height=\"16\" x=\"4\" y=\"4\" rx=\"2\"></rect><rect width=\"6\" height=\"6\" x=\"9\" y=\"9\" rx=\"1\"></rect><path d=\"M15 2v2\"></path><path d=\"M15 20v2\"></path><path d=\"M2 15h2\"></path><path d=\"M2 9h2\"></path><path d=\"M20 15h2\"></path><path d=\"M20 9h2\"></path><path d=\"M9 2v2\"></path><path d=\"M9 20v2\"></path>",
+        "file-diff": "<path d=\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z\"></path><path d=\"M9 10h6\"></path><path d=\"M12 13V7\"></path><path d=\"M9 17h6\"></path>",
+        "slash": "<path d=\"M22 2 2 22\"></path>",
+        "check": "<path d=\"M20 6 9 17l-5-5\"></path>",
+        "archive": "<rect width=\"20\" height=\"5\" x=\"2\" y=\"3\" rx=\"1\"></rect><path d=\"M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8\"></path><path d=\"M10 12h4\"></path>",
+        "bell-off": "<path d=\"M8.7 3A6 6 0 0 1 18 8a21.3 21.3 0 0 0 .6 5\"></path><path d=\"M17 17H3s3-2 3-9a4.67 4.67 0 0 1 .3-1.7\"></path><path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\"></path><path d=\"m2 2 20 20\"></path>",
+        "eye-off": "<path d=\"M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49\"></path><path d=\"M14.084 14.158a3 3 0 0 1-4.242-4.242\"></path><path d=\"M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143\"></path><path d=\"m2 2 20 20\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 0,
+        ".elevated-card": 7,
+        ".fl-spark": 1,
+        ".fl-funnel": 1,
+        ".fl-list": 5,
+        ".fl-node": 0,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 256,
+          "y": 98,
+          "width": 1184,
+          "height": 802
+        },
+        "firstRow": null,
+        "firstCard": {
+          "x": 272,
+          "y": 102,
+          "width": 790,
+          "height": 360.4375
+        }
+      },
+      "scrollNodes": [
+        {
+          "className": "screen-scroll",
+          "clientHeight": 802,
+          "scrollHeight": 6519
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n878\n变化时间线\n统计\n项目\n全部项目\n932\n项目级\n5\n用户级\n927\n数据源\nClaude Code\n23 条会话\nCodex\n855 条会话\nL\n本地模式\n数据不离开本机\nEnglish\n浅色模式\nagents\n正常\nAGENTS.md · 项目级 · /home/bot/project/flatline/AGENTS.md\n在编辑器中打开\n诊断\n原文\n版本\n判定依据\n已加载（loaded）\n未记录\n基线 · 分子 / 分母\n1/1\n当前 · 分子 / 分母\n8/21 00:42\n状态起点\n8/20 09:40\n资产变更\n环境变化\n8/20 09:40\n\n判定规则：当前没有触发不再被使用、使用减少或引用失效规则。\n\n当前没有触发不再被使用、使用减少或引用失效判定。 · 当前判定没有记录分子 / 分母。\n\n起点前后对齐\n±3 天 · 时间对齐\n8/19 02:05\n环境变化\n环境变化已记录：model（gpt-5.6-luna → gpt-5.4-mini）\n-1.9 d\n8/19 02:05\n环境变化\n环境变化已记录：model（gpt-5.6-luna → gpt-5.4-mini）\n-1.9 d\n8/19 06:34\n环境变化\n环境变化已记录：model（gpt-5.4-mini → gpt-5.4）\n-1.7 d\n8/19 06:34\n环境变化\n环境变化已记录：model（gpt-5.4-mini → gpt-5.4）\n-1.8 d\n8/19 08:40\n环境变化\n环境变化已记录：model（gpt-5.4 → gpt-5.6-luna）\n-1.7 d\n8/19 08:40\n环境变化\n环境变化已记录：model（gpt-5.4 → gpt-5.6-luna）\n-1.7 d\n8/19 08:43\n环境变化\n环境变化已记录：model（gpt-5.6-luna → gpt-5.4）\n-1.7 d\n8/19 08:43\n环境变化\n环境变化已记录：model（gpt-5.6-luna → gpt-5.4）\n-1.7 d\n8/19 08:54\n环境变化\n环境变化已记录：model（gpt-5.4 → gpt-5.3-codex-spark）\n-1.7 d\n8/19 08:54\n环境变化\n环境变化已记录：model（gpt-5.4 → gpt-5.3-codex-spark）\n-1.7 d\n8/19 08:54\n环境变化\n环境变化已记录：model（gpt-5.3-codex-spark → gpt-5.4-mini）\n-1.7 d\n8/19 08:54\n环境变化\n环境变化已记录：model（gpt-5.3-codex-spark → gpt-5.4-mini）\n-1.7 d\n8/19 20:21\n环境变化\n环境变化已记录：model（gpt-5.4-mini → gpt-5.6-luna）\n-1.2 d\n8/19 20:21\n环境变化\n环境变化已记录：model（gpt-5.4-mini → gpt-5.6-luna）\n-1.2 d\n8/19 21:20\n环境变化\n环境变化已记录：harness_version（2.1.221 → 2.1.235）\n-1.1 d\n8/19 21:20\n环境变化\n环境变化已记录：harness_version（2.1.221 → 2.1.235）\n-1.1 d\n8/19 21:27\n环境变化\n环境变化已记录：harness_version（2.1.221 → 2.1.235）\n-1.1 d\n8/19 21:27\n环境变化\n环境变化已记录：model（laguna-s-2.1 → gpt-5.6-luna）\n-1.1 d\n8/19 21:27\n环境变化\n环"
+    },
+    {
+      "label": "timeline",
+      "source": "current",
+      "theme": "dark",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#181818",
+        "--foreground": "#ececec",
+        "--card": "#212121",
+        "--primary": "#4dabff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "#242424",
+        "--secondary-foreground": "#ececec",
+        "--muted": "#242424",
+        "--muted-foreground": "#9b9b9b",
+        "--accent": "#2e2e2e",
+        "--accent-foreground": "#ececec",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#ffd60a",
+        "--border": "#303030",
+        "--input": "#303030",
+        "--ring": "#ececec",
+        "--control-accent": "#4dabff",
+        "--verified": "#17b88b",
+        "--sidebar": "#1f1f1f",
+        "--sidebar-foreground": "#ececec",
+        "--sidebar-accent": "#2a2a2a",
+        "--sidebar-border": "#2a2a2a",
+        "--nav-fg": "#c9c9c9",
+        "--nav-fg-muted": "#969696",
+        "--nav-surface-hover": "#2a2a2a",
+        "--nav-icon-idle": "#5c5c5c",
+        "--panel-surface": "#181818",
+        "--panel-surface-fg-muted": "#ababab",
+        "--panel-input-surface": "rgba(255, 255, 255, 0.07)",
+        "--panel-surface-hover": "#333333",
+        "--panel-slider-fg": "#ababab",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "chart-column",
+        "chevron-up",
+        "circle-slash",
+        "cpu",
+        "file-diff",
+        "folder",
+        "git-commit-horizontal",
+        "layers",
+        "package",
+        "package-open",
+        "search"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "cpu": "<rect width=\"16\" height=\"16\" x=\"4\" y=\"4\" rx=\"2\"></rect><rect width=\"6\" height=\"6\" x=\"9\" y=\"9\" rx=\"1\"></rect><path d=\"M15 2v2\"></path><path d=\"M15 20v2\"></path><path d=\"M2 15h2\"></path><path d=\"M2 9h2\"></path><path d=\"M20 15h2\"></path><path d=\"M20 9h2\"></path><path d=\"M9 2v2\"></path><path d=\"M9 20v2\"></path>",
+        "file-diff": "<path d=\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z\"></path><path d=\"M9 10h6\"></path><path d=\"M12 13V7\"></path><path d=\"M9 17h6\"></path>",
+        "circle-slash": "<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"9\" x2=\"15\" y1=\"15\" y2=\"9\"></line>",
+        "package-open": "<path d=\"M12 22v-9\"></path><path d=\"M15.17 2.21a1.67 1.67 0 0 1 1.63 0L21 4.57a1.93 1.93 0 0 1 0 3.36L8.82 14.79a1.655 1.655 0 0 1-1.64 0L3 12.43a1.93 1.93 0 0 1 0-3.36z\"></path><path d=\"M20 13v3.87a2.06 2.06 0 0 1-1.11 1.83l-6 3.08a1.93 1.93 0 0 1-1.78 0l-6-3.08A2.06 2.06 0 0 1 4 16.87V13\"></path><path d=\"M21 12.43a1.93 1.93 0 0 0 0-3.36L8.83 2.2a1.64 1.64 0 0 0-1.63 0L3 4.57a1.93 1.93 0 0 0 0 3.36l12.18 6.86a1.636 1.636 0 0 0 1.63 0z\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 0,
+        ".elevated-card": 0,
+        ".fl-spark": 0,
+        ".fl-funnel": 0,
+        ".fl-list": 0,
+        ".fl-node": 2238,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 256,
+          "y": 52,
+          "width": 1184,
+          "height": 848
+        },
+        "firstRow": null,
+        "firstCard": null
+      },
+      "scrollNodes": [
+        {
+          "className": "screen-scroll",
+          "clientHeight": 848,
+          "scrollHeight": 259614
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n878\n变化时间线\n统计\n项目\n全部项目\n932\n项目级\n5\n用户级\n927\n数据源\nClaude Code\n23 条会话\nCodex\n855 条会话\nL\n本地模式\n数据不离开本机\nEnglish\n浅色模式\n变化时间线\n2238 条 · 本地事实\n全部\n状态迁移\n资产变更\n环境变化\n8/21 10:17\n环境变化\n环境变化已记录：model（gpt-5.4 → gpt-5.6-luna）\n时间对齐记录可下钻\n8/21 07:53\n状态迁移\n正常\nskills:web-clone · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:visual-verdict · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:ralplan · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:ralph · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:plan · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:note · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:help · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:code-review · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:cancel · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:analyze · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:ai-slop-cleaner · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:.system:skill-creator · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nskills:.system:openai-docs · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nplugins:cache:caveman-repo:caveman:0.1.0:skills:compress · 状态迁移为正常\n判定规则：未触发沉默、引用失效、调用后未遵循、几乎未使用或使用减少判定。\n查看资产详情\n8/21 07:53\n状态迁移\n正常\nplugins:cache:caveman-repo:caveman:0.1.0"
+    },
+    {
+      "label": "stats",
+      "source": "current",
+      "theme": "dark",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#181818",
+        "--foreground": "#ececec",
+        "--card": "#212121",
+        "--primary": "#4dabff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "#242424",
+        "--secondary-foreground": "#ececec",
+        "--muted": "#242424",
+        "--muted-foreground": "#9b9b9b",
+        "--accent": "#2e2e2e",
+        "--accent-foreground": "#ececec",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#ffd60a",
+        "--border": "#303030",
+        "--input": "#303030",
+        "--ring": "#ececec",
+        "--control-accent": "#4dabff",
+        "--verified": "#17b88b",
+        "--sidebar": "#1f1f1f",
+        "--sidebar-foreground": "#ececec",
+        "--sidebar-accent": "#2a2a2a",
+        "--sidebar-border": "#2a2a2a",
+        "--nav-fg": "#c9c9c9",
+        "--nav-fg-muted": "#969696",
+        "--nav-surface-hover": "#2a2a2a",
+        "--nav-icon-idle": "#5c5c5c",
+        "--panel-surface": "#181818",
+        "--panel-surface-fg-muted": "#ababab",
+        "--panel-input-surface": "rgba(255, 255, 255, 0.07)",
+        "--panel-surface-hover": "#333333",
+        "--panel-slider-fg": "#ababab",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "chart-column",
+        "chevron-up",
+        "circle-slash",
+        "folder",
+        "git-commit-horizontal",
+        "hash",
+        "layers",
+        "package",
+        "package-open",
+        "search",
+        "slash",
+        "triangle-alert",
+        "wallet"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "triangle-alert": "<path d=\"m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3\"></path><path d=\"M12 9v4\"></path><path d=\"M12 17h.01\"></path>",
+        "package-open": "<path d=\"M12 22v-9\"></path><path d=\"M15.17 2.21a1.67 1.67 0 0 1 1.63 0L21 4.57a1.93 1.93 0 0 1 0 3.36L8.82 14.79a1.655 1.655 0 0 1-1.64 0L3 12.43a1.93 1.93 0 0 1 0-3.36z\"></path><path d=\"M20 13v3.87a2.06 2.06 0 0 1-1.11 1.83l-6 3.08a1.93 1.93 0 0 1-1.78 0l-6-3.08A2.06 2.06 0 0 1 4 16.87V13\"></path><path d=\"M21 12.43a1.93 1.93 0 0 0 0-3.36L8.83 2.2a1.64 1.64 0 0 0-1.63 0L3 4.57a1.93 1.93 0 0 0 0 3.36l12.18 6.86a1.636 1.636 0 0 0 1.63 0z\"></path>",
+        "wallet": "<path d=\"M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1\"></path><path d=\"M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4\"></path>",
+        "hash": "<line x1=\"4\" x2=\"20\" y1=\"9\" y2=\"9\"></line><line x1=\"4\" x2=\"20\" y1=\"15\" y2=\"15\"></line><line x1=\"10\" x2=\"8\" y1=\"3\" y2=\"21\"></line><line x1=\"16\" x2=\"14\" y1=\"3\" y2=\"21\"></line>",
+        "circle-slash": "<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"9\" x2=\"15\" y1=\"15\" y2=\"9\"></line>",
+        "slash": "<path d=\"M22 2 2 22\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 0,
+        ".elevated-card": 6,
+        ".fl-spark": 0,
+        ".fl-funnel": 0,
+        ".fl-list": 3,
+        ".fl-node": 0,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 6,
+        ".heat-cell": 364
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 256,
+          "y": 52,
+          "width": 1184,
+          "height": 848
+        },
+        "firstRow": null,
+        "firstCard": {
+          "x": 272,
+          "y": 56,
+          "width": 1142,
+          "height": 221
+        }
+      },
+      "scrollNodes": [
+        {
+          "className": "screen-scroll",
+          "clientHeight": 848,
+          "scrollHeight": 857
+        }
+      ],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n878\n变化时间线\n统计\n项目\n全部项目\n932\n项目级\n5\n用户级\n927\n数据源\nClaude Code\n23 条会话\nCodex\n855 条会话\nL\n本地模式\n数据不离开本机\nEnglish\n浅色模式\n统计\n近 30 天\n导出\n资产\n932\n会话\n878\n需要注意\n0\n几乎未使用\n未记录\n成本\n未记录\nToken 数\n未记录\n活动\n近 52 周 · 每格一天\n2025-08\n未记录\n事件更多\n2026-08\n状态分布\n932\n正常\n22\n没有相关任务记录\n910\n数据源\n878 个会话\nClaude Code\n23\n未记录\nCodex\n855\n未记录\n每日成本\n未记录\n每日成本未记录。\n上下文开销\n每次会话\nToken 与上下文开销未记录。"
+    },
+    {
+      "label": "cleanup",
+      "source": "current",
+      "theme": "dark",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "documentHeight": 900,
+        "pageOverflowY": "visible",
+        "bodyOverflowY": "visible"
+      },
+      "tokens": {
+        "--background": "#181818",
+        "--foreground": "#ececec",
+        "--card": "#212121",
+        "--primary": "#4dabff",
+        "--primary-foreground": "oklch(1 0 0)",
+        "--secondary": "#242424",
+        "--secondary-foreground": "#ececec",
+        "--muted": "#242424",
+        "--muted-foreground": "#9b9b9b",
+        "--accent": "#2e2e2e",
+        "--accent-foreground": "#ececec",
+        "--destructive": "oklch(0.6368 0.2078 25.3313)",
+        "--destructive-foreground": "oklch(1 0 0)",
+        "--bypass": "#ffd60a",
+        "--border": "#303030",
+        "--input": "#303030",
+        "--ring": "#ececec",
+        "--control-accent": "#4dabff",
+        "--verified": "#17b88b",
+        "--sidebar": "#1f1f1f",
+        "--sidebar-foreground": "#ececec",
+        "--sidebar-accent": "#2a2a2a",
+        "--sidebar-border": "#2a2a2a",
+        "--nav-fg": "#c9c9c9",
+        "--nav-fg-muted": "#969696",
+        "--nav-surface-hover": "#2a2a2a",
+        "--nav-icon-idle": "#5c5c5c",
+        "--panel-surface": "#181818",
+        "--panel-surface-fg-muted": "#ababab",
+        "--panel-input-surface": "rgba(255, 255, 255, 0.07)",
+        "--panel-surface-hover": "#333333",
+        "--panel-slider-fg": "#ababab",
+        "--sidebar-width": "256px"
+      },
+      "iconNames": [
+        "activity",
+        "archive",
+        "arrow-left",
+        "chart-column",
+        "check",
+        "chevron-up",
+        "folder",
+        "git-commit-horizontal",
+        "hash",
+        "layers",
+        "package",
+        "search",
+        "wallet"
+      ],
+      "iconPaths": {
+        "activity": "<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path>",
+        "search": "<circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.3-4.3\"></path>",
+        "package": "<path d=\"m7.5 4.27 9 5.15\"></path><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"></path><path d=\"m3.3 7 8.7 5 8.7-5\"></path><path d=\"M12 22V12\"></path>",
+        "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"></path><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"></path><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"></path>",
+        "git-commit-horizontal": "<circle cx=\"12\" cy=\"12\" r=\"3\"></circle><line x1=\"3\" x2=\"9\" y1=\"12\" y2=\"12\"></line><line x1=\"15\" x2=\"21\" y1=\"12\" y2=\"12\"></line>",
+        "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path>",
+        "folder": "<path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path>",
+        "chevron-up": "<path d=\"m18 15-6-6-6 6\"></path>",
+        "arrow-left": "<path d=\"m12 19-7-7 7-7\"></path><path d=\"M19 12H5\"></path>",
+        "hash": "<line x1=\"4\" x2=\"20\" y1=\"9\" y2=\"9\"></line><line x1=\"4\" x2=\"20\" y1=\"15\" y2=\"15\"></line><line x1=\"10\" x2=\"8\" y1=\"3\" y2=\"21\"></line><line x1=\"16\" x2=\"14\" y1=\"3\" y2=\"21\"></line>",
+        "archive": "<rect width=\"20\" height=\"5\" x=\"2\" y=\"3\" rx=\"1\"></rect><path d=\"M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8\"></path><path d=\"M10 12h4\"></path>",
+        "wallet": "<path d=\"M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1\"></path><path d=\"M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4\"></path>",
+        "check": "<path d=\"M20 6 9 17l-5-5\"></path>"
+      },
+      "unsupportedIcons": [],
+      "counts": {
+        ".fl-row": 0,
+        ".elevated-card": 3,
+        ".fl-spark": 0,
+        ".fl-funnel": 0,
+        ".fl-list": 0,
+        ".fl-node": 0,
+        ".fl-tbtn": 0,
+        ".session-ledger-row": 0,
+        ".session-chat-row": 0,
+        ".stats-card": 0,
+        ".heat-cell": 0
+      },
+      "rects": {
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 900
+        },
+        "main": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 900
+        },
+        "header": {
+          "x": 256,
+          "y": 0,
+          "width": 1184,
+          "height": 52
+        },
+        "scroll": {
+          "x": 256,
+          "y": 52,
+          "width": 1184,
+          "height": 848
+        },
+        "firstRow": null,
+        "firstCard": {
+          "x": 272,
+          "y": 56,
+          "width": 1142,
+          "height": 89
+        }
+      },
+      "scrollNodes": [],
+      "text": "Flatline\nBETA\n搜索\n⌘K\n资产\n会话\n878\n变化时间线\n统计\n项目\n全部项目\n932\n项目级\n5\n用户级\n927\n数据源\nClaude Code\n23 条会话\nCodex\n855 条会话\nL\n本地模式\n数据不离开本机\nEnglish\n浅色模式\n整理几乎未使用的资产\n存在 ≥ 30 天，累计参与 ≤ 2 次 · 0 个候选\n确认整理所选资产\n未记录\n每次会话可省\n0\n已选择归档\n未记录\n已核实源文件大小\n按建议全选\n几乎未使用的资产\n存在 ≥ 30 天，累计参与 ≤ 2 次\n当前没有符合条件的资产。\n没有把缺失记录当成低参与，也没有生成空的清理收益。\n\n尚未选择任何资产。\n\n确认整理所选资产\n将执行的操作\n逻辑归档 · 可回滚\n$ flatline cleanup --logical-archive\n仅在用户确认后写入处置记录；source_files_changed: false\n已核实大小：未记录\n\nFlatline 不会删除、改写或重命名任何源文件。\n\n确认整理所选资产"
+    }
+  ]
+}

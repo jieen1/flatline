@@ -30,18 +30,6 @@ func ts(s string) time.Time {
 	return v
 }
 
-func mapEqual(a, b map[string]int64) bool {
-	if len(a) != len(b) {
-		return false
-	}
-	for k, v := range a {
-		if bv, ok := b[k]; !ok || bv != v {
-			return false
-		}
-	}
-	return true
-}
-
 // seedAsset inserts an asset row.
 func seedAsset(t *testing.T, db *storage.DB, id, kind, name string) {
 	t.Helper()

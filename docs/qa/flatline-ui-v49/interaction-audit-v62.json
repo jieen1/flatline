@@ -1,0 +1,735 @@
+{
+  "generatedAt": "2026-08-21T02:37:02.091Z",
+  "source": "daemon_owned_sqlite",
+  "session": {
+    "source": "codex",
+    "eventCount": 499,
+    "idDigest": "codex:019df6"
+  },
+  "states": {
+    "initial": {
+      "label": "trajectory-initial",
+      "route": "#/sessions/codex%3A019df670-9adb-74c3-91f8-46d3d61e70fc",
+      "trajectory": true,
+      "chat": false,
+      "activeSessionTab": "trajectory",
+      "activeInspectorTab": "inspector",
+      "trajectoryRows": 499,
+      "chatRows": 0,
+      "turnGroups": 2,
+      "selectedEvent": "0",
+      "toolbarIcons": [
+        {
+          "mode": "duration",
+          "icon": "clock",
+          "width": 14,
+          "height": 14
+        },
+        {
+          "mode": "turns",
+          "icon": "rows-2",
+          "width": 14,
+          "height": 14
+        },
+        {
+          "mode": "calls",
+          "icon": "list-collapse",
+          "width": 14,
+          "height": 14
+        }
+      ],
+      "turns": {
+        "on": "false",
+        "icon": "rows-2"
+      },
+      "calls": {
+        "on": "false",
+        "icon": "list-collapse"
+      },
+      "searchPanel": {
+        "open": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "scroll": {
+        "page": {
+          "scrollHeight": 771,
+          "clientHeight": 771,
+          "scrollWidth": 1174,
+          "clientWidth": 1174,
+          "overflowY": "hidden"
+        },
+        "events": {
+          "scrollHeight": 27603,
+          "clientHeight": 644,
+          "scrollWidth": 770,
+          "clientWidth": 770,
+          "overflowY": "auto"
+        },
+        "inspector": {
+          "scrollHeight": 717,
+          "clientHeight": 717,
+          "scrollWidth": 412,
+          "clientWidth": 388,
+          "overflowY": "auto"
+        },
+        "chat": null
+      }
+    },
+    "chat": {
+      "label": "chat-selected",
+      "route": "#/sessions/codex%3A019df670-9adb-74c3-91f8-46d3d61e70fc",
+      "trajectory": false,
+      "chat": true,
+      "activeSessionTab": "chat",
+      "activeInspectorTab": "inspector",
+      "trajectoryRows": 0,
+      "chatRows": 499,
+      "turnGroups": 0,
+      "selectedEvent": null,
+      "toolbarIcons": [],
+      "turns": {
+        "on": null,
+        "icon": null
+      },
+      "calls": {
+        "on": null,
+        "icon": null
+      },
+      "searchPanel": {
+        "open": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "scroll": {
+        "page": {
+          "scrollHeight": 771,
+          "clientHeight": 771,
+          "scrollWidth": 1174,
+          "clientWidth": 1174,
+          "overflowY": "hidden"
+        },
+        "events": null,
+        "inspector": {
+          "scrollHeight": 717,
+          "clientHeight": 717,
+          "scrollWidth": 412,
+          "clientWidth": 388,
+          "overflowY": "auto"
+        },
+        "chat": {
+          "scrollHeight": 50319,
+          "clientHeight": 727,
+          "scrollWidth": 770,
+          "clientWidth": 770,
+          "overflowY": "auto"
+        }
+      }
+    },
+    "trajectoryRestored": {
+      "label": "trajectory-restored",
+      "route": "#/sessions/codex%3A019df670-9adb-74c3-91f8-46d3d61e70fc",
+      "trajectory": true,
+      "chat": false,
+      "activeSessionTab": "trajectory",
+      "activeInspectorTab": "inspector",
+      "trajectoryRows": 499,
+      "chatRows": 0,
+      "turnGroups": 2,
+      "selectedEvent": "0",
+      "toolbarIcons": [
+        {
+          "mode": "duration",
+          "icon": "clock",
+          "width": 14,
+          "height": 14
+        },
+        {
+          "mode": "turns",
+          "icon": "rows-2",
+          "width": 14,
+          "height": 14
+        },
+        {
+          "mode": "calls",
+          "icon": "list-collapse",
+          "width": 14,
+          "height": 14
+        }
+      ],
+      "turns": {
+        "on": "false",
+        "icon": "rows-2"
+      },
+      "calls": {
+        "on": "false",
+        "icon": "list-collapse"
+      },
+      "searchPanel": {
+        "open": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "scroll": {
+        "page": {
+          "scrollHeight": 771,
+          "clientHeight": 771,
+          "scrollWidth": 1174,
+          "clientWidth": 1174,
+          "overflowY": "hidden"
+        },
+        "events": {
+          "scrollHeight": 27691,
+          "clientHeight": 644,
+          "scrollWidth": 770,
+          "clientWidth": 770,
+          "overflowY": "auto"
+        },
+        "inspector": {
+          "scrollHeight": 717,
+          "clientHeight": 717,
+          "scrollWidth": 412,
+          "clientWidth": 388,
+          "overflowY": "auto"
+        },
+        "chat": null
+      }
+    },
+    "turnsFolded": {
+      "label": "turns-folded",
+      "route": "#/sessions/codex%3A019df670-9adb-74c3-91f8-46d3d61e70fc",
+      "trajectory": true,
+      "chat": false,
+      "activeSessionTab": "trajectory",
+      "activeInspectorTab": "inspector",
+      "trajectoryRows": 0,
+      "chatRows": 0,
+      "turnGroups": 2,
+      "selectedEvent": null,
+      "toolbarIcons": [
+        {
+          "mode": "duration",
+          "icon": "clock",
+          "width": 14,
+          "height": 14
+        },
+        {
+          "mode": "turns",
+          "icon": "rows-3",
+          "width": 14,
+          "height": 14
+        },
+        {
+          "mode": "calls",
+          "icon": "list-collapse",
+          "width": 14,
+          "height": 14
+        }
+      ],
+      "turns": {
+        "on": "true",
+        "icon": "rows-3"
+      },
+      "calls": {
+        "on": "false",
+        "icon": "list-collapse"
+      },
+      "searchPanel": {
+        "open": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "scroll": {
+        "page": {
+          "scrollHeight": 771,
+          "clientHeight": 771,
+          "scrollWidth": 1174,
+          "clientWidth": 1174,
+          "overflowY": "hidden"
+        },
+        "events": {
+          "scrollHeight": 644,
+          "clientHeight": 644,
+          "scrollWidth": 770,
+          "clientWidth": 770,
+          "overflowY": "auto"
+        },
+        "inspector": {
+          "scrollHeight": 717,
+          "clientHeight": 717,
+          "scrollWidth": 412,
+          "clientWidth": 388,
+          "overflowY": "auto"
+        },
+        "chat": null
+      }
+    },
+    "turnsRestored": {
+      "label": "turns-restored",
+      "route": "#/sessions/codex%3A019df670-9adb-74c3-91f8-46d3d61e70fc",
+      "trajectory": true,
+      "chat": false,
+      "activeSessionTab": "trajectory",
+      "activeInspectorTab": "inspector",
+      "trajectoryRows": 499,
+      "chatRows": 0,
+      "turnGroups": 2,
+      "selectedEvent": "0",
+      "toolbarIcons": [
+        {
+          "mode": "duration",
+          "icon": "clock",
+          "width": 14,
+          "height": 14
+        },
+        {
+          "mode": "turns",
+          "icon": "rows-2",
+          "width": 14,
+          "height": 14
+        },
+        {
+          "mode": "calls",
+          "icon": "list-collapse",
+          "width": 14,
+          "height": 14
+        }
+      ],
+      "turns": {
+        "on": "false",
+        "icon": "rows-2"
+      },
+      "calls": {
+        "on": "false",
+        "icon": "list-collapse"
+      },
+      "searchPanel": {
+        "open": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "scroll": {
+        "page": {
+          "scrollHeight": 771,
+          "clientHeight": 771,
+          "scrollWidth": 1174,
+          "clientWidth": 1174,
+          "overflowY": "hidden"
+        },
+        "events": {
+          "scrollHeight": 27691,
+          "clientHeight": 644,
+          "scrollWidth": 770,
+          "clientWidth": 770,
+          "overflowY": "auto"
+        },
+        "inspector": {
+          "scrollHeight": 717,
+          "clientHeight": 717,
+          "scrollWidth": 412,
+          "clientWidth": 388,
+          "overflowY": "auto"
+        },
+        "chat": null
+      }
+    },
+    "callsFolded": {
+      "label": "calls-folded",
+      "route": "#/sessions/codex%3A019df670-9adb-74c3-91f8-46d3d61e70fc",
+      "trajectory": true,
+      "chat": false,
+      "activeSessionTab": "trajectory",
+      "activeInspectorTab": "inspector",
+      "trajectoryRows": 37,
+      "chatRows": 0,
+      "turnGroups": 2,
+      "selectedEvent": "0",
+      "toolbarIcons": [
+        {
+          "mode": "duration",
+          "icon": "clock",
+          "width": 14,
+          "height": 14
+        },
+        {
+          "mode": "turns",
+          "icon": "rows-2",
+          "width": 14,
+          "height": 14
+        },
+        {
+          "mode": "calls",
+          "icon": "list",
+          "width": 14,
+          "height": 14
+        }
+      ],
+      "turns": {
+        "on": "false",
+        "icon": "rows-2"
+      },
+      "calls": {
+        "on": "true",
+        "icon": "list"
+      },
+      "searchPanel": {
+        "open": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "scroll": {
+        "page": {
+          "scrollHeight": 771,
+          "clientHeight": 771,
+          "scrollWidth": 1174,
+          "clientWidth": 1174,
+          "overflowY": "hidden"
+        },
+        "events": {
+          "scrollHeight": 1797,
+          "clientHeight": 644,
+          "scrollWidth": 770,
+          "clientWidth": 770,
+          "overflowY": "auto"
+        },
+        "inspector": {
+          "scrollHeight": 717,
+          "clientHeight": 717,
+          "scrollWidth": 412,
+          "clientWidth": 388,
+          "overflowY": "auto"
+        },
+        "chat": null
+      }
+    },
+    "callsRestored": {
+      "label": "calls-restored",
+      "route": "#/sessions/codex%3A019df670-9adb-74c3-91f8-46d3d61e70fc",
+      "trajectory": true,
+      "chat": false,
+      "activeSessionTab": "trajectory",
+      "activeInspectorTab": "inspector",
+      "trajectoryRows": 499,
+      "chatRows": 0,
+      "turnGroups": 2,
+      "selectedEvent": "0",
+      "toolbarIcons": [
+        {
+          "mode": "duration",
+          "icon": "clock",
+          "width": 14,
+          "height": 14
+        },
+        {
+          "mode": "turns",
+          "icon": "rows-2",
+          "width": 14,
+          "height": 14
+        },
+        {
+          "mode": "calls",
+          "icon": "list-collapse",
+          "width": 14,
+          "height": 14
+        }
+      ],
+      "turns": {
+        "on": "false",
+        "icon": "rows-2"
+      },
+      "calls": {
+        "on": "false",
+        "icon": "list-collapse"
+      },
+      "searchPanel": {
+        "open": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "scroll": {
+        "page": {
+          "scrollHeight": 771,
+          "clientHeight": 771,
+          "scrollWidth": 1174,
+          "clientWidth": 1174,
+          "overflowY": "hidden"
+        },
+        "events": {
+          "scrollHeight": 27625,
+          "clientHeight": 644,
+          "scrollWidth": 770,
+          "clientWidth": 770,
+          "overflowY": "auto"
+        },
+        "inspector": {
+          "scrollHeight": 717,
+          "clientHeight": 717,
+          "scrollWidth": 412,
+          "clientWidth": 388,
+          "overflowY": "auto"
+        },
+        "chat": null
+      }
+    },
+    "eventSelected": {
+      "label": "event-selected",
+      "route": "#/sessions/codex%3A019df670-9adb-74c3-91f8-46d3d61e70fc",
+      "trajectory": true,
+      "chat": false,
+      "activeSessionTab": "trajectory",
+      "activeInspectorTab": "inspector",
+      "trajectoryRows": 499,
+      "chatRows": 0,
+      "turnGroups": 2,
+      "selectedEvent": "3",
+      "toolbarIcons": [
+        {
+          "mode": "duration",
+          "icon": "clock",
+          "width": 14,
+          "height": 14
+        },
+        {
+          "mode": "turns",
+          "icon": "rows-2",
+          "width": 14,
+          "height": 14
+        },
+        {
+          "mode": "calls",
+          "icon": "list-collapse",
+          "width": 14,
+          "height": 14
+        }
+      ],
+      "turns": {
+        "on": "false",
+        "icon": "rows-2"
+      },
+      "calls": {
+        "on": "false",
+        "icon": "list-collapse"
+      },
+      "searchPanel": {
+        "open": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "scroll": {
+        "page": {
+          "scrollHeight": 771,
+          "clientHeight": 771,
+          "scrollWidth": 1174,
+          "clientWidth": 1174,
+          "overflowY": "hidden"
+        },
+        "events": {
+          "scrollHeight": 27603,
+          "clientHeight": 644,
+          "scrollWidth": 770,
+          "clientWidth": 770,
+          "overflowY": "auto"
+        },
+        "inspector": {
+          "scrollHeight": 819,
+          "clientHeight": 717,
+          "scrollWidth": 724,
+          "clientWidth": 388,
+          "overflowY": "auto"
+        },
+        "chat": null
+      }
+    },
+    "ecm": {
+      "label": "effective-config-selected",
+      "route": "#/sessions/codex%3A019df670-9adb-74c3-91f8-46d3d61e70fc",
+      "trajectory": true,
+      "chat": false,
+      "activeSessionTab": "trajectory",
+      "activeInspectorTab": "ecm",
+      "trajectoryRows": 499,
+      "chatRows": 0,
+      "turnGroups": 2,
+      "selectedEvent": "3",
+      "toolbarIcons": [
+        {
+          "mode": "duration",
+          "icon": "clock",
+          "width": 14,
+          "height": 14
+        },
+        {
+          "mode": "turns",
+          "icon": "rows-2",
+          "width": 14,
+          "height": 14
+        },
+        {
+          "mode": "calls",
+          "icon": "list-collapse",
+          "width": 14,
+          "height": 14
+        }
+      ],
+      "turns": {
+        "on": "false",
+        "icon": "rows-2"
+      },
+      "calls": {
+        "on": "false",
+        "icon": "list-collapse"
+      },
+      "searchPanel": {
+        "open": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "scroll": {
+        "page": {
+          "scrollHeight": 771,
+          "clientHeight": 771,
+          "scrollWidth": 1174,
+          "clientWidth": 1174,
+          "overflowY": "hidden"
+        },
+        "events": {
+          "scrollHeight": 27625,
+          "clientHeight": 644,
+          "scrollWidth": 770,
+          "clientWidth": 770,
+          "overflowY": "auto"
+        },
+        "inspector": {
+          "scrollHeight": 727,
+          "clientHeight": 727,
+          "scrollWidth": 388,
+          "clientWidth": 388,
+          "overflowY": "auto"
+        },
+        "chat": null
+      }
+    },
+    "searchPanel": {
+      "label": "search-panel-open",
+      "route": "#/sessions/codex%3A019df670-9adb-74c3-91f8-46d3d61e70fc",
+      "trajectory": true,
+      "chat": false,
+      "activeSessionTab": "trajectory",
+      "activeInspectorTab": "inspector",
+      "trajectoryRows": 499,
+      "chatRows": 0,
+      "turnGroups": 2,
+      "selectedEvent": "3",
+      "toolbarIcons": [
+        {
+          "mode": "duration",
+          "icon": "clock",
+          "width": 14,
+          "height": 14
+        },
+        {
+          "mode": "turns",
+          "icon": "rows-2",
+          "width": 14,
+          "height": 14
+        },
+        {
+          "mode": "calls",
+          "icon": "list-collapse",
+          "width": 14,
+          "height": 14
+        }
+      ],
+      "turns": {
+        "on": "false",
+        "icon": "rows-2"
+      },
+      "calls": {
+        "on": "false",
+        "icon": "list-collapse"
+      },
+      "searchPanel": {
+        "open": "true",
+        "rect": {
+          "x": 8,
+          "y": 58,
+          "width": 239,
+          "height": 200
+        }
+      },
+      "scroll": {
+        "page": {
+          "scrollHeight": 771,
+          "clientHeight": 771,
+          "scrollWidth": 1174,
+          "clientWidth": 1174,
+          "overflowY": "hidden"
+        },
+        "events": {
+          "scrollHeight": 27603,
+          "clientHeight": 644,
+          "scrollWidth": 770,
+          "clientWidth": 770,
+          "overflowY": "auto"
+        },
+        "inspector": {
+          "scrollHeight": 819,
+          "clientHeight": 717,
+          "scrollWidth": 724,
+          "clientWidth": 388,
+          "overflowY": "auto"
+        },
+        "chat": null
+      }
+    }
+  },
+  "checks": {
+    "chatTabChangesContent": true,
+    "trajectoryRestores": true,
+    "turnsToggleChangesRows": true,
+    "callsToggleChangesRows": true,
+    "eventSelectionChangesInspector": true,
+    "inspectorTabChangesContent": true,
+    "toolbarIconsMatchPrototype": true,
+    "nestedEventScrollAvailable": true,
+    "nestedInspectorScrollAvailable": false,
+    "searchPanelOpensInSidebar": true
+  },
+  "allPassed": false
+}

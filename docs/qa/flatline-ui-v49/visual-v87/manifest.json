@@ -1,0 +1,37 @@
+{
+  "generatedAt": "2026-08-21T03:14:28.684Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "selectedSession": {
+    "idDigest": "claude_code:",
+    "eventCount": 82254
+  },
+  "results": {
+    "wall": {
+      "route": "#/",
+      "nodes": 6552,
+      "bodyText": 4392,
+      "html": 528270
+    },
+    "sessionDetail": {
+      "route": "#/sessions/claude_code%3A69dd1e73-9d91-4158-96dc-d4a45e29b2ec",
+      "nodes": 2766,
+      "bodyText": 9261,
+      "html": 317105
+    },
+    "timeline": {
+      "route": "#/timeline",
+      "nodes": 33862,
+      "bodyText": 2222,
+      "html": 1907764
+    },
+    "stats": {
+      "route": "#/stats",
+      "nodes": 647,
+      "bodyText": 353,
+      "html": 44445
+    }
+  }
+}

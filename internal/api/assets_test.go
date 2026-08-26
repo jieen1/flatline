@@ -16,62 +16,10 @@ import (
 
 	"flatline/internal/adapters"
 	"flatline/internal/assets"
-	"flatline/internal/canonical"
 	"flatline/internal/detectors"
-	"flatline/internal/eventstore"
 	"flatline/internal/storage"
-	"flatline/internal/tracking"
 	"flatline/internal/vital"
 )
-
-func testAPIDB(t *testing.T) *storage.DB {
-	t.Helper()
-	db, err := storage.Open(context.Background(), filepath.Join(t.TempDir(), "api.db"))
-	if err != nil {
-		t.Fatalf("storage.Open: %v", err)
-	}
-	t.Cleanup(func() { _ = db.Close() })
-	ctx := context.Background()
-	firstSeen := time.Date(2026, 7, 1, 12, 0, 0, 0, time.UTC)
-	registry := assets.New(db)
-	assetID, err := registry.Register(ctx, assets.AssetInput{Kind: assets.KindSkill, Scope: assets.ScopeProject, Name: "fixture", SourcePath: "/synthetic/fixture/SKILL.md", FirstSeenAt: firstSeen})
-	if err != nil {
-		t.Fatalf("register asset: %v", err)
-	}
-	if _, err := registry.RecordVersion(ctx, assets.VersionInput{AssetID: assetID, Content: []byte("synthetic api fixture\n"), ObservationLevel: canonical.LevelInvoked, ObservedAt: firstSeen, ContentRef: "fixture:asset:v1"}); err != nil {
-		t.Fatalf("record version: %v", err)
-	}
-	store := eventstore.New(db)
-	sessionID, err := store.IngestSession(ctx, adapters.SourceClaudeCode, adapters.SessionMeta{SourceSessionID: "api-fixture", StartedAt: &firstSeen, Model: "synthetic-model", Title: "API 会话标题", TaskText: "检查 API 资产证据"})
-	if err != nil {
-		t.Fatalf("ingest session: %v", err)
-	}
-	if _, err := store.IngestEvents(ctx, sessionID, []canonical.Event{{
-		SourceEventID: "api-fixture-transcript", SessionID: sessionID, EventType: canonical.EventTypeTranscriptMessage,
-		ObservationLevel: canonical.LevelUnknown, Payload: map[string]any{"role": "user", "text": "检查 API 资产证据"},
-		Locator: canonical.Locator{Source: string(adapters.SourceClaudeCode), SessionID: sessionID, RawRef: "fixture:message"}, OccurredAt: &firstSeen,
-	}}); err != nil {
-		t.Fatalf("ingest transcript event: %v", err)
-	}
-	tracker := tracking.New(db)
-	if _, _, err := tracker.RecordSessionShape(ctx, tracking.SessionShape{SessionID: sessionID, Tags: []string{"fixture"}, AssetIDs: []string{assetID}, DetectedAt: firstSeen}); err != nil {
-		t.Fatalf("record opportunity: %v", err)
-	}
-	var versionID, opportunityID int64
-	if err := db.QueryRowContext(ctx, `SELECT id FROM asset_versions WHERE asset_id = ?`, assetID).Scan(&versionID); err != nil {
-		t.Fatalf("version id: %v", err)
-	}
-	if err := db.QueryRowContext(ctx, `SELECT id FROM opportunities WHERE asset_id = ?`, assetID).Scan(&opportunityID); err != nil {
-		t.Fatalf("opportunity id: %v", err)
-	}
-	if _, err := tracker.RecordParticipation(ctx, tracking.ParticipationInput{AssetVersionID: versionID, SessionID: sessionID, OpportunityID: &opportunityID, Signal: canonical.SignalInvoked, Level: canonical.LevelInvoked, OccurredAt: &firstSeen}); err != nil {
-		t.Fatalf("record participation: %v", err)
-	}
-	if _, err := vital.NewRepository(db, vital.NewMachine(vital.DefaultConfig())).Apply(ctx, vital.Assessment{AssetID: assetID, At: firstSeen, HasOpportunity: true, HasBaseline: true, ParticipationObserved: true}); err != nil {
-		t.Fatalf("record vital state: %v", err)
-	}
-	return db
-}
 
 func TestDataAPIListsAndDrillsIntoAssetEvidence(t *testing.T) {
 	db := testAPIDB(t)
@@ -146,25 +94,6 @@ func TestDataAPIListsAndDrillsIntoAssetEvidence(t *testing.T) {
 		t.Fatalf("sessions = %+v", sessionList.Sessions)
 	}
 
-	req = httptest.NewRequest(http.MethodGet, "/api/v1/sessions?summary=1", nil)
-	rec = httptest.NewRecorder()
-	handler.ServeHTTP(rec, req)
-	if rec.Code != http.StatusOK {
-		t.Fatalf("session summary status = %d, body=%s", rec.Code, rec.Body.String())
-	}
-	var sessionSummary struct {
-		Sessions []map[string]json.RawMessage `json:"sessions"`
-	}
-	if err := json.NewDecoder(rec.Body).Decode(&sessionSummary); err != nil {
-		t.Fatalf("decode session summary: %v", err)
-	}
-	if len(sessionSummary.Sessions) != 1 {
-		t.Fatalf("session summary count = %d, want 1", len(sessionSummary.Sessions))
-	}
-	if _, ok := sessionSummary.Sessions[0]["event_count"]; ok {
-		t.Fatal("session summary unexpectedly contains event_count")
-	}
-
 	req = httptest.NewRequest(http.MethodGet, "/api/v1/sessions/claude_code:api-fixture", nil)
 	rec = httptest.NewRecorder()
 	handler.ServeHTTP(rec, req)
@@ -228,65 +157,6 @@ func TestDataAPIListsAndDrillsIntoAssetEvidence(t *testing.T) {
 	}
 	if string(eventDetail.Event["id"]) != strconv.FormatInt(eventID, 10) {
 		t.Fatalf("session event id = %s, want %d", eventDetail.Event["id"], eventID)
-	}
-}
-
-func TestSessionDetailExposesSessionWideFrictionProjection(t *testing.T) {
-	db := testAPIDB(t)
-	ctx := context.Background()
-	store := eventstore.New(db)
-	sessionID := "claude_code:api-fixture"
-	failureAt := time.Date(2026, 7, 1, 12, 0, 2, 0, time.UTC)
-	event := canonical.Event{
-		SourceEventID: "api-fixture-tool-error", SessionID: sessionID, EventType: canonical.EventTypeTranscriptResult,
-		ObservationLevel: canonical.LevelUnknown, Payload: map[string]any{"role": "tool", "tool_output": "permission denied", "is_error": true},
-		Locator: canonical.Locator{Source: string(adapters.SourceClaudeCode), SessionID: sessionID, RawRef: "fixture:tool-result"}, OccurredAt: &failureAt,
-	}
-	if _, err := store.IngestEvents(ctx, sessionID, []canonical.Event{event}); err != nil {
-		t.Fatal(err)
-	}
-	if _, err := store.IngestFriction(ctx, sessionID, []canonical.Event{event}); err != nil {
-		t.Fatal(err)
-	}
-	handler := NewServerWithDB(db).Handler()
-	req := httptest.NewRequest(http.MethodGet, "/api/v1/sessions/claude_code:api-fixture?events=page&limit=1", nil)
-	rec := httptest.NewRecorder()
-	handler.ServeHTTP(rec, req)
-	if rec.Code != http.StatusOK {
-		t.Fatalf("session detail status = %d, body=%s", rec.Code, rec.Body.String())
-	}
-	var response map[string]json.RawMessage
-	if err := json.NewDecoder(rec.Body).Decode(&response); err != nil {
-		t.Fatal(err)
-	}
-	var friction map[string]json.RawMessage
-	if err := json.Unmarshal(response["friction"], &friction); err != nil {
-		t.Fatal(err)
-	}
-	var count int
-	var complete bool
-	var records []map[string]json.RawMessage
-	var events []json.RawMessage
-	if err := json.Unmarshal(friction["count"], &count); err != nil {
-		t.Fatal(err)
-	}
-	if err := json.Unmarshal(friction["complete"], &complete); err != nil {
-		t.Fatal(err)
-	}
-	if err := json.Unmarshal(friction["records"], &records); err != nil {
-		t.Fatal(err)
-	}
-	if err := json.Unmarshal(response["events"], &events); err != nil {
-		t.Fatal(err)
-	}
-	var sourceEventID string
-	var isError bool
-	if len(records) == 1 {
-		_ = json.Unmarshal(records[0]["source_event_id"], &sourceEventID)
-		_ = json.Unmarshal(records[0]["is_error"], &isError)
-	}
-	if count != 1 || !complete || len(records) != 1 || sourceEventID != event.SourceEventID || !isError || len(events) != 1 {
-		t.Fatalf("friction count=%d complete=%v records=%v events=%d", count, complete, records, len(events))
 	}
 }
 
@@ -482,31 +352,6 @@ func TestDataAPIHonorsAssetListLimit(t *testing.T) {
 	}
 	if len(list.Assets) != 1 {
 		t.Fatalf("limited assets = %d, want 1", len(list.Assets))
-	}
-}
-
-func TestDataAPIAssetSummaryOmitsPerAssetFacts(t *testing.T) {
-	db := testAPIDB(t)
-	req := httptest.NewRequest(http.MethodGet, "/api/v1/assets?summary=1", nil)
-	rec := httptest.NewRecorder()
-	NewServerWithDB(db).Handler().ServeHTTP(rec, req)
-	if rec.Code != http.StatusOK {
-		t.Fatalf("asset summary status = %d, body=%s", rec.Code, rec.Body.String())
-	}
-	var body struct {
-		Assets []map[string]json.RawMessage `json:"assets"`
-	}
-	if err := json.NewDecoder(rec.Body).Decode(&body); err != nil {
-		t.Fatalf("decode asset summary: %v", err)
-	}
-	if len(body.Assets) != 1 {
-		t.Fatalf("asset summary count = %d, want 1", len(body.Assets))
-	}
-	if _, ok := body.Assets[0]["facts"]; ok {
-		t.Fatalf("asset summary unexpectedly includes per-asset facts: %s", body.Assets[0]["facts"])
-	}
-	if string(body.Assets[0]["id"]) != `"skill:project:fixture"` || string(body.Assets[0]["state_status"]) != `"evaluated"` {
-		t.Fatalf("asset summary identity/state = id=%s state=%s", body.Assets[0]["id"], body.Assets[0]["state_status"])
 	}
 }
 

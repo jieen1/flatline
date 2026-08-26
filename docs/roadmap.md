@@ -1,8 +1,9 @@
 # Flatline · 路线图（Roadmap）
 
-> 版本：v1.0 · 2026-08-19
-> 依据：`flatline-system-design-v0_4.md`（系统设计）与 `flatline-ui-design-guidelines-v2_0.md`（UI 指南）。
-> 产品定位：**本地优先的 Agent 资产生命体征监护仪**。
+> 版本：v1.1 · 2026-08-19 立，2026-08-23 补记 P8–P15。
+> 依据：`flatline-system-design-v0_4.md`（系统设计）、`flatline-ui-design-guidelines-v2_0.md`（UI 指南）、
+> `flatline-session-first-redesign-v1.md`（会话优先重构，当前 API 契约见其 §27）。
+> 产品定位：**本地优先的 Agent 工作历史监护仪**——主线是会话管理与摩擦发现，资产生命体征是下钻层（ADR-18）。
 > 目标架构：**Go + 纯 Go SQLite 驱动 + 单 daemon + loopback + 内嵌 SPA**。
 > MVP **不包含**：账户/云同步、AI 分析、桌面壳、群体参考、插件运行时、正式统计改善轮次（ImprovementCycle，整体移入 Backlog，UI 与代码均不实现）。
 
@@ -18,6 +19,10 @@
 | P5 | API 与内嵌 SPA 生命体征墙 | 墙 + 诊断页 + 时间线可交互 | 是（API 与前端组件可并行） |
 | P6 | 诊断/时间线/处置/修改后验证/清理 | 四拍核心流程全链路走通 | 部分（处置与修改后验证有依赖） |
 | P7 | 回测与发布 | 真实历史回测验收 + 单二进制发布 | 否（发布串行） |
+| P8–P15 | 2026-08 会话优先重构 | 会话读准、摩擦看得出还在不在发生、五源覆盖、后端收口 | 见本文件末节 |
+
+P0–P7 是**资产监护**这条链路的分期，写于 2026-08-19，状态原样保留。
+P8–P15 是 2026-08-22/23 实际发生的第二条主线，记在本文件末尾的"2026-08 会话优先重构"一节。
 
 ---
 
@@ -212,6 +217,103 @@
 
 **依赖**：P6（全链路功能）。
 **允许并行**：否——回测、发布物、文档定稿串行收口（回测发现判定问题需回退 P4 修复后重放）。
+
+---
+
+## 2026-08 会话优先重构（P8–P15）
+
+> 补记于 2026-08-23。P0–P7 是**资产监护**这条链路的分期，状态与验收标准原样保留在上面，不改。
+> 这一节记录 2026-08-22 至 08-23 之间实际发生的第二条主线：**先把会话历史读准，再从摩擦往资产下钻**（ADR-18）。
+> 设计依据 `docs/flatline-session-first-redesign-v1.md`（当前 API 契约见该文档 §27 总表），
+> 实测记录 `docs/qa/dogfood-2026-08-22.md`（十轮，全部基于本机真实历史，非 fixture）。
+
+**这一节和 P0–P7 是什么关系。** P0–P7 没有被推翻，也没有被替换：四个 detector、状态机、处置与修改后验证仍然是资产层的实现，
+只是它们的**入口**变了——用户从"哪条摩擦反复出现"或"这个会话里发生了什么"进去，落到资产页，而不是把资产墙当首页。
+P7（三个月真实历史回测）仍然未完成，见下面"未完成"。
+
+| 阶段 | 一句话目标 | 主要交付 | 状态 |
+| --- | --- | --- | --- |
+| P8 | 会话是一等对象 | 迁移 `006`；会话列表/检索/分面/详情/标注/导出；响应缓存与 ETag | 完成 |
+| P9 | 会话层级与聚合页 | 迁移 `007`–`009`；主会话/子代理、命令与文件投影、项目页、时间统计、摩擦签名 | 完成 |
+| P10 | 摩擦看得出"还在不在发生" | 迁移 `010`；工具身份配对、签名 v3、工具投影、展示名、摩擦生命周期 | 完成 |
+| P11 | 会话度量与原文对得上 | 迁移 `011`–`015`；退出码语义、版本化重读、`session_usage`、子代理归属、注入块不算用户轮 | 完成 |
+| P12 | 五个数据源 | 迁移 `012`/`016`；opencode / dsh / Hermes 适配器、`normalized` 适配器框架、ADR-19 | 完成 |
+| P13 | 总览 = "这段时间发生了什么" | 迁移 `016`–`019`；`current`/`previous`/`delta`、并行度/环境/子代理/重复读取、token 口径统一、`sources` 注册表 | 完成 |
+| P14 | 准确性残留 + 摩擦→资产桥 | 迁移 `020`；程序名解析、`which` 探针、opportunity 作废通道、hook 证据桥、规则覆盖缺口 | 完成 |
+| P15 | 后端收口（不加功能） | `internal/api` 按领域拆分、helper 去重、死代码清除、测试按领域重排、文档与现实对齐 | 完成 |
+
+### 验收证据（全部来自本机真实历史，不是 fixture）
+
+以下每条都能在 `docs/qa/dogfood-2026-08-22.md` 里找到原始记录。
+
+| 门禁 | 怎么验 | 最近一次结果 |
+| --- | --- | --- |
+| **原文对账** | `scripts/audit_accuracy.py <api> 8 claude_code` 与 `... 8 codex` 随机抽会话，把 API 的 `user_message_count` / `tool_call_count` / `tool_result_count` / `usage.output_tokens` 与原始转写逐字段比对 | 8+8 会话，**0 mismatching fields**（第九轮、第十轮、P15 收口后复测） |
+| **一致性等式** | 把每个端点的筛选开到全量（`include=all` / `thread=all&empty=all&from=all`）后，`health.counts.sessions == overview.sessions.total == overview.sessions.in_range == facets.total == sessions.pagination.total == stats.session_count == Σprojects.sessions`；`internal/api/consistency_test.go` 在 CI 里断言同一组等式 | 第九轮 1164 全等，第九轮（合并后）1165 全等，P15 收口后 1167 全等 |
+| **token 口径** | `total_tokens == input + cached_input + cache_write + output`，聚合端点带 `usage.definition` | 逐项相等（第九轮） |
+| **不变量：`active_ms ≤ duration_ms`** | 全量扫描会话 | 修完软链重复读取与 `ended_at` 冻结后，本机 **0 例**越界（第九轮） |
+| **页面耗时**（稳态、5 次、绕开响应缓存） | `curl` 直打端点 | `/overview?compare=1` 0.26–0.31 s；`/overview?from=all&compare=1` 0.34–0.37 s；项目页 compare 0.25 s；`/timeline?limit=1000` 0.07–0.08 s；`/stats` 0.27 s；冷启 1.33 s（第九轮） |
+| **收口不改行为**（P15） | 同一份库、同一组端点，拆分前后各抓一次响应 JSON，去掉 `data_version` / `last_import` 时间戳 / `wal_bytes` 后 diff | 11 个端点全部逐字节相等 |
+
+### 版本号（改这几个常量就会触发对应的全量重算）
+
+| 常量 | 当前值 | 变了会发生什么 |
+| --- | --- | --- |
+| `storage.SchemaVersion` | `20` | 迁移运行器补跑到这个编号 |
+| `history.ParserVersion` | `parser/6` | 全部转写重读，会话度量重算 |
+| `eventstore.ProjectionVersion` | `projection/5` | 命令/文件投影全部重算 |
+| `friction.ClassifierVersion` | `friction/4` | 摩擦记录重新分类，签名重算 |
+| `eventstore.PairingVersion` | `pairs/1` | 事件配对（工具调用 ↔ 结果）重投影 |
+
+### 未完成
+
+1. **P7 三个月真实历史回测**：仍未做。本机历史还在累积，告警分布尚不足以做判定准确率的人工核验。
+2. **摩擦→资产桥在本机产出为 0**：机制有 fixture 回放测试覆盖，但本机 49 条 `blocked by PreToolUse hook` 记录一条都没写出 hook 名字，拦截者也不在资产注册表里。这是事实，不填数。
+3. **`session_commands` 的 heredoc 残留**：`cat > x <<'EOF'` 之后的正文仍被当语句读，`No` / `Event` / `PY` 这类假程序名各 ≤42 次。
+4. ~~**coverage_gaps 不分项目**~~：已修（2026-08-25 规则闭环轮）——缺口按（签名 × 项目）列出，"适用的规则"=用户级资产+项目目录下资产；本机真实缺口从 1 条变 3 条（此前被其他项目规则全局遮蔽）。
+5. **`/friction?from=all` 返回空集**：`from=all` 在会话端点是"不设下界"，在摩擦端点被当成字面日期。（注：第 5 条已由 §27.10 的 `rangeBound` 消除，此处按原文保留存档。）
+
+---
+
+## 2026-08-25 价值挖掘优化（代价与机会）
+
+> 补记于 2026-08-25。主线：把系统从"描述发生了什么"推进到"代价与机会看得见"，
+> 依据 ADR-20（insights 是既有事实的只读投影）。实测记录 `docs/qa/dogfood-2026-08-25.md`。
+
+| 项 | 内容 | 状态 |
+| --- | --- | --- |
+| `/api/v1/insights` | 六类封闭洞察（中断上下文/零改动高投入/卡死循环/重复读取/覆盖缺口/缺命令），每条带判定规则原文（中英）与下钻链接；总览新增"代价与机会"区块 | 完成 |
+| 机制字典扩容 | `internal/friction/hints.go` 新增 13 条规则；机制覆盖率按事件数 31% → 56%；coverage_gaps 在本机从 0 → 1 条 | 完成 |
+| 时间线批量折叠 | 同刻批量记录折叠成一行事实，注意状态迁移逐条保留，kind 筛选逐条可查 | 完成 |
+| 资产墙分区默认值 | "几乎未使用"默认展开，911 个"没有相关任务记录"默认折叠 | 完成 |
+
+**验证**：check.sh 全绿；原文对账 8+8 会话 0 mismatching fields；一致性等式七处全等（1174）；CDP 六页 0 控制台错误。
+
+**本轮明确不做**：中断轮次 token 估算（逐消息 usage 不在库里，估算即伪造）；AI 分析层（MVP 边界）；
+洞察窗口对比（compare）留待下轮。
+
+---
+
+## 2026-08-25 规则闭环（规则层 CI，ADR-21）
+
+> 补记于 2026-08-25。定位升级：规则层（AGENTS.md / rules / skills / hooks）的 CI——
+> 简报（证据包 + 给用户 agent 的起草提示词）→ 用户写规则 → 签名验证（修复有效/未见改善/无法判断）。
+> 依据：AWM/ExpeL 证明从历史归纳规则可度量提升 agent；厂商的记忆是单 harness 黑箱且无验证；
+> 官方文档承认规则"只是上下文"且验证全靠手工。实测 `docs/qa/dogfood-2026-08-25.md`。
+
+| 项 | 内容 | 状态 |
+| --- | --- | --- |
+| 规则简报 | `/friction` signature 分组行带 `brief`：机制、确定性落点建议（rule/hook/skill/environment/workflow）、证据与样例、可粘贴的起草提示词（中英）；Flatline 零 AI 调用 | 完成 |
+| 签名验证 | 迁移 `022` `signature_watches`；POST 需显式确认；读取时评估 verified/no_change/unobservable/watching；取消保留记录 | 完成 |
+| 摩擦页 UI | 签名行"简报"开关 + 验证徽标（验证中/修复有效/未见改善/无法判断）+ 复制简报 + 开始/取消验证 | 完成 |
+
+**验证**：check.sh 全绿；新增 4 个闭环测试（简报内容/确认门禁/验证状态机含 verified→no_change 回翻/行内徽标）；
+真实库上完成一次端到端（apply_patch 52 次签名 → 简报 → 建验证 → watching）。
+
+**追加（同日晚）**：coverage_gaps 按项目分（真实缺口 1→3）；简报样例 traceback 取末行；**逐消息 usage 入事件 payload**（ADR-22，`parser/7`）+ **Codex 轮级差值归属**（ADR-23，`parser/8`）+ **payload 刷新通道**（重读可到达已存事件）——中断价签真实出数：30 天 219 次中断 156 次可测，被中断轮次合计 6.4 亿 token。
+**追加（同日深夜）**：中断 token 按项目下钻（qwen 448.9M/143 次为最贵）；卡死循环 token 代价（apply_patch 52 次循环 = 505M token/15 轮）；验证记分板上总览（不动 ADR-5 通知契约）。
+**追加（同日深夜收口）**：watch 判定进入通知投影（ADR-24，修订 ADR-5"唯一通知源"为"迁移+验证判定"两源，仍纯投影；watch 写入 bump data_version 使缓存失效）；简报样例优先取含 error/fail/exception 的行。
+**下一拍（未做）**：重复读取的 token 代价（需"读取时体积"口径，先立决策）；watch 判定的跨会话下钻。
 
 ---
 

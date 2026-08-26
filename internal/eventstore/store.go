@@ -49,23 +49,57 @@ func (s *Store) IngestSession(ctx context.Context, source adapters.Source, meta 
 		return "", fmt.Errorf("eventstore: source session id is required")
 	}
 	id := string(source) + ":" + meta.SourceSessionID
+	projectKey, worktree := ProjectKeyOf(meta.CWD)
 	_, err := s.db.ExecContext(ctx, `
-		INSERT INTO sessions (id, source, source_session_id, started_at, ended_at, harness_version, model, cwd, title, task_text)
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+		INSERT INTO sessions (id, source, source_session_id, started_at, ended_at, harness_version, model, cwd, title, task_text,
+			parent_session_id, thread_kind, agent_role, agent_nickname, originator, project_key, worktree)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 		ON CONFLICT (source, source_session_id) DO UPDATE SET
-			started_at      = COALESCE(sessions.started_at, excluded.started_at),
-			ended_at        = COALESCE(sessions.ended_at, excluded.ended_at),
-			harness_version = COALESCE(sessions.harness_version, excluded.harness_version),
-			model           = COALESCE(sessions.model, excluded.model),
-			cwd             = COALESCE(sessions.cwd, excluded.cwd),
-			title           = COALESCE(sessions.title, excluded.title),
-			task_text       = COALESCE(sessions.task_text, excluded.task_text)`,
+			project_key       = COALESCE(excluded.project_key, sessions.project_key),
+			worktree          = COALESCE(excluded.worktree, sessions.worktree),
+			-- The span of a session only ever grows: a transcript that was read
+			-- while it was still being written has more records in it the next
+			-- time it is read. Keeping the first reading froze ended_at at the
+			-- moment of the first import while every measurement derived from a
+			-- later read kept growing — one local session reported 50 minutes of
+			-- active time inside a 3m40s session.
+			started_at        = CASE
+				WHEN excluded.started_at IS NULL THEN sessions.started_at
+				WHEN sessions.started_at IS NULL THEN excluded.started_at
+				WHEN julianday(excluded.started_at) < julianday(sessions.started_at) THEN excluded.started_at
+				ELSE sessions.started_at END,
+			ended_at          = CASE
+				WHEN excluded.ended_at IS NULL THEN sessions.ended_at
+				WHEN sessions.ended_at IS NULL THEN excluded.ended_at
+				WHEN julianday(excluded.ended_at) > julianday(sessions.ended_at) THEN excluded.ended_at
+				ELSE sessions.ended_at END,
+			harness_version   = COALESCE(sessions.harness_version, excluded.harness_version),
+			model             = COALESCE(sessions.model, excluded.model),
+			cwd               = COALESCE(sessions.cwd, excluded.cwd),
+			-- The title and the task excerpt are read from the source text, and
+			-- a newer parser reading the same transcript is the better reading
+			-- of it: a Claude Code subagent's name comes from the launch record
+			-- beside the file, which an older parser did not open. An empty
+			-- value never wipes a recorded one.
+			title             = COALESCE(NULLIF(excluded.title, ''), sessions.title),
+			task_text         = COALESCE(NULLIF(excluded.task_text, ''), sessions.task_text),
+			parent_session_id = COALESCE(excluded.parent_session_id, sessions.parent_session_id),
+			thread_kind       = COALESCE(excluded.thread_kind, sessions.thread_kind),
+			agent_role        = COALESCE(excluded.agent_role, sessions.agent_role),
+			agent_nickname    = COALESCE(excluded.agent_nickname, sessions.agent_nickname),
+			originator        = COALESCE(excluded.originator, sessions.originator)`,
 		id, source, meta.SourceSessionID,
 		nullableTime(meta.StartedAt), nullableTime(meta.EndedAt),
 		nullableString(meta.HarnessVersion), nullableString(meta.Model), nullableString(meta.CWD),
-		nullableString(meta.Title), nullableString(meta.TaskText))
+		nullableString(meta.Title), nullableString(meta.TaskText),
+		nullableString(meta.ParentSessionID), nullableString(meta.ThreadKind),
+		nullableString(meta.AgentRole), nullableString(meta.AgentNickname), nullableString(meta.Originator),
+		nullableString(projectKey), nullableString(worktree))
 	if err != nil {
 		return "", fmt.Errorf("eventstore: ingest session %s: %w", id, err)
+	}
+	if err := s.upsertSessionSearch(ctx, id); err != nil {
+		return "", err
 	}
 	return id, nil
 }
@@ -110,99 +144,56 @@ func (s *Store) IngestEvents(ctx context.Context, sessionID string, events []can
 		if event.OccurredAt != nil {
 			occurred = formatTime(*event.OccurredAt)
 		}
-		result, err := tx.ExecContext(ctx, `
+		var eventID int64
+		err = tx.QueryRowContext(ctx, `
 			INSERT INTO events
 			(session_id, event_type, asset_id, asset_version_id, source_event_id,
 			 participation_signal, observation_level, payload_json, locator_json,
 			 occurred_at, adapter_version)
 			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-			ON CONFLICT DO NOTHING`,
+			ON CONFLICT DO NOTHING
+			RETURNING id`,
 			sessionID, event.EventType, nullableString(event.AssetID), assetVersion,
 			event.SourceEventID, signal, string(event.ObservationLevel), string(payload),
-			string(locator), occurred, nullableString(event.AdapterVersion))
+			string(locator), occurred, nullableString(event.AdapterVersion)).Scan(&eventID)
+		if err == sql.ErrNoRows {
+			// The row already exists. A parser-versioned re-read (the reparse
+			// pass) may carry a refreshed payload — per-message usage, a wider
+			// text bound — so the derived columns are updated in place. The
+			// row's identity, its id and everything that references it stay;
+			// this is a re-derivation under a new parser version, not a
+			// rewrite of history, and it is not counted as an insert.
+			if _, err := tx.ExecContext(ctx, `
+				UPDATE events SET payload_json = ?, occurred_at = ?, adapter_version = ?
+				WHERE session_id = ? AND source_event_id = ?`,
+				string(payload), occurred, nullableString(event.AdapterVersion),
+				sessionID, event.SourceEventID); err != nil {
+				return rollback(fmt.Errorf("eventstore: refresh event %q: %w", event.SourceEventID, err))
+			}
+			if text := transcriptText(event); text != "" {
+				if err := tx.QueryRowContext(ctx, `
+					SELECT id FROM events WHERE session_id = ? AND source_event_id = ?`,
+					sessionID, event.SourceEventID).Scan(&eventID); err != nil {
+					return rollback(fmt.Errorf("eventstore: reload event %q: %w", event.SourceEventID, err))
+				}
+				if _, err := tx.ExecContext(ctx, `INSERT OR REPLACE INTO events_fts (rowid, text) VALUES (?, ?)`, eventID, text); err != nil {
+					return rollback(fmt.Errorf("eventstore: index event text %q: %w", event.SourceEventID, err))
+				}
+			}
+			continue
+		}
 		if err != nil {
 			return rollback(fmt.Errorf("eventstore: insert event %q: %w", event.SourceEventID, err))
 		}
-		n, err := result.RowsAffected()
-		if err != nil {
-			return rollback(fmt.Errorf("eventstore: rows affected %q: %w", event.SourceEventID, err))
+		inserted++
+		if text := transcriptText(event); text != "" {
+			if _, err := tx.ExecContext(ctx, `INSERT INTO events_fts (rowid, text) VALUES (?, ?)`, eventID, text); err != nil {
+				return rollback(fmt.Errorf("eventstore: index event text %q: %w", event.SourceEventID, err))
+			}
 		}
-		inserted += int(n)
 	}
 	if err := tx.Commit(); err != nil {
 		return 0, fmt.Errorf("eventstore: commit events: %w", err)
-	}
-	return inserted, nil
-}
-
-// IngestFriction records only source-backed, explicit tool failures. Generic
-// text containing words such as "error" is deliberately not classified.
-// Repeated replays are idempotent by (session, source event, friction kind).
-func (s *Store) IngestFriction(ctx context.Context, sessionID string, events []canonical.Event) (int, error) {
-	if sessionID == "" {
-		return 0, fmt.Errorf("eventstore: session id is required")
-	}
-	tx, err := s.db.BeginTx(ctx, nil)
-	if err != nil {
-		return 0, fmt.Errorf("eventstore: begin friction transaction: %w", err)
-	}
-	rollback := func(err error) (int, error) {
-		_ = tx.Rollback()
-		return 0, err
-	}
-	inserted := 0
-	for _, event := range events {
-		if event.SessionID != sessionID {
-			return rollback(fmt.Errorf("eventstore: friction event session %q does not match %q", event.SessionID, sessionID))
-		}
-		if event.EventType != canonical.EventTypeTranscriptResult {
-			continue
-		}
-		isError, hasIsError := payloadBool(event.Payload, "is_error")
-		exitCode, hasExitCode := payloadInt(event.Payload, "exit_code")
-		if !(hasIsError && isError) && !(hasExitCode && exitCode != 0) {
-			continue
-		}
-		payload, err := json.Marshal(boundedFrictionPayload(event.Payload))
-		if err != nil {
-			return rollback(fmt.Errorf("eventstore: marshal friction payload %q: %w", event.SourceEventID, err))
-		}
-		locator, err := json.Marshal(event.Locator)
-		if err != nil {
-			return rollback(fmt.Errorf("eventstore: marshal friction locator %q: %w", event.SourceEventID, err))
-		}
-		var recordedIsError any
-		if hasIsError {
-			recordedIsError = boolInt(isError)
-		}
-		var recordedExitCode any
-		if hasExitCode {
-			recordedExitCode = exitCode
-		}
-		var occurred any
-		if event.OccurredAt != nil {
-			occurred = formatTime(*event.OccurredAt)
-		}
-		result, err := tx.ExecContext(ctx, `
-			INSERT INTO friction_records
-			(session_id, source_event_id, friction_kind, event_type, observation_level,
-			 is_error, exit_code, payload_json, locator_json, occurred_at)
-			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-			ON CONFLICT (session_id, source_event_id, friction_kind) DO NOTHING`,
-			sessionID, event.SourceEventID, FrictionKindToolError, event.EventType,
-			string(event.ObservationLevel), recordedIsError, recordedExitCode,
-			string(payload), string(locator), occurred)
-		if err != nil {
-			return rollback(fmt.Errorf("eventstore: insert friction %q: %w", event.SourceEventID, err))
-		}
-		rows, err := result.RowsAffected()
-		if err != nil {
-			return rollback(fmt.Errorf("eventstore: friction rows affected %q: %w", event.SourceEventID, err))
-		}
-		inserted += int(rows)
-	}
-	if err := tx.Commit(); err != nil {
-		return 0, fmt.Errorf("eventstore: commit friction: %w", err)
 	}
 	return inserted, nil
 }
@@ -269,92 +260,14 @@ func (s *Store) FrictionRecordsForSession(ctx context.Context, sessionID string,
 	return out, nil
 }
 
-func payloadBool(payload map[string]any, key string) (bool, bool) {
-	value, ok := payload[key]
-	if !ok {
-		return false, false
+// transcriptText returns the body text that belongs in the session-body search
+// index. Only recorded transcript messages are indexed; tool payloads are not.
+func transcriptText(event canonical.Event) string {
+	if event.EventType != canonical.EventTypeTranscriptMessage {
+		return ""
 	}
-	switch value := value.(type) {
-	case bool:
-		return value, true
-	case *bool:
-		return value != nil && *value, value != nil
-	default:
-		return false, false
-	}
-}
-
-func payloadInt(payload map[string]any, key string) (int, bool) {
-	value, ok := payload[key]
-	if !ok {
-		return 0, false
-	}
-	switch value := value.(type) {
-	case int:
-		return value, true
-	case int8:
-		return int(value), true
-	case int16:
-		return int(value), true
-	case int32:
-		return int(value), true
-	case int64:
-		return int(value), true
-	case uint:
-		return int(value), true
-	case uint8:
-		return int(value), true
-	case uint16:
-		return int(value), true
-	case uint32:
-		return int(value), true
-	case uint64:
-		if uint64(int(value)) != value {
-			return 0, false
-		}
-		return int(value), true
-	case float64:
-		if value != float64(int(value)) {
-			return 0, false
-		}
-		return int(value), true
-	case json.Number:
-		parsed, err := strconv.Atoi(string(value))
-		return parsed, err == nil
-	case string:
-		parsed, err := strconv.Atoi(strings.TrimSpace(value))
-		return parsed, err == nil
-	default:
-		return 0, false
-	}
-}
-
-func boundedFrictionPayload(payload map[string]any) map[string]any {
-	encoded, err := json.Marshal(payload)
-	if err == nil && len(encoded) <= 16*1024 {
-		return payload
-	}
-	out := make(map[string]any)
-	for _, key := range []string{"message_id", "turn_id", "tool_name", "is_error", "exit_code", "truncated"} {
-		if value, ok := payload[key]; ok {
-			out[key] = value
-		}
-	}
-	if value, ok := payload["tool_output"].(string); ok {
-		if len([]rune(value)) > 8192 {
-			value = string([]rune(value)[:8192]) + "…"
-		}
-		out["tool_output"] = value
-	}
-	out["friction_evidence_truncated"] = true
-	return out
-}
-
-func boolInt(value bool) int {
-	if value {
-		return 1
-	}
-	return 0
+	text, _ := event.Payload["text"].(string)
+	return strings.TrimSpace(text)
 }
 
 func (s *Store) EventByLocator(ctx context.Context, locator canonical.Locator) (*canonical.Event, error) {
@@ -468,3 +381,40 @@ func nullableTime(value *time.Time) any {
 }
 
 func formatTime(value time.Time) string { return value.UTC().Format(time.RFC3339Nano) }
+
+// The data version is the counter every cacheable API response is keyed on. It
+// lives in meta rather than in memory because a restarted daemon that began
+// again at 1 told a browser holding version 1 from the previous process that
+// its copy was current — the overview then showed 903 sessions while the
+// sidebar showed 1164.
+const dataVersionKey = "data_version"
+
+// LoadDataVersion is the counter the last process left behind, or 0 for a
+// database that has never published one.
+func (s *Store) LoadDataVersion(ctx context.Context) (int64, error) {
+	var value sql.NullString
+	err := s.db.QueryRowContext(ctx, `SELECT value FROM meta WHERE key = ?`, dataVersionKey).Scan(&value)
+	if err == sql.ErrNoRows {
+		return 0, nil
+	}
+	if err != nil {
+		return 0, fmt.Errorf("eventstore: read data version: %w", err)
+	}
+	parsed, err := strconv.ParseInt(strings.TrimSpace(value.String), 10, 64)
+	if err != nil {
+		return 0, nil
+	}
+	return parsed, nil
+}
+
+// SaveDataVersion persists the counter before it is published, so no two
+// processes can ever hand out the same version for different data.
+func (s *Store) SaveDataVersion(ctx context.Context, version int64) error {
+	if _, err := s.db.ExecContext(ctx, `
+		INSERT INTO meta (key, value, updated_at) VALUES (?, ?, strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+		ON CONFLICT (key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at`,
+		dataVersionKey, strconv.FormatInt(version, 10)); err != nil {
+		return fmt.Errorf("eventstore: write data version: %w", err)
+	}
+	return nil
+}
