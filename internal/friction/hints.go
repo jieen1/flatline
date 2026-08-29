@@ -200,6 +200,38 @@ func CoverageKeywords(signature string) []string {
 	return nil
 }
 
+// HarnessRule is one mechanism a user-written rule could restate: the closed
+// hint-table entries that carry keywords. It is what the adherence curve
+// (P17-1) draws — the keywords say how a rule mentions the mechanism, and
+// Matches says which signatures count toward its curve.
+type HarnessRule struct {
+	Kind        string
+	Mechanism   string
+	MechanismEN string
+	Keywords    []string
+	match       *regexp.Regexp
+}
+
+// Matches reports whether a signature is an occurrence of this mechanism.
+func (r HarnessRule) Matches(signature string) bool {
+	return signature != "" && r.match.MatchString(signature)
+}
+
+// KeywordRules returns the mechanisms that carry coverage keywords, in table
+// order. A mechanism without keywords cannot be mentioned by a user rule, so
+// it has no adherence question to answer and is left out.
+func KeywordRules() []HarnessRule {
+	out := make([]HarnessRule, 0, 4)
+	for _, rule := range hintRules {
+		if len(rule.keywords) == 0 {
+			continue
+		}
+		out = append(out, HarnessRule{Kind: rule.kind, Mechanism: rule.mechanism,
+			MechanismEN: rule.mechanismEN, Keywords: rule.keywords, match: rule.match})
+	}
+	return out
+}
+
 // AllCoverageKeywords is every keyword in the table, so a caller can scan a
 // rule's text once for all of them instead of once per signature.
 func AllCoverageKeywords() []string {

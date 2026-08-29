@@ -86,6 +86,7 @@ func (s *Server) Handler() http.Handler {
 		mux.HandleFunc("GET /api/v1/assets/{id}/dispositions", s.tagged(s.handleAssetDispositions))
 		mux.HandleFunc("GET /api/v1/assets/{id}/references", s.tagged(s.handleAssetReferences))
 		mux.HandleFunc("GET /api/v1/assets/{id}/source", s.tagged(s.handleAssetSource))
+		mux.HandleFunc("GET /api/v1/assets/{id}/adherence", s.cached(s.handleAssetAdherence))
 		mux.HandleFunc("POST /api/v1/assets/{id}/dispositions", s.handleCreateDisposition)
 		mux.HandleFunc("POST /api/v1/assets/{id}/restore", s.handleRestoreAsset)
 		mux.HandleFunc("GET /api/v1/sessions", s.tagged(s.handleSessions))
@@ -98,6 +99,7 @@ func (s *Server) Handler() http.Handler {
 		// Only the unfiltered friction overview is worth holding in the
 		// response cache; every filtered shape is asked for once.
 		mux.HandleFunc("GET /api/v1/friction", s.cachedWhen(unfiltered, s.handleFriction))
+		mux.HandleFunc("GET /api/v1/friction/weekly", s.cached(s.handleFrictionWeekly))
 		mux.HandleFunc("GET /api/v1/projects", s.cached(s.handleProjects))
 		mux.HandleFunc("GET /api/v1/projects/{key}", s.cached(s.handleProject))
 		mux.HandleFunc("GET /api/v1/search", s.tagged(s.handleSearch))

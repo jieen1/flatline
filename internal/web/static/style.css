@@ -5204,3 +5204,14 @@ a:focus-visible,
 .overview-now-pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--success, #22a06b); animation: overview-now-pulse 2s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .overview-now-pulse { animation: none; } }
 @keyframes overview-now-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+/* Adherence curve (P17-1): 12-week strips in the brief panel and on rule assets. */
+.friction-weekly-strip { display: inline-flex; flex-direction: column; gap: 2px; color: var(--primary); }
+.friction-weekly-axis { display: flex; justify-content: space-between; font-family: var(--font-mono, monospace); font-size: 10px; color: var(--panel-surface-fg-muted); }
+.friction-weekly-note { display: block; margin-top: 6px; color: var(--panel-surface-fg-muted); font-size: 11px; line-height: 1.6; max-width: 46em; }
+.asset-adherence-card { display: flex; flex-direction: column; gap: 12px; }
+.asset-adherence-row { display: flex; flex-direction: column; gap: 6px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+.asset-adherence-row:last-of-type { border-bottom: 0; }
+.asset-adherence-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; font-size: 13px; }
+.asset-adherence-head small { color: var(--panel-surface-fg-muted); }
+.asset-adherence-head code { font-size: 11px; background: var(--panel-surface-hover); padding: 1px 6px; border-radius: 4px; }

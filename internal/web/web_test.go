@@ -955,6 +955,11 @@ func TestOverviewLeadsWithNowAndWorkTokens(t *testing.T) {
 		"work_definition",
 		"overview-now-loop",
 		"item.loop.count",
+		"function weeklyStrip(",
+		"/api/v1/friction/weekly?signature=",
+		"function adherenceCard(",
+		"/adherence\"",
+		"rescued_transcripts",
 	} {
 		if !strings.Contains(appJS, marker) {
 			t.Fatalf("app.js is missing overview marker %q", marker)

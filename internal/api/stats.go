@@ -1,8 +1,11 @@
 package api
 
 import (
+	"context"
 	"database/sql"
+	"fmt"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -23,6 +26,51 @@ type statsResponse struct {
 	// the overview printed 25.9B — one system, two answers.
 	Usage   usageTotals       `json:"usage"`
 	ByModel []modelUsageTotal `json:"by_model"`
+	// Rescued states the archive fact (P17-3): sessions whose source
+	// transcript is no longer on disk — harnesses delete them after their
+	// retention window — while this store still holds their history.
+	Rescued rescuedResponse `json:"rescued_transcripts"`
+}
+
+type rescuedResponse struct {
+	Sessions int    `json:"sessions"`
+	Files    int    `json:"files"`
+	Note     string `json:"note"`
+	NoteEN   string `json:"note_en"`
+}
+
+const rescuedNote = "已抢救 = 登记过的转写文件如今在磁盘上已不存在（harness 按保留期删除，Claude Code 默认 30 天），而本库仍保有其完整事件历史。逐个文件按当前磁盘状态判定；文件还在的不算。"
+
+const rescuedNoteEN = "Rescued means a registered transcript file no longer exists on disk — harnesses delete them after their retention window, 30 days by default for Claude Code — while this store still holds its full event history. Each file is checked against the disk as it is now; a file still present does not count."
+
+// countRescued stats every registered transcript path against the disk. The
+// sweep runs once per data version thanks to the response cache; a path that
+// cannot be stat-ed for any reason counts as gone, because it is not readable
+// as a source either way.
+func (s *Server) countRescued(ctx context.Context) (rescuedResponse, error) {
+	out := rescuedResponse{Note: rescuedNote, NoteEN: rescuedNoteEN}
+	rows, err := s.db.QueryContext(ctx,
+		`SELECT path, COALESCE(session_id, '') FROM native_files`)
+	if err != nil {
+		return out, fmt.Errorf("api: list native files: %w", err)
+	}
+	defer rows.Close()
+	sessions := make(map[string]struct{})
+	for rows.Next() {
+		var path, sessionID string
+		if err := rows.Scan(&path, &sessionID); err != nil {
+			return out, err
+		}
+		if _, err := os.Stat(path); err == nil {
+			continue
+		}
+		out.Files++
+		if sessionID != "" {
+			sessions[sessionID] = struct{}{}
+		}
+	}
+	out.Sessions = len(sessions)
+	return out, rows.Err()
 }
 
 func (s *Server) handleStats(w http.ResponseWriter, r *http.Request) {
@@ -43,6 +91,12 @@ func (s *Server) handleStats(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "stats query failed: "+err.Error(), http.StatusInternalServerError)
 			return
 		}
+	}
+	if rescued, err := s.countRescued(r.Context()); err != nil {
+		http.Error(w, "rescue count failed: "+err.Error(), http.StatusInternalServerError)
+		return
+	} else {
+		stats.Rescued = rescued
 	}
 	rows, err := s.db.QueryContext(r.Context(), `SELECT state, COUNT(*) FROM vital_states WHERE ended_at IS NULL GROUP BY state ORDER BY state`)
 	if err != nil {

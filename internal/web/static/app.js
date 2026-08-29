@@ -1901,6 +1901,19 @@
     const primary = item.source_path ? '<button class="us-btn" data-variant="primary" data-action="asset-open-editor" data-source-path="' + esc(item.source_path) + '">' + uiText("在编辑器中打开", "Open in editor") + '</button>' : '<button class="us-btn" data-variant="primary" data-action="asset-tab" data-tab="versions">' + uiText("查看版本", "View versions") + '</button>';
     return primary + '<button class="us-btn" data-variant="outline" data-action="disposition" data-disposition="modify" data-asset-id="' + esc(item.id) + '">' + uiText("需要监测", "Needs monitoring") + '</button><button class="us-btn" data-variant="ghost" data-action="disposition" data-disposition="ignore" data-asset-id="' + esc(item.id) + '">' + uiText("隐藏当前状态", "Hide current state") + '</button><button class="us-btn" data-variant="danger" data-action="disposition" data-disposition="archive" data-asset-id="' + esc(item.id) + '">' + uiText("归档", "Archive") + '</button>';
   }
+  // adherenceCard is the rule side of P17-1: for each mechanism this rule's
+  // text mentions, the 12-week curve of its matching signatures. A rule that
+  // mentions no mechanism renders no card — nothing to say is not a card.
+  function adherenceCard(adherence) {
+    if (!adherence || !Array.isArray(adherence.mechanisms) || !adherence.mechanisms.length) return "";
+    const rows = adherence.mechanisms.map(function (m) {
+      const keywords = (m.keywords_mentioned || []).map(function (k) { return '<code data-no-translate="true">' + esc(k) + "</code>"; }).join(" ");
+      return '<div class="asset-adherence-row"><div class="asset-adherence-head"><span data-no-translate="true">' + esc(daemonProse(m.mechanism, m.mechanism_en)) + '</span><small>' + esc(uiText("正文提到：", "Mentioned as: ")) + "</small>" + keywords + "</div>"
+        + (m.signatures > 0 ? weeklyStrip(m.weeks) : '<span class="quiet-note">' + uiText("历史中没有匹配这个机制的签名。", "No recorded signature matches this mechanism.") + "</span>") + "</div>";
+    }).join("");
+    return '<section class="elevated-card card-pad asset-adherence-card"><header class="fl-head"><h3>' + uiText("遵守曲线", "Adherence curve") + '</h3><span class="fl-aside">' + esc(quantity(adherence.mechanisms.length, "个机制", "mechanism", "mechanisms")) + '</span></header>' + rows
+      + '<p class="friction-method-note">' + esc(daemonProse(adherence.note, adherence.note_en)) + "</p></section>";
+  }
   async function drawDetail(data) {
     const item = data.asset;
     const state = stateOf(item);
@@ -1915,7 +1928,13 @@
     else if (view.assetTab === "history") main = prototypeDispositionHistory(data);
     else {
       const notice = state === "awaiting_resurrection" ? '<div class="us-alert" data-tone="accent"><div><strong>需要监测</strong><p>' + esc(humanEvidence(item)) + '</p></div></div>' : "";
-      main = notice + evidenceCard(item, data) + alignmentCard(data) + candidateCard(item, data) + funnelCard(data) + referenceCard(data);
+      // P17-1: a rule-shaped asset answers the adherence question — which
+      // mechanisms its text mentions, and how often each kept occurring.
+      let adherence = null;
+      if (item.kind === "rule" || item.kind === "agents_md") {
+        try { adherence = await get("/api/v1/assets/" + encodeURIComponent(item.id) + "/adherence"); } catch (error) { adherence = null; }
+      }
+      main = notice + evidenceCard(item, data) + adherenceCard(adherence) + alignmentCard(data) + candidateCard(item, data) + funnelCard(data) + referenceCard(data);
     }
     const screen = document.getElementById("flatline-screen");
     if (!screen) return;
@@ -2469,7 +2488,12 @@
       // answers. It now returns the same usage object the overview reads, over
       // the whole database, with the same definition hung on the number.
       { label: uiText("成本", "Cost"), value: num(usage.cost) == null ? count(null) : "$" + Number(usage.cost).toFixed(2), icon: "wallet", detail: overviewRatio(usage.cost_sessions, usage.in_range, "个会话记录了成本", "sessions recorded a cost") },
-      { label: uiText("工作 token", "Work tokens"), value: tokenText(usage.work_tokens), icon: "hash", detail: uiText("总 " + tokenText(usage.total_tokens) + " · " + count(usage.token_sessions) + "/" + count(usage.in_range) + " 个会话记录", "Total " + tokenText(usage.total_tokens) + " · " + count(usage.token_sessions) + "/" + count(usage.in_range) + " sessions recorded"), title: daemonProse(usage.work_definition, usage.work_definition_en) || tokenTitle() }
+      { label: uiText("工作 token", "Work tokens"), value: tokenText(usage.work_tokens), icon: "hash", detail: uiText("总 " + tokenText(usage.total_tokens) + " · " + count(usage.token_sessions) + "/" + count(usage.in_range) + " 个会话记录", "Total " + tokenText(usage.total_tokens) + " · " + count(usage.token_sessions) + "/" + count(usage.in_range) + " sessions recorded"), title: daemonProse(usage.work_definition, usage.work_definition_en) || tokenTitle() },
+      // P17-3: the archive fact. Harnesses delete transcripts after their
+      // retention window; the sessions counted here now exist only in this
+      // store. Zero renders as zero — an archive with nothing rescued yet is
+      // a true reading, not a gap.
+      { label: uiText("已抢救转写", "Rescued transcripts"), value: count((data.rescued_transcripts || {}).sessions), icon: "archive", detail: quantity((data.rescued_transcripts || {}).files, "个源文件已被 harness 删除", "source file deleted by the harness", "source files deleted by the harness"), title: daemonProse((data.rescued_transcripts || {}).note, (data.rescued_transcripts || {}).note_en) }
     ];
     const counts = data.state_counts || {};
     const total = Object.values(counts).reduce((sum, value) => sum + (num(value) || 0), 0);
@@ -3650,6 +3674,36 @@
           : uiText("已观察 " + count(watch.window_days) + " 天窗口", "a " + count(watch.window_days) + "-day window is being observed");
     return '<span class="fl-flag" data-flag="' + tone + '" data-watch-status="' + esc(watch.status) + '" title="' + esc(detail) + '">' + icon(watch.status === "verified" ? "check" : "hourglass") + esc(labels[0]) + "</span>";
   }
+  // weeklyStrip draws the adherence curve (P17-1): a fixed 12-week axis of
+  // thin bars, empty weeks present as baseline stubs so a silent week is a
+  // reading, not a gap. Each bar's title carries count and denominator.
+  function weeklyStrip(weeks) {
+    if (!Array.isArray(weeks) || !weeks.length) return "";
+    var max = 1;
+    weeks.forEach(function (w) { if (w.count > max) max = w.count; });
+    var W = 288, H = 46, bw = W / weeks.length;
+    var parts = weeks.map(function (w, i) {
+      var h = Math.round(34 * w.count / max);
+      var x = (i * bw + bw * 0.2).toFixed(1), width = (bw * 0.6).toFixed(1);
+      var title = esc(w.week + " · " + w.count + (view.locale === "en" ? " hits / " : " 次 / ") + w.week_sessions + (view.locale === "en" ? " sessions" : " 会话"));
+      var bar = w.count > 0
+        ? '<rect x="' + x + '" y="' + (38 - h) + '" width="' + width + '" height="' + Math.max(h, 3) + '" rx="2" fill="currentColor"><title>' + title + "</title></rect>"
+        : '<rect x="' + x + '" y="36" width="' + width + '" height="2" rx="1" fill="currentColor" opacity="0.3"><title>' + title + "</title></rect>";
+      return bar;
+    }).join("");
+    var first = weeks[0].week.slice(5), last = weeks[weeks.length - 1].week.slice(5);
+    return '<span class="friction-weekly-strip" role="img" aria-label="' + esc(uiText("12 周曲线，峰值 " + max, "12-week curve, peak " + max)) + '"><svg viewBox="0 0 ' + W + ' 46" width="' + W + '" height="46">' + parts + '</svg><span class="friction-weekly-axis" data-no-translate="true"><span>' + esc(first) + "</span><span>" + esc(uiText("峰值 " + max, "peak " + max)) + "</span><span>" + esc(last) + "</span></span></span>";
+  }
+  // frictionWeeklyRow shows a signature's last-12-weeks curve inside its
+  // brief. The series loads when the brief opens; until it lands the row says
+  // so instead of drawing an empty axis.
+  function frictionWeeklyRow(group) {
+    var weekly = view.frictionWeekly;
+    if (!weekly || weekly.signature !== group.signature) {
+      return '<div class="friction-brief-row"><span class="friction-brief-label">' + uiText("周曲线", "Weekly curve") + '</span><span class="quiet-note">' + uiText("正在读取近 12 周…", "Reading the last 12 weeks…") + "</span></div>";
+    }
+    return '<div class="friction-brief-row friction-weekly-row"><span class="friction-brief-label">' + uiText("周曲线", "Weekly curve") + "</span><span>" + weeklyStrip(weekly.weeks) + '<small class="friction-weekly-note">' + esc(daemonProse(weekly.note, weekly.note_en)) + "</small></span></div>";
+  }
   function frictionBriefPanel(group) {
     const brief = group && group.brief;
     if (!brief) return "";
@@ -3669,6 +3723,7 @@
       + (samples ? '<div class="friction-brief-row"><span class="friction-brief-label">' + uiText("样例", "Samples") + '</span><ul class="friction-brief-samples">' + samples + "</ul></div>" : "")
       + '<div class="friction-brief-row friction-brief-prompt-row"><span class="friction-brief-label">' + uiText("给 agent 的简报", "Brief for your agent") + '</span><textarea class="friction-brief-prompt" rows="6" readonly data-no-translate="true">' + esc(view.locale === "en" ? brief.paste_prompt_en : brief.paste_prompt) + "</textarea>"
       + '<button class="us-btn" data-variant="outline" data-size="sm" data-action="friction-brief-copy" data-signature="' + esc(group.signature || "") + '">' + icon("file-text") + uiText("复制简报", "Copy brief") + "</button></div>"
+      + frictionWeeklyRow(group)
       + '<p class="insight-criterion">' + esc(uiText("判定规则：", "Rule: ") + (view.locale === "en" ? brief.criterion_en : brief.criterion)) + "</p>"
       + watchBlock + "</div>";
   }
@@ -6153,6 +6208,15 @@
     if (action === "friction-brief-toggle" && target.dataset.signature != null) {
       event.preventDefault();
       view.frictionBriefSignature = view.frictionBriefSignature === target.dataset.signature ? null : target.dataset.signature;
+      if (view.frictionBriefSignature && (!view.frictionWeekly || view.frictionWeekly.signature !== view.frictionBriefSignature)) {
+        var wantedSignature = view.frictionBriefSignature;
+        get("/api/v1/friction/weekly?signature=" + encodeURIComponent(wantedSignature)).then(function (weekly) {
+          if (view.frictionBriefSignature === wantedSignature) {
+            view.frictionWeekly = weekly;
+            if (cache.friction) drawFrictionOverview(cache.friction, true);
+          }
+        }).catch(function () {});
+      }
       if (cache.friction) drawFrictionOverview(cache.friction, true);
       return;
     }

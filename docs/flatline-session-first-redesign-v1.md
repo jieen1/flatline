@@ -1757,6 +1757,26 @@ Claude Code 会把一个子代理转写**软链**进第二个父目录，同一�
 响应：`session`（同上，不含 `usage` 与检索命中）、`events`、`commands` + `commands_total`、
 `files` + `files_total`、`children`、`parent`、`friction {count, records, complete, records_truncated}`、`data_version`。
 
+### `GET /api/v1/friction/weekly`（P17-1，2026-08-29）
+
+一条签名的近 12 周曲线（周一为界、连续轴、空周带真实分母出现）：
+`weeks[] {week, count, session_count, week_sessions}` + `note/note_en`
+（判定句写明"只陈述对齐，不判定因果"）。参数 `signature`（必填）、`project`（可选，同键过滤分子与分母）。
+UI：摩擦页签名行的简报面板展开时懒加载。
+
+### `GET /api/v1/assets/{id}/adherence`（P17-1，2026-08-29）
+
+规则形资产（rule / agents_md）的遵守问题：正文提到了哪些机制关键词（与 coverage 同一判定），
+每条机制合并其匹配的全部签名给出 12 周曲线。`mechanisms[] {kind, mechanism(_en),
+keywords_mentioned, signatures, weeks[]}`。项目级规则只统计其项目、用户级统计全部。
+非规则形资产返回空列表而非错误。机制来源：`friction.KeywordRules()`（提示字典中带关键词的条目）。
+
+### `/stats` 新增 `rescued_transcripts`（P17-3，2026-08-29）
+
+`{sessions, files, note/note_en}`：登记过的转写文件如今磁盘上已不存在（harness 按保留期删除，
+Claude Code 默认 30 天）、而本库仍保有完整事件历史的会话数与文件数。逐文件按当前磁盘状态判定，
+每个 data_version 扫一遍（响应缓存承担）。数据页以一块 tile 展示，零就是零。
+
 ### `GET /api/v1/now`（P16-3，2026-08-29）
 
 监护仪的第一屏：**现在**谁在写。

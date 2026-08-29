@@ -103,3 +103,32 @@ func TestEveryHintRuleIsWrittenInBothLanguages(t *testing.T) {
 		}
 	}
 }
+
+// KeywordRules is the adherence curve's source of truth (P17-1): the harness
+// mechanisms a user rule could restate. Every entry must carry keywords and
+// recognize its own signatures, or a curve could be drawn for a mechanism
+// that has nothing to match.
+func TestKeywordRulesExposeHarnessMechanisms(t *testing.T) {
+	rules := KeywordRules()
+	if len(rules) == 0 {
+		t.Fatal("KeywordRules() is empty; the adherence curve has no mechanisms to draw")
+	}
+	foundReadBeforeEdit := false
+	for _, rule := range rules {
+		if len(rule.Keywords) == 0 {
+			t.Errorf("rule %q carries no keywords; it cannot be mentioned by a user rule", rule.Mechanism)
+		}
+		if rule.Mechanism == "" || rule.MechanismEN == "" {
+			t.Errorf("rule %+v is missing a mechanism sentence", rule)
+		}
+		if rule.Matches("tool_error|Edit|<tool_use_error>file has not been read yet. read it first…") {
+			foundReadBeforeEdit = true
+			if rule.Kind != HintHarnessRule {
+				t.Errorf("read-before-edit rule kind = %q, want harness_rule", rule.Kind)
+			}
+		}
+	}
+	if !foundReadBeforeEdit {
+		t.Error("no keyword rule matches the read-before-edit signature")
+	}
+}
