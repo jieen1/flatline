@@ -189,3 +189,37 @@ func TestTransitionMapIncludesDesignEdgesAndRejectsArchivedExit(t *testing.T) {
 		t.Fatal("archived -> healthy must be rejected without an explicit restore action")
 	}
 }
+
+// ADR-26: the first evaluation lands on the evidence. Before it, every asset's
+// first-ever Decide returned dormant even when the same Assessment already
+// carried participation — on real history that painted 12 skills as "几乎未
+// 使用" for one import cycle, and the day's own dogfood log was misled by it.
+func TestFirstEvaluationWithEvidenceLandsOnHealthy(t *testing.T) {
+	machine := NewMachine(DefaultConfig())
+	in := assess("")
+	in.HasBaseline = false
+	decision, err := machine.Decide(in)
+	if err != nil {
+		t.Fatalf("Decide: %v", err)
+	}
+	if decision.State != StateHealthy {
+		t.Fatalf("first evaluation with participation = %q, want healthy without a dormant stopover", decision.State)
+	}
+	if decision.Alert {
+		t.Fatalf("decision = %+v, want no alert for a healthy start", decision)
+	}
+
+	// Without participation evidence the neutral dormant start stays: an
+	// asset with an opportunity and no recorded participation reads as
+	// dormant until evidence arrives, which is the honest reading.
+	bare := assess("")
+	bare.ParticipationObserved = false
+	bare.HasBaseline = false
+	decision, err = machine.Decide(bare)
+	if err != nil {
+		t.Fatalf("Decide bare: %v", err)
+	}
+	if decision.State != StateDormant {
+		t.Fatalf("first evaluation without participation = %q, want the neutral dormant start", decision.State)
+	}
+}

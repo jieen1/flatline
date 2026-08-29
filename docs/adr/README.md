@@ -79,6 +79,7 @@ ADR 是**决策的权威来源**：当设计文档、代码与 ADR 冲突时，�
 | ADR-23 | Codex 轮级 token 差值归属 | accepted | [023-codex-turn-token-delta.md](023-codex-turn-token-delta.md) |
 | ADR-24 | watch 判定进入通知投影 | accepted | [024-watch-verdict-notifications.md](024-watch-verdict-notifications.md) |
 | ADR-25 | 舰队汇总：父会话及其子代理树是一等展示单元 | accepted | [025-fleet-run-rollup.md](025-fleet-run-rollup.md) |
+| ADR-26 | 首次评估落在证据上，不经过强制的 dormant 中停 | accepted | [026-first-evaluation-lands-on-evidence.md](026-first-evaluation-lands-on-evidence.md) |
 
 ## 流程
 

@@ -54,15 +54,29 @@ func TestRepositoryPersistsOneOpenStateAndReplayIsIdempotent(t *testing.T) {
 	repository, db := testVitalRepository(t)
 	ctx := context.Background()
 
+	// ADR-26: the fixture assessment carries participation, so the first
+	// evaluation lands on healthy directly — and a first-ever state never
+	// alerts, because nothing was transitioned from.
 	decision, err := repository.Apply(ctx, repositoryAssessment(1))
 	if err != nil {
 		t.Fatalf("initial Apply: %v", err)
 	}
-	if decision.State != StateDormant || !decision.Transition {
-		t.Fatalf("initial decision = %+v, want dormant transition", decision)
+	if decision.State != StateHealthy || !decision.Transition || decision.Alert {
+		t.Fatalf("initial decision = %+v, want a healthy start without an alert", decision)
 	}
 
-	decision, err = repository.Apply(ctx, repositoryAssessment(2))
+	silent := repositoryAssessment(2)
+	silent.Silent = detectors.Verdict{Detector: detectors.SilentDetector, Triggered: true, Observable: true,
+		Summary: "synthetic fixture: went silent", Rule: "fixture rule"}
+	decision, err = repository.Apply(ctx, silent)
+	if err != nil {
+		t.Fatalf("silent Apply: %v", err)
+	}
+	if decision.State != StateSilent || !decision.Transition {
+		t.Fatalf("silent decision = %+v, want silent transition", decision)
+	}
+
+	decision, err = repository.Apply(ctx, repositoryAssessment(3))
 	if err != nil {
 		t.Fatalf("healthy Apply: %v", err)
 	}
@@ -72,7 +86,7 @@ func TestRepositoryPersistsOneOpenStateAndReplayIsIdempotent(t *testing.T) {
 
 	// Re-evaluating the same state updates evidence but does not create a
 	// duplicate alert/transition.
-	decision, err = repository.Apply(ctx, repositoryAssessment(2))
+	decision, err = repository.Apply(ctx, repositoryAssessment(3))
 	if err != nil {
 		t.Fatalf("same-state replay: %v", err)
 	}
@@ -90,8 +104,8 @@ func TestRepositoryPersistsOneOpenStateAndReplayIsIdempotent(t *testing.T) {
 	if err := db.QueryRowContext(ctx, `SELECT COUNT(*) FROM state_transitions WHERE asset_id = ?`, "skill:project:fixture").Scan(&transitions); err != nil {
 		t.Fatalf("transition count: %v", err)
 	}
-	if transitions != 2 {
-		t.Fatalf("transition count = %d, want 2", transitions)
+	if transitions != 3 {
+		t.Fatalf("transition count = %d, want 3", transitions)
 	}
 	var evidence string
 	if err := db.QueryRowContext(ctx, `SELECT evidence_json FROM state_transitions WHERE asset_id = ? ORDER BY id DESC LIMIT 1`, "skill:project:fixture").Scan(&evidence); err != nil {
@@ -143,8 +157,11 @@ func TestRepositoryPersistsBrokenOverlayAndRecovery(t *testing.T) {
 	if err := db.QueryRowContext(ctx, `SELECT COUNT(*) FROM vital_states WHERE asset_id = ? AND ended_at IS NOT NULL`, "skill:project:fixture").Scan(&ended); err != nil {
 		t.Fatalf("ended state count: %v", err)
 	}
-	if ended != 3 {
-		t.Fatalf("ended state count = %d, want 3", ended)
+	// ADR-26: the first evaluation lands on healthy, so the second same-state
+	// apply opens no row — the history is healthy → healthy+overlay →
+	// healthy, two rows ended by their successors.
+	if ended != 2 {
+		t.Fatalf("ended state count = %d, want 2", ended)
 	}
 }
 

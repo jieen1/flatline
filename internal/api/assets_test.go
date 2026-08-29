@@ -43,7 +43,9 @@ func TestDataAPIListsAndDrillsIntoAssetEvidence(t *testing.T) {
 	if err := json.NewDecoder(rec.Body).Decode(&list); err != nil {
 		t.Fatalf("decode assets: %v", err)
 	}
-	if len(list.Assets) != 1 || list.Assets[0].ID != "skill:project:fixture" || list.Assets[0].StateStatus != "evaluated" || list.Assets[0].CurrentState == nil || list.Assets[0].CurrentState.State != "dormant" {
+	// ADR-26: the fixture's first evaluation carries participation, so it
+	// starts healthy instead of stopping over on dormant.
+	if len(list.Assets) != 1 || list.Assets[0].ID != "skill:project:fixture" || list.Assets[0].StateStatus != "evaluated" || list.Assets[0].CurrentState == nil || list.Assets[0].CurrentState.State != "healthy" {
 		t.Fatalf("asset list = %+v", list.Assets)
 	}
 

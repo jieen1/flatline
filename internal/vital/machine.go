@@ -281,10 +281,16 @@ func choosePrimary(in Assessment) State {
 	if in.Unobservable {
 		return StateUnobservable
 	}
-	// The design starts every newly registered asset with a neutral state when
-	// it already has an observable opportunity. A later evaluation can promote
-	// it to healthy once participation evidence is persisted.
+	// ADR-26: the first evaluation lands on the evidence. A newly registered
+	// asset whose assessment already carries participation starts healthy;
+	// only one with an opportunity and no recorded participation takes the
+	// neutral dormant start until evidence arrives. The unconditional dormant
+	// stopover painted 12 skills as "几乎未使用" for one import cycle on real
+	// history while their participations were already in the store.
 	if in.PreviousState == "" {
+		if in.ParticipationObserved {
+			return StateHealthy
+		}
 		return StateDormant
 	}
 	if in.Degraded.Triggered && in.Degraded.Observable {
@@ -323,6 +329,14 @@ func primaryReason(state State, in Assessment) (string, string) {
 func finishDecision(decision Decision, previousOverlay bool) Decision {
 	decision.Transition = decision.State != decision.From || decision.BrokenOverlay != previousOverlay
 	decision.Alert = decision.Transition && alertFor(decision.State, decision.BrokenOverlay, decision.Resurrection)
+	// A healthy alert means recovery, and a first-ever state recovered from
+	// nothing: without this, ADR-26's evidence-first start would fire one
+	// recovery alert per healthy asset on a first import. A first evaluation
+	// that lands on silent or broken still alerts — that is the backtest
+	// lighting the wall and speaking, which is the monitor's job.
+	if decision.From == "" && decision.State == StateHealthy && !decision.BrokenOverlay {
+		decision.Alert = false
+	}
 	if decision.State == StateArchived {
 		decision.Alert = false
 	}
