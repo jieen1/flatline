@@ -20,9 +20,11 @@ const (
 
 // ProjectionVersion changes whenever the rules behind session_commands,
 // session_files or tool_call_stats change — a new tool-name match, a new
-// failure rule. A session stamped with an older version is projected again on
-// the next start; a session stamped with this one is left alone.
-const ProjectionVersion = "projection/6"
+// failure rule — or a counting rule the projection re-derives, such as which
+// blocks under the user role are not user turns. A session stamped with an
+// older version is projected again on the next start; a session stamped with
+// this one is left alone.
+const ProjectionVersion = "projection/7"
 
 type commandRow struct {
 	eventID int64

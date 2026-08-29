@@ -5,9 +5,8 @@ import "strings"
 // A harness writes blocks into a transcript under the user role that no user
 // typed: the environment context it prepends to a turn, the instruction files
 // it inlines, the marker it leaves where a turn was cut short, the
-// notification it posts when a subagent finishes. Counting them as user turns
-// overstates how much the user said — on this machine 485 of 6,609 stored user
-// records, 7.3%, are one of these.
+// notification it posts when a subagent finishes, the message one agent sends
+// another. Counting them as user turns overstates how much the user said.
 //
 // The list lives here because two layers need the same closed set: the reader
 // leaves them out of the transcript in the first place, and the session
@@ -20,6 +19,10 @@ var InjectedMessagePrefixes = []string{
 	"<system-reminder>", "<task-notification>", "<subagent_notification>",
 	"<environment_context>", "<user_instructions>", "<recommended_plugins>", "<turn_aborted>",
 	"<fork-boilerplate>",
+	// A message another agent sent, delivered into this transcript under the
+	// user role. The tag carries attributes (teammate_id, summary), so the
+	// prefix stops before the closing angle bracket.
+	"<teammate-message",
 	userShellOpen, "<bash-stdout>", "<bash-stderr>",
 	"# AGENTS.md instructions",
 	"Async agent launched successfully", "(Bash completed", "File does not exist",

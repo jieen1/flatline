@@ -12,16 +12,36 @@ HOME = os.path.expanduser("~")
 def api(path):
     return json.load(urllib.request.urlopen(BASE + path))
 
-# Blocks a harness writes under the user role that no user typed. Kept in step
-# with canonical.InjectedMessagePrefixes.
-INJECTED = ("# AGENTS.md instructions", "Async agent launched successfully",
+# Blocks a harness writes under the user role that no user typed. This is the
+# same closed list as canonical.InjectedMessagePrefixes, and
+# TestAuditScriptMirrorsInjectedPrefixes keeps the two from drifting apart.
+#
+# It is a closed list on purpose. Treating any text that opens with a tag as
+# injected would silently excuse a real divergence: <WORKFLOW> ... is a message
+# a user typed, and counting it as harness output would make Flatline look
+# right when it was wrong. Unknown tags are reported separately, as a warning,
+# so a new harness block is noticed instead of being absorbed.
+INJECTED = ("<local-command-caveat>", "<command-name>", "<command-message>", "<command-args>",
+            "<local-command-stdout>", "<local-command-stderr>", "<local-command-result>",
+            "<system-reminder>", "<task-notification>", "<subagent_notification>",
+            "<environment_context>", "<user_instructions>", "<recommended_plugins>", "<turn_aborted>",
+            "<fork-boilerplate>", "<teammate-message",
+            "<bash-input>", "<bash-stdout>", "<bash-stderr>",
+            "# AGENTS.md instructions", "Async agent launched successfully",
             "(Bash completed", "File does not exist")
+
+# Angle-tags seen under the user role that the closed list does not name. They
+# are counted as user turns (that is what Flatline does), and reported at the
+# end so a human can decide whether a new harness block needs adding.
+UNKNOWN_TAGS = {}
 
 def injected(text):
     t = text.lstrip()
-    if t.startswith("<") and ">" in t[:80]: return t[:t.find(">") + 1]
     for p in INJECTED:
         if t.startswith(p): return p
+    if t.startswith("<"):
+        end = min((i for i in (t.find(c) for c in " >\n") if i > 0), default=-1)
+        if end > 1: UNKNOWN_TAGS[t[:end]] = UNKNOWN_TAGS.get(t[:end], 0) + 1
     return None
 
 def raw_claude(sid):
@@ -97,4 +117,7 @@ for s in sample:
         row.append(f"{key}={got}{'' if ok else f'≠raw {expected}'}")
     extra = (f" turn_aborted(raw)={raw['turn_aborted']}" if "turn_aborted" in raw else "") + (f" injected={raw['injected']}" if raw.get("injected") else "")
     print(f"[{'ok' if all('≠' not in r for r in row) else 'DIFF'}] {s['source']:11s} {s['id'][-12:]} | " + " ".join(row) + extra)
+for tag, count in sorted(UNKNOWN_TAGS.items(), key=lambda kv: -kv[1]):
+    print(f"[warn] user-role text opens with {tag}, which the closed list does not name "
+          f"({count} messages in this sample); counted as a user turn by both sides")
 print(f"\nchecked {len(sample)} sessions, {mismatch} mismatching fields")
