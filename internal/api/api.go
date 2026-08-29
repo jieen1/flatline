@@ -120,6 +120,8 @@ func (s *Server) Handler() http.Handler {
 		// The health report and the refresh trigger are never cached: they
 		// change while the data version stands still.
 		mux.HandleFunc("GET /api/v1/ingest/health", s.handleIngestHealth)
+		// The now view is live state like health: never cached, never 304ed.
+		mux.HandleFunc("GET /api/v1/now", s.handleNow)
 		mux.HandleFunc("POST /api/v1/ingest/refresh", s.handleIngestRefresh)
 		mux.Handle("/", web.Handler())
 	}

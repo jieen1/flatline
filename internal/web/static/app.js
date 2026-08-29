@@ -2534,6 +2534,13 @@
       cache.insights = null;
       view.insightsError = error.message || String(error);
     }
+    // P16-3: the now view is live state served with no-store; a daemon
+    // without the endpoint renders the page without the block.
+    try {
+      cache.now = await get("/api/v1/now");
+    } catch (error) {
+      cache.now = null;
+    }
     const timeQuery = new URLSearchParams(query);
     timeQuery.set("tz_offset_minutes", String(timezoneOffsetMinutes()));
     try {
@@ -2874,7 +2881,14 @@
         + overviewMetric(uiText("改动行", "Changed lines"), count(null), uiText("度量接口未就绪", "The measurement interface is not ready"), "file-diff");
     }
     const denominator = num(usage.in_range) != null ? usage.in_range : inRange;
-    return overviewMetric(uiText("token", "Tokens"), tokenText(usage.total_tokens), overviewRatio(usage.token_sessions, denominator, "个会话记录了 token", "sessions recorded a token count"), "cpu", "", compare ? compareAside("total_tokens", "total_tokens", tokenText) : "", compare ? overviewRangeHref("#/sessions", "sort=tokens") : "", tokenTitle())
+    // ADR-25: work tokens lead. Cache reads are ~98% of the local total, so
+    // the total alone overstates what a window cost by tens of times; it stays
+    // visible one line below, with its cache-read share, never hidden.
+    const totalLine = num(usage.total_tokens) == null
+      ? overviewRatio(usage.token_sessions, denominator, "个会话记录了 token", "sessions recorded a token count")
+      : uiText("总 " + tokenText(usage.total_tokens) + "（缓存读取 " + tokenText(usage.cached_input_tokens) + "）· " + count(usage.token_sessions) + "/" + count(denominator) + " 个会话记录",
+          "Total " + tokenText(usage.total_tokens) + " (" + tokenText(usage.cached_input_tokens) + " cache reads) · " + count(usage.token_sessions) + "/" + count(denominator) + " sessions recorded");
+    return overviewMetric(uiText("工作 token", "Work tokens"), tokenText(usage.work_tokens), totalLine, "cpu", "", compare ? compareAside("work_tokens", "work_tokens", tokenText) : "", compare ? overviewRangeHref("#/sessions", "sort=tokens") : "", daemonProse(usage.work_definition, usage.work_definition_en) || tokenTitle())
       + overviewMetric(uiText("改动行", "Changed lines"), linesChangedText(usage.lines_added, usage.lines_removed), overviewRatio(usage.known_sessions, denominator, "个会话记录了度量", "sessions carry a measurement"), "file-diff", "", compare ? compareAside("lines_added", "lines_added") : "", compare ? overviewRangeHref("#/sessions", "sort=lines_changed") : "");
   }
   // by_model splits the same tokens by the model that spent them. It is a
@@ -3043,6 +3057,39 @@
       + '<span class="overview-more-title">' + uiText("更多", "More") + "</span>"
       + '<span class="fl-aside">' + esc(summary) + "</span></button>" + body + "</section>";
   }
+  // overviewNow is the monitor's first screen (P16-3): the sessions whose
+  // transcripts are being written right now. Silence is the normal state — a
+  // quiet machine renders no block at all rather than an empty card.
+  function overviewNow(now) {
+    if (!now || !Array.isArray(now.sessions) || !now.sessions.length) return "";
+    const rows = now.sessions.slice(0, 8).map((item) => {
+      const usage = item.usage || {};
+      const work = num(usage.input_tokens) == null && num(usage.output_tokens) == null && num(usage.cache_write_tokens) == null
+        ? null
+        : (num(usage.input_tokens) || 0) + (num(usage.output_tokens) || 0) + (num(usage.cache_write_tokens) || 0);
+      const name = item.display_title || uiText("标题未记录", "Title not recorded");
+      const fleet = item.live_children > 0
+        ? '<span class="fl-flag" data-flag="new">' + esc(uiText(item.live_children + " 个子代理在写", item.live_children + " subagents writing")) + "</span>"
+        : "";
+      const role = item.thread_kind === "subagent"
+        ? '<span class="session-fleet-role" data-no-translate="true">' + esc(item.agent_role || uiText("角色未记录", "Role not recorded")) + "</span>"
+        : "";
+      const frictionAside = num(item.friction_count) != null && item.friction_count > 0
+        ? quantity(item.friction_count, "条摩擦", "friction", "friction")
+        : "";
+      return '<a class="overview-list-row overview-now-row" href="#/sessions/' + encodeURIComponent(item.id) + '">'
+        + '<span class="overview-now-pulse" aria-hidden="true"></span>' + role
+        + '<span class="session-fleet-name" data-no-translate="true" title="' + esc(name) + '">' + esc(name) + "</span>" + fleet
+        + '<span class="overview-list-aside">' + esc([item.project_label || "", frictionAside].filter(Boolean).join(" · ")) + "</span>"
+        + "<strong data-no-translate=\"true\">" + esc(work == null ? uiText("token 未记录", "Tokens not recorded") : tokenText(work) + uiText(" 工作 token", " work tokens")) + "</strong></a>";
+    }).join("");
+    const more = now.sessions.length > 8
+      ? '<p class="evidence-note">' + esc(uiText("另有 " + (now.sessions.length - 8) + " 个进行中的会话未列出。", (now.sessions.length - 8) + " more in-progress sessions are not listed.")) + "</p>"
+      : "";
+    return '<section class="elevated-card overview-now-card"><header class="fl-head"><h3>' + uiText("正在进行", "Happening now") + '</h3><span class="fl-aside">' + esc(quantity(now.count, "个会话在写", "session writing", "sessions writing")) + '</span></header>'
+      + '<div class="overview-list">' + rows + "</div>" + more
+      + '<p class="friction-method-note">' + esc(daemonProse(now.note, now.note_en)) + "</p></section>";
+  }
   function drawOverview() {
     const screen = document.getElementById("flatline-screen");
     if (!screen) return;
@@ -3076,7 +3123,8 @@
     // owns it — friction hotspots by tool and by category, and recurring
     // friction, on the friction page; common tags, top commands and hot files
     // on the project page. Two places for one number is how the two disagree.
-    const body = '<div class="stats-grid overview-grid">' + overviewMetrics(data)
+    const body = '<div class="stats-grid overview-grid">' + overviewNow(cache.now)
+      + overviewMetrics(data)
       + overviewInsights()
       + frictionLifecycleCard(data.friction_lifecycle, uiText("总览尚未返回摩擦生命周期。", "The overview does not return the friction lifecycle yet."), true)
       + overviewEnvironment(data)

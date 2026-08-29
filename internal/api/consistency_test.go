@@ -311,6 +311,30 @@ func TestTokenTotalIsAlwaysTheSumOfItsComponents(t *testing.T) {
 	if overview.Usage.TotalTokens != aggregate {
 		t.Errorf("aggregate total_tokens = %d, its own components add to %d", overview.Usage.TotalTokens, aggregate)
 	}
+	// work_tokens is the cost-shaped subset of the same components: everything
+	// but cache reads. On this machine cache reads are 98% of the total, so a
+	// page leading with the total misstates a run's cost ~50x (ADR-25).
+	work := overview.Usage.InputTokens + overview.Usage.CacheWriteTokens + overview.Usage.OutputTokens
+	if overview.Usage.WorkTokens != work {
+		t.Errorf("usage.work_tokens = %d, input+write+output add to %d", overview.Usage.WorkTokens, work)
+	}
+	if overview.Usage.WorkDefinition == "" {
+		t.Error("usage.work_definition is empty; the page cannot say what work tokens count")
+	}
+	var period struct {
+		Current periodSummary `json:"current"`
+	}
+	getJSON(t, handler, "/api/v1/overview?from=all&include=all", &period)
+	if period.Current.WorkTokens == nil || *period.Current.WorkTokens != work {
+		t.Errorf("current.work_tokens = %v, want %d", period.Current.WorkTokens, work)
+	}
+	// from=all has no preceding window, so the delta map is asserted directly:
+	// two measured windows must carry the work_tokens movement the KPI reads.
+	left, right := int64(10), int64(4)
+	movements := periodDelta(periodSummary{WorkTokens: &left}, periodSummary{WorkTokens: &right})
+	if movement := movements["work_tokens"]; movement == nil || movement.Value != 6 {
+		t.Errorf("periodDelta work_tokens = %+v, want +6", movements["work_tokens"])
+	}
 	if overview.Usage.Definition == "" {
 		t.Error("usage.definition is empty; the page has no way to say what it is printing")
 	}

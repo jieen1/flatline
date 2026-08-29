@@ -508,14 +508,18 @@ func TestEmbeddedSPARegistersTheThreeNewIcons(t *testing.T) {
 // The fifth phase converges the overview and consumes the A6 fields (§25).
 // The overview had grown to sixteen blocks and 4400px; it is now four blocks
 // and one disclosure, and the blocks that repeated another page are gone.
+// P16-3 adds one block ahead of them that answers a different question —
+// what is being written right now — and renders nothing on a quiet machine,
+// so the "what happened in this window" screen is still the same four blocks.
 func TestEmbeddedSPAConvergesTheOverviewToFourBlocksAndOneFold(t *testing.T) {
 	rec := httptest.NewRecorder()
 	Handler().ServeHTTP(rec, httptest.NewRequest(http.MethodGet, "/app.js", nil))
 	appJS := rec.Body.String()
 
-	// The first screen is exactly the four blocks plus the fold. Read the body
-	// expression drawOverview composes rather than trusting a marker.
-	const bodyStart = `const body = '<div class="stats-grid overview-grid">' + overviewMetrics(data)`
+	// The first screen is the now block plus exactly the four blocks plus the
+	// fold. Read the body expression drawOverview composes rather than
+	// trusting a marker.
+	const bodyStart = `const body = '<div class="stats-grid overview-grid">' + overviewNow(cache.now)`
 	from := strings.Index(appJS, bodyStart)
 	if from < 0 {
 		t.Fatal("drawOverview no longer composes its body from the overview grid")
@@ -930,6 +934,28 @@ func TestSessionPageCarriesTheFleetBlock(t *testing.T) {
 	} {
 		if !strings.Contains(appJS, marker) {
 			t.Fatalf("app.js is missing fleet marker %q", marker)
+		}
+	}
+}
+
+// The now block (P16-3) and the work-token KPI (ADR-25) are the monitor's
+// first screen: what is being written right now, and a cost number that is
+// not 98% cache reads.
+func TestOverviewLeadsWithNowAndWorkTokens(t *testing.T) {
+	handler := Handler()
+	rec := httptest.NewRecorder()
+	handler.ServeHTTP(rec, httptest.NewRequest(http.MethodGet, "/app.js", nil))
+	appJS := rec.Body.String()
+	for _, marker := range []string{
+		"function overviewNow(",
+		"/api/v1/now",
+		"live_children",
+		"overview-now-card",
+		"work_tokens",
+		"work_definition",
+	} {
+		if !strings.Contains(appJS, marker) {
+			t.Fatalf("app.js is missing overview marker %q", marker)
 		}
 	}
 }

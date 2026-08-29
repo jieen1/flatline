@@ -132,6 +132,10 @@ type usageTotals struct {
 	// CacheWriteTokens completes the four components of Definition, so a
 	// reader can add them up and land on TotalTokens.
 	CacheWriteTokens int64 `json:"cache_write_tokens"`
+	// WorkTokens is the same components minus cache reads (ADR-25). On this
+	// machine cache reads are 98% of the total, so the total alone overstates
+	// what a window cost by around fifty-fold; this is the cost-shaped number.
+	WorkTokens int64 `json:"work_tokens"`
 	// ReasoningTokens is the part of OutputTokens the source reported on its
 	// own. It is reported, never added again.
 	ReasoningTokens int64 `json:"reasoning_tokens"`
@@ -149,7 +153,15 @@ type usageTotals struct {
 	// the same sentence for a reader in English.
 	Definition   string `json:"definition"`
 	DefinitionEN string `json:"definition_en"`
+	// WorkDefinition says what WorkTokens counts, in the same one-sentence
+	// style, so the page prints the rule beside the number.
+	WorkDefinition   string `json:"work_definition"`
+	WorkDefinitionEN string `json:"work_definition_en"`
 }
+
+const workTokensRule = "work_tokens = input_tokens + cache_write_tokens + output_tokens——不含缓存读取；缓存读取按厂商定价约为新输入的十分之一，把它计入总量会把一次运行的代价放大数十倍。"
+
+const workTokensRuleEN = "work_tokens = input_tokens + cache_write_tokens + output_tokens — cache reads excluded; a cache read is priced around a tenth of fresh input, so a total that includes them overstates what a run cost by tens of times."
 
 const usageDenominatorNote = "known_sessions 是记录了度量的会话数，in_range 是筛选范围内的全部会话；未记录的会话不计入分子。"
 
@@ -160,7 +172,8 @@ const usageDenominatorNoteEN = "known_sessions is how many sessions recorded the
 // as `s`; where/args are that caller's filter.
 func (s *Server) aggregateUsage(ctx context.Context, where string, args []any) (usageTotals, error) {
 	out := usageTotals{Note: usageDenominatorNote, NoteEN: usageDenominatorNoteEN,
-		Definition: eventstore.TokenTotalRule, DefinitionEN: eventstore.TokenTotalRuleEN}
+		Definition: eventstore.TokenTotalRule, DefinitionEN: eventstore.TokenTotalRuleEN,
+		WorkDefinition: workTokensRule, WorkDefinitionEN: workTokensRuleEN}
 	var cost sql.NullFloat64
 	err := s.db.QueryRowContext(ctx, `
 		SELECT COUNT(*),
@@ -189,6 +202,7 @@ func (s *Server) aggregateUsage(ctx context.Context, where string, args []any) (
 		value := cost.Float64
 		out.Cost = &value
 	}
+	out.WorkTokens = out.InputTokens + out.CacheWriteTokens + out.OutputTokens
 	return out, nil
 }
 

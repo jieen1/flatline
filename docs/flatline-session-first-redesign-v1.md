@@ -1755,6 +1755,30 @@ Claude Code 会把一个子代理转写**软链**进第二个父目录，同一�
 响应：`session`（同上，不含 `usage` 与检索命中）、`events`、`commands` + `commands_total`、
 `files` + `files_total`、`children`、`parent`、`friction {count, records, complete, records_truncated}`、`data_version`。
 
+### `GET /api/v1/now`（P16-3，2026-08-29）
+
+监护仪的第一屏：**现在**谁在写。
+
+| 谁做什么 | 结果 |
+| --- | --- |
+| daemon 取每个会话最新转写文件的修改时间（来自最近一次扫描的 `native_files.mtime_ns`） | 10 分钟内被写入过 → 该会话进入列表 |
+| 每行附 `live_children` | 只数同样在写的子会话 |
+| 排序 | 主会话在前、带活子代理的舰队在前 |
+
+响应：`sessions[]`（完整会话行 + `live_children`）、`count`、`generated_at`、`note/note_en`、`complete`。
+**这是状态不是历史**：响应带 `Cache-Control: no-store`、不带 ETag——版本化缓存会把已经结束的
+运行钉在屏幕上（`TestNowIsNeverServedFromCache` 把关）。安静的机器返回空列表，页面不渲染该区块。
+
+**容易误读的地方**：*"列表里有 = 正在干活"*——不是。判定是"文件 10 分钟内被写过"，
+读数最多滞后一个扫描间隔（默认 5 分钟）；一个刚收尾的会话会在列表里多停留几分钟。
+
+### 同轮 · `usage` 聚合新增 `work_tokens`（ADR-25）
+
+`work_tokens = input + cache_write + output`（不含缓存读取），出现在：
+`aggregateUsage` 产物（`/overview.usage` / `/stats.usage` / 项目页）、`current`/`previous` 期摘要、
+`delta.work_tokens`。判定规则原文在 `work_definition` / `work_definition_en`。
+总览 token KPI 以它领衔，总量与缓存读取占比降为副行——四个分量都仍在，只是换了领衔者。
+
 ### `GET /api/v1/sessions/{id}/fleet`（ADR-25，2026-08-29）
 
 父会话及其全部子会话作为一个单元的读时聚合，无新表：

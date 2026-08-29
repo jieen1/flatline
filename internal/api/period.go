@@ -177,6 +177,7 @@ type periodSummary struct {
 	UsageKnown           int                `json:"usage_known_sessions"`
 	TokenSessions        int                `json:"token_sessions"`
 	TotalTokens          *int64             `json:"total_tokens"`
+	WorkTokens           *int64             `json:"work_tokens"`
 	OutputTokens         *int64             `json:"output_tokens"`
 	LinesAdded           *int64             `json:"lines_added"`
 	LinesRemoved         *int64             `json:"lines_removed"`
@@ -232,6 +233,7 @@ func periodDelta(current, previous periodSummary) map[string]*deltaValue {
 		"sessions_with_friction":  delta(int64(current.SessionsWithFriction), int64(previous.SessionsWithFriction)),
 		"duration_ms":             delta(current.DurationMS, previous.DurationMS),
 		"total_tokens":            deltaOfOptional(current.TotalTokens, previous.TotalTokens),
+		"work_tokens":             deltaOfOptional(current.WorkTokens, previous.WorkTokens),
 		"output_tokens":           deltaOfOptional(current.OutputTokens, previous.OutputTokens),
 		"lines_added":             deltaOfOptional(current.LinesAdded, previous.LinesAdded),
 		"lines_removed":           deltaOfOptional(current.LinesRemoved, previous.LinesRemoved),
@@ -309,8 +311,8 @@ func (s *Server) buildPeriodSummary(ctx context.Context, window overviewRange, s
 	}
 	out.UsageKnown, out.TokenSessions = usage.KnownSessions, usage.TokenSessions
 	if usage.TokenSessions > 0 {
-		total, output := usage.TotalTokens, usage.OutputTokens
-		out.TotalTokens, out.OutputTokens = &total, &output
+		total, work, output := usage.TotalTokens, usage.WorkTokens, usage.OutputTokens
+		out.TotalTokens, out.WorkTokens, out.OutputTokens = &total, &work, &output
 	}
 	if usage.KnownSessions > 0 {
 		added, removed, active := usage.LinesAdded, usage.LinesRemoved, usage.ActiveMS

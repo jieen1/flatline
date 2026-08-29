@@ -5192,3 +5192,15 @@ a:focus-visible,
 .session-fleet-name { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .session-fleet-row strong { flex: 0 0 auto; }
 .session-fleet-list { max-height: 320px; overflow-y: auto; }
+
+/* Happening-now block (P16-3): live sessions lead the overview. The generic
+   .overview-list-row > span:first-child rule stretches the first span to
+   flex 1; these rows lead with a fixed-size pulse dot or a role tag, so the
+   selectors below match that rule's specificity to override it. */
+.overview-now-card { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; }
+.overview-now-row { justify-content: flex-start; }
+.overview-now-row > span:first-child { flex: 0 0 auto; }
+.session-fleet-row > span:first-child { flex: 0 0 auto; }
+.overview-now-pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--success, #22a06b); animation: overview-now-pulse 2s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .overview-now-pulse { animation: none; } }
+@keyframes overview-now-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
