@@ -3077,9 +3077,15 @@
       const frictionAside = num(item.friction_count) != null && item.friction_count > 0
         ? quantity(item.friction_count, "条摩擦", "friction", "friction")
         : "";
+      // The loop badge is the strongest sentence a live view can say: the
+      // daemon counted one signature recurring inside its stated window. The
+      // sample line rides in the tooltip, the claim stays count-and-window.
+      const loop = item.loop
+        ? '<span class="fl-flag overview-now-loop" data-flag="warn" title="' + esc((item.loop.sample_line || item.loop.signature || "") + " · " + uiText("最近 60 分钟", "last 60 minutes")) + '">' + esc(uiText("同一失败 ×" + item.loop.count, "Same failure ×" + item.loop.count)) + "</span>"
+        : "";
       return '<a class="overview-list-row overview-now-row" href="#/sessions/' + encodeURIComponent(item.id) + '">'
         + '<span class="overview-now-pulse" aria-hidden="true"></span>' + role
-        + '<span class="session-fleet-name" data-no-translate="true" title="' + esc(name) + '">' + esc(name) + "</span>" + fleet
+        + '<span class="session-fleet-name" data-no-translate="true" title="' + esc(name) + '">' + esc(name) + "</span>" + fleet + loop
         + '<span class="overview-list-aside">' + esc([item.project_label || "", frictionAside].filter(Boolean).join(" · ")) + "</span>"
         + "<strong data-no-translate=\"true\">" + esc(work == null ? uiText("token 未记录", "Tokens not recorded") : tokenText(work) + uiText(" 工作 token", " work tokens")) + "</strong></a>";
     }).join("");

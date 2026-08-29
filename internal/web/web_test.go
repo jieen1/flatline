@@ -953,6 +953,8 @@ func TestOverviewLeadsWithNowAndWorkTokens(t *testing.T) {
 		"overview-now-card",
 		"work_tokens",
 		"work_definition",
+		"overview-now-loop",
+		"item.loop.count",
 	} {
 		if !strings.Contains(appJS, marker) {
 			t.Fatalf("app.js is missing overview marker %q", marker)

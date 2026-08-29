@@ -1765,7 +1765,10 @@ Claude Code 会把一个子代理转写**软链**进第二个父目录，同一�
 | 每行附 `live_children` | 只数同样在写的子会话 |
 | 排序 | 主会话在前、带活子代理的舰队在前 |
 
-响应：`sessions[]`（完整会话行 + `live_children`）、`count`、`generated_at`、`note/note_en`、`complete`。
+响应：`sessions[]`（完整会话行 + `live_children` + `friction_last_at` +
+`loop {signature, sample_line, count, first_at, last_at}`）、`count`、`generated_at`、`note/note_en`、`complete`。
+`loop` 的判定一句话：同一摩擦签名最近 60 分钟内在该会话出现 ≥5 次（与洞察层卡死循环同一阈值 `stuckLoopThreshold`），
+只陈述次数与时间界；一个会话多个循环时报次数最多的那个。
 **这是状态不是历史**：响应带 `Cache-Control: no-store`、不带 ETag——版本化缓存会把已经结束的
 运行钉在屏幕上（`TestNowIsNeverServedFromCache` 把关）。安静的机器返回空列表，页面不渲染该区块。
 

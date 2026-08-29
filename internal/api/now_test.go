@@ -51,15 +51,43 @@ func nowFixtureDB(t *testing.T) (*storage.DB, map[string]string) {
 	file(ids["livechild"], "/synthetic/now/live-child.jsonl", 90*time.Second)
 	file(ids["quietchild"], "/synthetic/now/quiet-child.jsonl", time.Hour)
 	file(ids["done"], "/synthetic/now/done.jsonl", time.Hour)
+
+	// The live child is hitting the same failure over and over: six identical
+	// signatures inside the last hour. The live parent has two stray friction
+	// records with different signatures — activity, not a loop.
+	friction := func(id, eventID, signature string, age time.Duration) {
+		at := time.Now().UTC().Add(-age).Format(time.RFC3339Nano)
+		exec(t, db, `INSERT INTO friction_records
+			(session_id, source_event_id, friction_kind, event_type, observation_level, tool_name, category,
+			 classifier_version, signature, payload_json, locator_json, occurred_at, created_at)
+			VALUES (?, ?, 'tool_error', 'transcript_tool_result', 'invoked', 'Bash', 'tool_error',
+			        'friction/test', ?, '{}', '{}', ?, ?)`, id, eventID, signature, at, at)
+	}
+	for index := 0; index < 6; index++ {
+		friction(ids["livechild"], "now-loop-"+string(rune('a'+index)),
+			"tool_error|Bash|error: project config not found", time.Duration(50-index*7)*time.Minute)
+	}
+	friction(ids["live"], "now-one-a", "tool_error|Bash|bash exit 1", 20*time.Minute)
+	friction(ids["live"], "now-one-b", "tool_error|Edit|string to replace not found", 5*time.Minute)
 	return db, ids
 }
 
+type nowLoopResponse struct {
+	Signature  string `json:"signature"`
+	SampleLine string `json:"sample_line"`
+	Count      int    `json:"count"`
+	FirstAt    string `json:"first_at"`
+	LastAt     string `json:"last_at"`
+}
+
 type nowRowResponse struct {
-	ID           string  `json:"id"`
-	ThreadKind   *string `json:"thread_kind"`
-	DisplayTitle *string `json:"display_title"`
-	InProgress   bool    `json:"in_progress"`
-	LiveChildren int     `json:"live_children"`
+	ID             string           `json:"id"`
+	ThreadKind     *string          `json:"thread_kind"`
+	DisplayTitle   *string          `json:"display_title"`
+	InProgress     bool             `json:"in_progress"`
+	LiveChildren   int              `json:"live_children"`
+	FrictionLastAt *string          `json:"friction_last_at"`
+	Loop           *nowLoopResponse `json:"loop"`
 }
 
 type nowResponse struct {
@@ -100,6 +128,37 @@ func TestNowListsOnlyLiveTranscriptsAndCountsLiveChildren(t *testing.T) {
 	}
 	if _, listed := byID[ids["quietchild"]]; listed {
 		t.Error("the hour-quiet child is listed as live")
+	}
+}
+
+// A live session repeating the same failure is the one thing a monitor must
+// say out loud. The claim is factual — this signature recurred N times inside
+// the stated window — and two different failures are activity, not a loop.
+func TestNowNamesARepeatingFailureOnALiveSession(t *testing.T) {
+	db, ids := nowFixtureDB(t)
+	handler := NewServerWithDB(db).Handler()
+	var now nowResponse
+	getJSON(t, handler, "/api/v1/now", &now)
+	byID := map[string]nowRowResponse{}
+	for _, row := range now.Sessions {
+		byID[row.ID] = row
+	}
+	child := byID[ids["livechild"]]
+	if child.Loop == nil {
+		t.Fatalf("live child = %+v, want its six-hit signature named", child)
+	}
+	if child.Loop.Count != 6 || child.Loop.SampleLine != "error: project config not found" {
+		t.Errorf("loop = %+v, want count 6 with the sample line", child.Loop)
+	}
+	if child.Loop.FirstAt == "" || child.Loop.LastAt == "" {
+		t.Errorf("loop = %+v, want both bounds stated", child.Loop)
+	}
+	parent := byID[ids["live"]]
+	if parent.Loop != nil {
+		t.Errorf("parent loop = %+v, want none: two different signatures are not a loop", parent.Loop)
+	}
+	if parent.FrictionLastAt == nil {
+		t.Error("parent friction_last_at is null, want the five-minute-old record's time")
 	}
 }
 
