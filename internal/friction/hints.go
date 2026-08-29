@@ -58,8 +58,20 @@ type hintRule struct {
 // against the whole signature (category|tool|evidence line), so a rule can key
 // on the evidence line or on the category the classifier already decided.
 var hintRules = []hintRule{
-	// The category the classifier already decided is the most reliable key
-	// there is, so it is tried before any rule that reads the evidence line.
+	// Order is the whole rule: the first match wins.
+	//
+	// user_interrupt is keyed on the category alone and leads, because nothing
+	// in an evidence line describes that turn better than "the user stopped
+	// it". test_failure and build_error are keyed on the category too but sit
+	// near the end, behind the evidence-line rules, and that is deliberate: an
+	// evidence line naming a more specific mechanism outranks the category the
+	// classifier assigned from the command. On this machine 7 records carry
+	// category test_failure while their line says the auto-approval classifier
+	// could not reach its model — the test never ran, so "the test command
+	// reported failing cases" would be the wrong sentence for them.
+	//
+	// The dot-aligned-checklist rule is last of all, so a failing test whose
+	// runner happens to print dots stays a test.
 	{match: regexp.MustCompile(`^user_interrupt\|`),
 		kind: HintUserStopped, mechanism: "用户主动中断了这一轮，harness 把中断本身记了下来。",
 		mechanismEN: "The user stopped this turn; the harness recorded the interruption itself."},
@@ -82,6 +94,18 @@ var hintRules = []hintRule{
 	{match: regexp.MustCompile(`(?i)auto mode classifier`),
 		kind: HintPermission, mechanism: "Claude Code 的自动批准分类器没有放行这个动作，调用被转成需要用户手动批准。",
 		mechanismEN: "Claude Code's auto-approval classifier did not allow this action, so the call fell back to asking the user."},
+	{match: regexp.MustCompile(`(?i)auto mode cannot determine`),
+		kind: HintPermission, mechanism: "自动批准分类器要用的模型这次不可达，harness 没能判定这个动作是否安全，调用被转成需要用户手动批准。",
+		mechanismEN: "The model the auto-approval classifier calls was unreachable, so the harness could not decide whether the action was safe and the call fell back to asking the user."},
+	{match: regexp.MustCompile(`(?i)the tool use was rejected`),
+		kind: HintPermission, mechanism: "harness 在执行前请求批准，用户明确拒绝了这次调用。",
+		mechanismEN: "The harness asked for approval before running and the user declined this call."},
+	{match: regexp.MustCompile(`(?i)mcp error -`),
+		kind: HintEnvironment, mechanism: "与 MCP 服务器之间的连接在这次调用期间断开，调用没有拿到结果。",
+		mechanismEN: "The connection to the MCP server dropped during this call, so the call never got a result."},
+	{match: regexp.MustCompile(`(?i)is already used by worktree at`),
+		kind: HintToolMisuse, mechanism: "git 拒绝检出一个已经被另一个 worktree 占用的分支。",
+		mechanismEN: "git refused to check out a branch that another worktree already has checked out."},
 	{match: regexp.MustCompile(`(?i)exec cell .*not found|exec cell # not found`),
 		kind: HintToolMisuse, mechanism: "等待的后台执行单元不存在：它已经结束、被清理，或者从未启动。",
 		mechanismEN: "The background exec cell being waited for does not exist: it already finished, was cleaned up, or never started."},
@@ -119,6 +143,9 @@ var hintRules = []hintRule{
 	{match: regexp.MustCompile(`(?i)\bls exit 2\b`),
 		kind: HintToolMisuse, mechanism: "ls 以退出码 2 报告了较严重的问题，如目标不存在或无权访问。",
 		mechanismEN: "ls reported serious trouble with exit code 2, such as a missing or inaccessible target."},
+	{match: regexp.MustCompile(`(?i)\b[ef]?grep exit 2\b|\bpgrep exit 2\b`),
+		kind: HintToolMisuse, mechanism: "退出码 2 是 grep 家族的“发生了错误”约定（如文件打不开或正则不合法）；退出码 1 才是“没有匹配”。",
+		mechanismEN: "Exit code 2 is the grep family's \"an error occurred\" convention, such as an unreadable file or an invalid regex; exit code 1 is the \"nothing matched\" answer."},
 	{match: regexp.MustCompile(`(?i)found (#|\d+) errors?\.`),
 		kind: HintBuild, mechanism: "代码检查工具（linter）自己报告了错误，命令以非零码退出。",
 		mechanismEN: "The code checker (linter) reported errors itself, and the command exited non-zero."},
@@ -137,6 +164,9 @@ var hintRules = []hintRule{
 	{match: regexp.MustCompile(`^build_error\|`),
 		kind: HintBuild, mechanism: "编译或构建命令自己报告了错误。",
 		mechanismEN: "The compile or build command reported errors itself."},
+	{match: regexp.MustCompile(`(?i)\.{8,}\s*failed\b`),
+		kind: HintBuild, mechanism: "一个把结果排成点线对齐清单的检查脚本报告了失败项，命令以非零码退出。",
+		mechanismEN: "A check script that lays its results out as a dot-aligned checklist reported a failing entry, and the command exited non-zero."},
 }
 
 // LookupHint returns the mechanism behind a signature, or nil when no rule in

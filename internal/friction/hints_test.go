@@ -31,6 +31,34 @@ func TestLookupHintNamesTheMechanism(t *testing.T) {
 		{"ls exit 2 is a listing failure", "nonzero_exit|exec_command|ls exit 2", HintToolMisuse},
 		{"a linter's found-N-errors line is a self-reported build failure", "nonzero_exit|exec_command|found # errors.", HintBuild},
 		{"a python syntax error is a parse failure", "nonzero_exit|exec_command|syntaxerror: unterminated string literal (detected at line #)", HintBuild},
+		// The rules below were added on 2026-08-29 from the signatures that
+		// recur most on real local history while carrying no mechanism. Each
+		// literal is the recorded sample line of a signature seen here.
+		{"an explicit user rejection is a permission fact",
+			"tool_error|Bash|the user doesn't want to proceed with this tool use. the tool use was rejected", HintPermission},
+		{"a rejection of a question tool is the same fact",
+			"tool_error|AskUserQuestion|the user doesn't want to proceed with this tool use. the tool use was rejected", HintPermission},
+		{"an unreachable auto-mode model is a permission fact",
+			"tool_error|Bash|claude-sonnet-#[#m] is temporarily unavailable (connection failed), so auto mode cannot determine the safety of bash right now.", HintPermission},
+		{"the same fact when the classifier call timed out",
+			"timeout|Bash|claude-sonnet-#[#m] is temporarily unavailable (timed out), so auto mode cannot determine the safety of bash right now.", HintPermission},
+		{"a branch held by another worktree is tool misuse",
+			"nonzero_exit|Bash|fatal: 'feature/issue-#' is already used by worktree at 'cog-#-dev'", HintToolMisuse},
+		{"grep exit 2 is a grep error",
+			"nonzero_exit|Bash|grep exit 2", HintToolMisuse},
+		{"pgrep exit 2 is the same convention",
+			"nonzero_exit|Bash|pgrep exit 2", HintToolMisuse},
+		{"a dropped MCP connection is an environment fact",
+			"tool_error|mcp__playwright__browser_run_code|mcp error -#: connection closed", HintEnvironment},
+		{"a dotted checklist reporting failed is a self-reported check failure",
+			"nonzero_exit|Bash|backend · ruff (format + lint, auto-fix).................................failed", HintBuild},
+		// The category the classifier already decided outranks any rule that
+		// reads the evidence line. A failing test whose runner happens to print
+		// a dot-aligned line is still a test, not a build.
+		{"a test category outranks the dotted-checklist line",
+			"test_failure|Bash|tests/test_api.py::test_login.....................................failed", HintTest},
+		{"a build category outranks the dotted-checklist line",
+			"build_error|Bash|compile · cargo........................................................failed", HintBuild},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
