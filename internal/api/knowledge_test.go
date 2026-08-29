@@ -63,6 +63,10 @@ func knowledgeFixtureDB(t *testing.T) (*storage.DB, map[string]string) {
 	// Too few runs.
 	command(one, 9411, "docker", "docker compose up -d", nil, nil, base.Add(11*time.Minute))
 	command(two, 9412, "docker", "docker compose up -d", nil, nil, base.Add(131*time.Minute))
+	// Waiting is not method: sleep would otherwise rank on real data.
+	command(one, 9420, "sleep", "sleep 5", nil, nil, base.Add(12*time.Minute))
+	command(one, 9421, "sleep", "sleep 5", nil, nil, base.Add(13*time.Minute))
+	command(two, 9422, "sleep", "sleep 5", nil, nil, base.Add(132*time.Minute))
 	// Another project's command must never leak in.
 	command(elsewhere, 9413, "just", "just ci-fast", nil, nil, base.Add(200*time.Minute))
 	command(elsewhere, 9414, "just", "just ci-fast", nil, nil, base.Add(201*time.Minute))
@@ -85,16 +89,20 @@ func TestProjectKnowledgeListsWorkingCommandsWithTheirRecord(t *testing.T) {
 			Failures int    `json:"failures_recorded"`
 			LastAt   string `json:"last_at"`
 		} `json:"working_commands"`
-		Note     string `json:"note"`
-		NoteEN   string `json:"note_en"`
-		Complete bool   `json:"complete"`
+		CommandsSeen int    `json:"commands_seen"`
+		Note         string `json:"note"`
+		NoteEN       string `json:"note_en"`
+		Complete     bool   `json:"complete"`
 	}
 	getJSON(t, handler, "/api/v1/projects/"+url.QueryEscape(knowledgeProject)+"/knowledge", &body)
 	if !body.Complete || body.Note == "" || body.NoteEN == "" {
 		t.Fatalf("header = %+v, want the selection rule stated", body)
 	}
 	if len(body.WorkingCommands) != 1 {
-		t.Fatalf("working_commands = %+v, want exactly the corroborated method; navigation, single-session, and rare commands stay out", body.WorkingCommands)
+		t.Fatalf("working_commands = %+v, want exactly the corroborated method; navigation, waiting, single-session, and rare commands stay out", body.WorkingCommands)
+	}
+	if body.CommandsSeen == 0 {
+		t.Error("commands_seen = 0; the empty state has no denominator to explain itself with")
 	}
 	item := body.WorkingCommands[0]
 	if item.Label != friction.NormalizeLine("just ci-fast") || item.Program != "just" {

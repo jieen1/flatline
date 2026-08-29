@@ -182,6 +182,22 @@ func TestResolutionRanksFileActionsForFileToolSignatures(t *testing.T) {
 	}
 }
 
+// With a project filter, another project's endings stay out of the answer —
+// what worked in one repo is not evidence about another.
+func TestResolutionHonorsTheProjectFilter(t *testing.T) {
+	db, _ := resolutionFixtureDB(t)
+	handler := NewServerWithDB(db).Handler()
+	var body resolutionResponseBody
+	getJSON(t, handler, "/api/v1/friction/resolution?signature="+url.QueryEscape(resolutionSignature)+"&project="+url.QueryEscape("/synthetic/elsewhere"), &body)
+	if body.TotalSessions != 0 || body.EndedSessions != 0 {
+		t.Fatalf("foreign project = %+v, want nothing", body)
+	}
+	getJSON(t, handler, "/api/v1/friction/resolution?signature="+url.QueryEscape(resolutionSignature)+"&project="+url.QueryEscape("/synthetic/project-res"), &body)
+	if body.TotalSessions != 3 || body.EndedSessions != 2 {
+		t.Fatalf("own project = %d/%d, want the full 2/3", body.EndedSessions, body.TotalSessions)
+	}
+}
+
 func TestResolutionOfAnUnseenSignatureIsZeroNotAnError(t *testing.T) {
 	db, _ := resolutionFixtureDB(t)
 	handler := NewServerWithDB(db).Handler()

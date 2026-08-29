@@ -68,7 +68,8 @@ func (s *Server) handleFrictionResolution(w http.ResponseWriter, r *http.Request
 		http.Error(w, "signature is required", http.StatusBadRequest)
 		return
 	}
-	out, err := s.mineResolution(r.Context(), signature)
+	projectKey := strings.TrimSpace(r.URL.Query().Get("project"))
+	out, err := s.mineResolution(r.Context(), signature, projectKey)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -76,14 +77,20 @@ func (s *Server) handleFrictionResolution(w http.ResponseWriter, r *http.Request
 	writeJSON(w, http.StatusOK, out)
 }
 
-func (s *Server) mineResolution(ctx context.Context, signature string) (resolutionResponse, error) {
+func (s *Server) mineResolution(ctx context.Context, signature, projectKey string) (resolutionResponse, error) {
 	out := resolutionResponse{Signature: signature, SampleLine: frictionSignatureLine(signature),
 		Actions: []resolutionAction{}, Note: resolutionNote, NoteEN: resolutionNoteEN, Complete: true}
 
+	args := []any{signature}
+	projectFilter := ""
+	if projectKey != "" {
+		projectFilter = " AND (SELECT s.project_key FROM sessions s WHERE s.id = f.session_id) = ?"
+		args = append(args, projectKey)
+	}
 	rows, err := s.db.QueryContext(ctx, `
 		SELECT f.session_id, MAX(f.occurred_at),
 		       (SELECT MAX(e.occurred_at) FROM events e WHERE e.session_id = f.session_id)
-		FROM friction_records f WHERE f.signature = ? GROUP BY f.session_id`, signature)
+		FROM friction_records f WHERE f.signature = ?`+projectFilter+` GROUP BY f.session_id`, args...)
 	if err != nil {
 		return out, fmt.Errorf("api: resolution sessions: %w", err)
 	}

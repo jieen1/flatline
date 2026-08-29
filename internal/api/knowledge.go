@@ -26,11 +26,14 @@ const knowledgeLimit = 30
 var navigationPrograms = map[string]struct{}{
 	"cd": {}, "ls": {}, "cat": {}, "grep": {}, "rg": {}, "find": {}, "echo": {},
 	"head": {}, "tail": {}, "sed": {}, "awk": {}, "which": {}, "pwd": {}, "wc": {},
+	// sleep is waiting, not method: on real data it ranked 8th in cognode's
+	// playbook (21 sessions) while telling a newcomer nothing to reuse.
+	"sleep": {},
 }
 
-const knowledgeNote = "作业命令 = 本项目里同一条规范化命令 ≥3 次运行且 ≥2 个会话使用过；查看/导航类程序（cd ls cat grep rg find echo head tail sed awk which pwd wc）不入清单——那是探索，不是方法。failures_recorded 是这些运行里记录到失败（错误标记或非预期非零退出）的次数，如实陈述、不用于隐藏命令：测试命令偶尔失败正是测试命令的正常用法。按会话佐证数排序。"
+const knowledgeNote = "作业命令 = 本项目里同一条规范化命令 ≥3 次运行且 ≥2 个会话使用过；查看/导航类程序（cd ls cat grep rg find echo head tail sed awk which pwd wc sleep）不入清单——查看是探索、sleep 是等待，都不是方法。failures_recorded 是这些运行里记录到失败（错误标记或非预期非零退出）的次数，如实陈述、不用于隐藏命令：测试命令偶尔失败正是测试命令的正常用法。按会话佐证数排序。"
 
-const knowledgeNoteEN = "A working command is one normalized command run 3+ times across 2+ sessions in this project; navigation programs (cd ls cat grep rg find echo head tail sed awk which pwd wc) stay out — that is exploring, not method. failures_recorded counts the runs that recorded a failure (error flag or unexpected nonzero exit); it is stated, never used to hide a command — a test command failing sometimes is normal use of a test command. Ordered by session corroboration."
+const knowledgeNoteEN = "A working command is one normalized command run 3+ times across 2+ sessions in this project; navigation programs (cd ls cat grep rg find echo head tail sed awk which pwd wc sleep) stay out — looking around is exploring and sleep is waiting, neither is method. failures_recorded counts the runs that recorded a failure (error flag or unexpected nonzero exit); it is stated, never used to hide a command — a test command failing sometimes is normal use of a test command. Ordered by session corroboration."
 
 type workingCommand struct {
 	Label    string `json:"label"`
@@ -44,9 +47,13 @@ type workingCommand struct {
 type knowledgeResponse struct {
 	ProjectKey      string           `json:"project_key"`
 	WorkingCommands []workingCommand `json:"working_commands"`
-	Note            string           `json:"note"`
-	NoteEN          string           `json:"note_en"`
-	Complete        bool             `json:"complete"`
+	// CommandsSeen is how many command rows the project holds at all, so an
+	// empty list can honestly say "not enough corroboration yet" instead of
+	// looking like a project where nothing ever ran.
+	CommandsSeen int    `json:"commands_seen"`
+	Note         string `json:"note"`
+	NoteEN       string `json:"note_en"`
+	Complete     bool   `json:"complete"`
 }
 
 func (s *Server) handleProjectKnowledge(w http.ResponseWriter, r *http.Request) {
@@ -80,6 +87,7 @@ func (s *Server) handleProjectKnowledge(w http.ResponseWriter, r *http.Request) 
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
+		out.CommandsSeen++
 		if _, navigation := navigationPrograms[strings.ToLower(program)]; navigation || program == "" {
 			continue
 		}
