@@ -816,3 +816,25 @@ func TestSessionDetailCarriesThreadCommandsAndFiles(t *testing.T) {
 		t.Fatalf("parent = %+v", detail.Parent)
 	}
 }
+
+// sort=tokens orders by work tokens (ADR-25): a session that read a huge
+// cache but did little work sorts below one that actually spent output.
+func TestSessionSortTokensOrdersByWorkNotCacheReads(t *testing.T) {
+	db, ids := fleetFixtureDB(t)
+	// The stranger did 9999*3 work; the parent's work is 8000 (1000+5000+2000)
+	// but its total (108000) dwarfs the stranger's (39996) through cache reads.
+	handler := NewServerWithDB(db).Handler()
+	var list struct {
+		Sessions []struct {
+			ID string `json:"id"`
+		} `json:"sessions"`
+	}
+	getJSON(t, handler, "/api/v1/sessions?thread=all&empty=all&sort=tokens&limit=10", &list)
+	if len(list.Sessions) < 2 {
+		t.Fatalf("sessions = %+v", list.Sessions)
+	}
+	if list.Sessions[0].ID != ids["stranger"] {
+		t.Fatalf("first by sort=tokens = %s, want the biggest work spender %s (the old order led with cache reads)",
+			list.Sessions[0].ID, ids["stranger"])
+	}
+}

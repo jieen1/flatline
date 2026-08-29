@@ -169,7 +169,9 @@ CREATE VIRTUAL TABLE events_fts USING fts5(
 
 **`GET /api/v1/sessions`**
 
-参数：`q`（sessions_fts；`deep=1` 时同时命中 events_fts 并返回 `match_count` / `match_snippet`）、`project`（cwd 原值或 `__unrecorded__`，可重复）、`harness`（claude_code|codex）、`from`/`to`（`YYYY-MM-DD` 或 RFC3339，按 `started_at`）、`tag`（可重复，匹配任意 kind）、`has_friction=1`、`pinned=1`、`model`、`sort` ∈ `recent|oldest|duration|events|friction|tool_calls`、`limit`（默认 50，上限 200）、`offset`。
+参数：`q`（sessions_fts；`deep=1` 时同时命中 events_fts 并返回 `match_count` / `match_snippet`）、`project`（cwd 原值或 `__unrecorded__`，可重复）、`harness`（claude_code|codex）、`from`/`to`（`YYYY-MM-DD` 或 RFC3339，按 `started_at`）、`tag`（可重复，匹配任意 kind）、`has_friction=1`、`pinned=1`、`model`、`sort` ∈ `recent|oldest|duration|events|friction|tool_calls|tokens|lines_changed|active`；
+**`tokens` 自 2026-08-29 起按工作 token 排序**（input+output+cache_write，未记录排最后）——
+行领衔的数字与排序键是同一个；旧口径按 total 排序实际是按缓存读取排序（本机占 98%）、`limit`（默认 50，上限 200）、`offset`。
 
 响应元素（顶层扁平，兼容现有详情页用法）：
 

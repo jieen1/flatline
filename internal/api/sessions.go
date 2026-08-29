@@ -387,8 +387,11 @@ var sessionSortOrder = map[string]string{
 	"friction":   " ORDER BY COALESCE(st.friction_count, 0) DESC, s.id DESC",
 	"tool_calls": " ORDER BY COALESCE(st.tool_call_count, 0) DESC, s.id DESC",
 	// A session with no measurement row sorts last rather than as zero: it was
-	// never measured, which is not the same as costing nothing.
-	"tokens":        " ORDER BY u.total_tokens IS NULL, u.total_tokens DESC, s.id DESC",
+	// never measured, which is not the same as costing nothing. The key orders
+	// by work tokens — the number the rows lead with (ADR-25) — so what the
+	// list shows biggest-first is what it sorts by; the old total ordered by
+	// cache reads, which are 98% of it locally.
+	"tokens":        " ORDER BY (u.input_tokens IS NULL AND u.output_tokens IS NULL AND u.cache_write_tokens IS NULL), COALESCE(u.input_tokens, 0) + COALESCE(u.output_tokens, 0) + COALESCE(u.cache_write_tokens, 0) DESC, s.id DESC",
 	"lines_changed": " ORDER BY (u.lines_added IS NULL AND u.lines_removed IS NULL), COALESCE(u.lines_added, 0) + COALESCE(u.lines_removed, 0) DESC, s.id DESC",
 	"active":        " ORDER BY u.active_ms IS NULL, u.active_ms DESC, s.id DESC",
 }

@@ -2469,7 +2469,7 @@
       // answers. It now returns the same usage object the overview reads, over
       // the whole database, with the same definition hung on the number.
       { label: uiText("成本", "Cost"), value: num(usage.cost) == null ? count(null) : "$" + Number(usage.cost).toFixed(2), icon: "wallet", detail: overviewRatio(usage.cost_sessions, usage.in_range, "个会话记录了成本", "sessions recorded a cost") },
-      { label: uiText("Token 数", "Tokens"), value: tokenText(usage.total_tokens), icon: "hash", detail: overviewRatio(usage.token_sessions, usage.in_range, "个会话记录了 token", "sessions recorded a token count"), title: tokenTitle() }
+      { label: uiText("工作 token", "Work tokens"), value: tokenText(usage.work_tokens), icon: "hash", detail: uiText("总 " + tokenText(usage.total_tokens) + " · " + count(usage.token_sessions) + "/" + count(usage.in_range) + " 个会话记录", "Total " + tokenText(usage.total_tokens) + " · " + count(usage.token_sessions) + "/" + count(usage.in_range) + " sessions recorded"), title: daemonProse(usage.work_definition, usage.work_definition_en) || tokenTitle() }
     ];
     const counts = data.state_counts || {};
     const total = Object.values(counts).reduce((sum, value) => sum + (num(value) || 0), 0);
@@ -4529,7 +4529,7 @@
     // tokens / lines_changed / active sort on session_usage (§20.4). A session
     // with no measurement row is ordered last by the daemon rather than being
     // treated as zero, so the tail of these lists is "not recorded", not "0".
-    const sortLabels = { recent: ["最近开始", "Most recent"], oldest: ["最早开始", "Oldest first"], duration: ["时长最长", "Longest duration"], events: ["事件最多", "Most events"], friction: ["摩擦最多", "Most friction"], tool_calls: ["工具调用最多", "Most tool calls"], tokens: ["token 最多", "Most tokens"], lines_changed: ["改动行最多", "Most changed lines"], active: ["活跃时长最长", "Longest active time"] };
+    const sortLabels = { recent: ["最近开始", "Most recent"], oldest: ["最早开始", "Oldest first"], duration: ["时长最长", "Longest duration"], events: ["事件最多", "Most events"], friction: ["摩擦最多", "Most friction"], tool_calls: ["工具调用最多", "Most tool calls"], tokens: ["工作 token 最多", "Most work tokens"], lines_changed: ["改动行最多", "Most changed lines"], active: ["活跃时长最长", "Longest active time"] };
     const sortOptions = SESSION_SORTS.map((value) => ({ value, label: uiText(sortLabels[value][0], sortLabels[value][1]) }));
     const threads = facetOptions(facets && facets.threads);
     const subagentFacet = threads.find((entry) => entry.key === "subagent");
@@ -4615,10 +4615,16 @@
   // The session row's third line is the measurement. It carries token, changed
   // lines and active time; expected_exit_count is a friction-page caliber and
   // is deliberately not repeated here.
+  // workTokensOf is ADR-25's cost-shaped number, computed from the recorded
+  // components: null when none of them was recorded, never zero.
+  function workTokensOf(usage) {
+    if (num(usage.input_tokens) == null && num(usage.output_tokens) == null && num(usage.cache_write_tokens) == null) return null;
+    return (num(usage.input_tokens) || 0) + (num(usage.output_tokens) || 0) + (num(usage.cache_write_tokens) || 0);
+  }
   function sessionUsageLine(item) {
     const usage = usageOf(item);
     const parts = [
-      uiText("token " + tokenText(usage.total_tokens), tokenText(usage.total_tokens) + " tokens"),
+      uiText("工作 token " + tokenText(workTokensOf(usage)), tokenText(workTokensOf(usage)) + " work tokens"),
       uiText("改动 " + linesChangedText(usage.lines_added, usage.lines_removed), "lines " + linesChangedText(usage.lines_added, usage.lines_removed)),
       uiText("活跃 " + durationText(usage.active_ms), "active " + durationText(usage.active_ms))
     ];
@@ -5246,6 +5252,7 @@
       ? count(null)
       : count(usage.assistant_turns) + " / " + count(usage.user_turns);
     const cells = [
+      sessionUsageCell(uiText("总 token", "Total tokens"), tokenText(usage.total_tokens), tokenTitle()),
       sessionUsageCell(uiText("输入 token", "Input tokens"), tokenText(usage.input_tokens)),
       sessionUsageCell(uiText("缓存读取 token", "Cached input tokens"), tokenText(usage.cached_input_tokens)),
       sessionUsageCell(uiText("输出 token", "Output tokens"), tokenText(usage.output_tokens)),
@@ -5256,7 +5263,7 @@
       sessionUsageCell(uiText("活跃 / 总时长", "Active / total time"), durationText(usage.active_ms) + " / " + durationText(item && item.duration_ms), uiText("相邻记录间隔 ≤ 10 分钟才计入活跃", "Only gaps of 10 minutes or less count as active"))
     ];
     if (num(usage.cost) != null) cells.push(sessionUsageCell(uiText("成本", "Cost"), "$" + Number(usage.cost).toFixed(4)));
-    const total = '<div class="session-usage-total" title="' + esc(tokenTitle()) + '"><span class="session-usage-label">' + uiText("总 token", "Total tokens") + '</span><b data-no-translate="true">' + esc(tokenText(usage.total_tokens)) + "</b><small>" + esc(uiText("度量来源：", "Measured from: ") + usageSourceText(usage.source)) + "</small></div>";
+    const total = '<div class="session-usage-total" title="' + esc(uiText("工作 token = 输入 + 输出 + 缓存写入，不含缓存读取（缓存读取约为新输入价格的十分之一）", "Work tokens = input + output + cache write; cache reads excluded (a cache read is priced around a tenth of fresh input)")) + '"><span class="session-usage-label">' + uiText("工作 token", "Work tokens") + '</span><b data-no-translate="true">' + esc(tokenText(workTokensOf(usage))) + "</b><small>" + esc(uiText("度量来源：", "Measured from: ") + usageSourceText(usage.source)) + "</small></div>";
     // A session whose transcript is still being written has transient numbers.
     // They are stated plainly rather than emphasised: a turn count of 0/1 or an
     // active time equal to the whole span is a partial reading, not a warning,
