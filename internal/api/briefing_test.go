@@ -97,3 +97,26 @@ func getRawBody(t *testing.T, handler http.Handler, path string) string {
 	}
 	return rec.Body.String()
 }
+
+// A backtick inside a command would end the code span early and scramble the
+// document an agent is about to trust; a double asterisk in a sample line
+// would end the bold run the same way.
+func TestBriefingMarkdownSurvivesHostileLabels(t *testing.T) {
+	rendered := briefingMarkdown(briefingResponse{ProjectKey: "/x/hostile", SessionsKnown: 2,
+		WorkingCommands: []workingCommand{{Label: "echo `date` now", Program: "echo", Runs: 3, Sessions: 2}},
+		Recurring: []briefingRecurring{{SampleLine: "boom ** mid-line", Sessions: 2, Count: 4,
+			TopEnding: "run `thing`", EndingScope: 2}},
+		Note: briefingNote})
+	if strings.Contains(rendered, "echo `date`") {
+		t.Error("raw backtick survived into a code span")
+	}
+	if !strings.Contains(rendered, "echo 'date' now") {
+		t.Errorf("command not rendered safely:\n%s", rendered)
+	}
+	if strings.Contains(rendered, "boom ** mid-line") {
+		t.Error("raw ** survived inside a bold run")
+	}
+	if !strings.Contains(rendered, "run 'thing'") {
+		t.Errorf("ending not rendered safely:\n%s", rendered)
+	}
+}

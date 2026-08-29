@@ -190,6 +190,18 @@ func (s *Server) briefingIndex(ctx context.Context, exceptKey string) ([]briefin
 	return out, rows.Err()
 }
 
+// markdownSafeCode makes a value safe inside a single-backtick code span: a
+// backtick in a command (old-style substitution) would end the span early and
+// scramble the document an agent is about to trust.
+func markdownSafeCode(value string) string {
+	return strings.ReplaceAll(value, "`", "'")
+}
+
+// markdownSafeBold keeps a sample line from ending the surrounding bold run.
+func markdownSafeBold(value string) string {
+	return strings.ReplaceAll(value, "**", "﹡﹡")
+}
+
 // briefingWriteIndex prints the projects that do have history. It exists for
 // the fresh-worktree case: the reader knows which repo this directory really
 // is, and can fetch that project's briefing by its key.
@@ -199,7 +211,7 @@ func briefingWriteIndex(b *strings.Builder, known []briefingKnownProject) {
 	}
 	b.WriteString("本机已有历史的项目（若当前目录是其中某个仓库的新工作树或新克隆，按该项目的 key 取它的简报）：\n\n")
 	for _, item := range known {
-		fmt.Fprintf(b, "- `%s` — %d 个会话\n", item.Key, item.Sessions)
+		fmt.Fprintf(b, "- `%s` — %d 个会话\n", markdownSafeCode(item.Key), item.Sessions)
 	}
 	b.WriteString("\n")
 }
@@ -227,19 +239,19 @@ func briefingMarkdown(briefing briefingResponse) string {
 			if item.Failures > 0 {
 				failures = fmt.Sprintf("%d 次记录到失败", item.Failures)
 			}
-			fmt.Fprintf(&b, "- `%s` — %d 个会话 · %d 次 · %s\n", item.Label, item.Sessions, item.Runs, failures)
+			fmt.Fprintf(&b, "- `%s` — %d 个会话 · %d 次 · %s\n", markdownSafeCode(item.Label), item.Sessions, item.Runs, failures)
 		}
 		b.WriteString("\n")
 	}
 	if len(briefing.Recurring) > 0 {
 		b.WriteString("## 这里常撞的（反复摩擦，≥2 个会话）\n\n")
 		for _, item := range briefing.Recurring {
-			fmt.Fprintf(&b, "- **%s** — %d 个会话 · %d 次\n", item.SampleLine, item.Sessions, item.Count)
+			fmt.Fprintf(&b, "- **%s** — %d 个会话 · %d 次\n", markdownSafeBold(item.SampleLine), item.Sessions, item.Count)
 			if item.Mechanism != "" {
 				fmt.Fprintf(&b, "  机制：%s\n", item.Mechanism)
 			}
 			if item.TopEnding != "" {
-				fmt.Fprintf(&b, "  历史上终结后最常见动作：`%s`（%d 个会话佐证）\n", item.TopEnding, item.EndingScope)
+				fmt.Fprintf(&b, "  历史上终结后最常见动作：`%s`（%d 个会话佐证）\n", markdownSafeCode(item.TopEnding), item.EndingScope)
 			}
 		}
 		b.WriteString("\n")
