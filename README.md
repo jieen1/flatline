@@ -17,6 +17,11 @@ Flatline 是一台**本地优先**的 Agent 工作历史监护仪。它只读本
 - **准确性是硬门禁**：会话度量与原始转写逐条对账（`scripts/audit_accuracy.py`），一致性等式（总览 = 会话 = 项目 = 摩擦）由 `internal/api/consistency_test.go` 把关。
 - **摩擦签名与生命周期**：同一条摩擦在多少个会话里出现过、第一次和最近一次是什么时候、在最近的窗口里还发不发生。
 - **代价与机会**（ADR-20）：从既有事实里投影出有限的几条洞察——中断集中在哪里、哪些会话投入巨大却没有记录到改动、同一失败动作在会话里连撞多少次、哪些文件被反复读取、哪些反复出现的机制你的规则没提到——每条带判定规则原文，可下钻到分子分母。
+- **工作 token 领衔**（ADR-25）：`work_tokens = input + output + cache_write`，不含缓存读取。本机缓存读取占总量 98%，总量单独看会把一次运行的代价放大约 50 倍；凡领衔展示 token 的位置（总览 KPI、会话行、详情、数据页）与 `sort=tokens` 排序键均以工作 token 为准，总量与缓存占比降为副行、仍然可见。
+- **舰队是一等展示单元**（ADR-25）：本机 69% 的会话是子代理，最大单会话指挥 108 个。`/sessions/{id}/fleet` 把父+子整棵树读时聚合：每个孩子的角色/代价/摩擦、树的 token 四分量、git 结局证据（只说"未见失败"，不猜成功）、同项目上一支舰队并排对照。
+- **"现在"视图**：总览首屏列出转写文件 10 分钟内被写过的会话（`/now`，no-store 不可被缓存钉住），带同在写的子代理数与"同一失败 ×N"循环徽标（同签名 60 分钟 ≥5 次，与洞察层同阈值）。安静的机器不渲染该区块。
+- **遵守曲线**（P17-1）：规则正文提到的机制 → 其签名的近 12 周频次曲线（周一为界、空周带真实分母出现），挂在规则资产页与摩擦签名简报里。判定句写明只陈述对齐、不判定因果。
+- **已抢救转写**（P17-3）：harness 默认 30 天静默删除转写；数据页展示"源文件已删、本库仍完整"的会话计数——跑得越久，这个库越是唯一副本。
 - **规则覆盖缺口**：反复出现的 harness 机制，如果你写的 rule / AGENTS.md 里一个字都没提到，页面把它列出来——只陈述"没提到"，不声称"因此才发生"。
 - **静默失效检测**：没有报错、没有异常，资产只是不再参与。Flatline 为每个资产建立来自其自身历史的基线，识别"该出现却没出现"。
 - **四拍核心流程**（全部事件驱动，不等统计窗口）：持续监护 → 状态迁移告警 → 诊断 → 处置（修/删/归档/忽略）→ 修改后验证（单事件）。
@@ -68,8 +73,9 @@ Asset Snapshotter → Asset Registry ───────┼→ Effective Bundl
 | [docs/flatline-ui-design-guidelines-v2_0.md](docs/flatline-ui-design-guidelines-v2_0.md) | UI 设计思路与原型指南（信息架构、组件规格、文案规则、验收清单） |
 | [docs/flatline-session-first-redesign-v1.md](docs/flatline-session-first-redesign-v1.md) | 会话优先重构（性能根因与实测、会话管理/总览/摩擦分类的数据层、各阶段实施补充）。**当前 API 契约以 §27 总表为准**，§1–§26 保留为历史 |
 | [docs/flatline-friction-page-design-v1.md](docs/flatline-friction-page-design-v1.md) | 摩擦页信息架构与交互 |
-| [docs/roadmap.md](docs/roadmap.md) | 分阶段路线图（P0–P7 原始阶段 + 2026-08 会话优先重构 P8–P13） |
-| [docs/adr/](docs/adr/) | 架构决策记录（含 ADR-18 摩擦优先、ADR-19 纯 Go 格式解码器） |
+| [docs/flatline-direction-2026-08.md](docs/flatline-direction-2026-08.md) | 后续核心方向（2026-08-29 调研定夺：经验层的 CI · 舰队作业面 · 事实层存档） |
+| [docs/roadmap.md](docs/roadmap.md) | 分阶段路线图（P0–P7 + 会话优先重构 P8–P15 + P16/P17 落地拍） |
+| [docs/adr/](docs/adr/) | 架构决策记录（ADR-1..26；近期：18 摩擦优先、25 舰队汇总与工作 token、26 首评落在证据上） |
 | [docs/field-matrix-claudecode.md](docs/field-matrix-claudecode.md) · [codex](docs/field-matrix-codex.md) · [opencode](docs/field-matrix-opencode.md) · [dsh](docs/field-matrix-dsh.md) | 每个数据源支持 / 不支持 / 未记录哪些字段 |
 | [AGENTS.md](AGENTS.md) | Agent 执行规范（证据纪律、写入纪律、交付规范） |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | 贡献流程（分支、提交、审查清单） |
@@ -83,7 +89,15 @@ Asset Snapshotter → Asset Registry ───────┼→ Effective Bundl
 
 **P8–P13（2026-08 会话优先重构）**：会话管理、总览"这段时间"、摩擦分类与签名生命周期、五源覆盖、准确性门禁、摩擦 → 资产证据桥已落地，实测记录见 `docs/qa/dogfood-2026-08-22.md`，逐项验收见 `docs/roadmap.md` 的"2026-08 会话优先重构"一节。
 
-**仍未验证**：真实历史上的告警分布，以及 P7 的三个月回测，需随着本地历史继续累积才能收口。
+**2026-08-29（全量跑通 + 方向定夺，ADR-25/26）**：在无 Go 环境的机器上从零跑通并用系统自查自修——
+`<teammate-message>` 计数修正（此前 26.7% 的"用户轮"是 agent 间消息）、启动重算移到监听之后
+（API 全黑 302s → 0s）、舰队汇总、"现在"视图、工作 token 全面换位、遵守曲线、
+首启"假 dormant"修复（ADR-26，全新回放验证 dormant 中停 12→0）。P7 真实历史回测完成"安静"一半：
+895 条迁移逐条核验、零误报、证据可下钻至原文（`docs/qa/backtest-2026-08-29.md`）。
+后续核心方向定夺为**经验层的 CI**（`docs/flatline-direction-2026-08.md`）。
+
+**仍在等待**：告警态（silent/broken）在真实历史上零触发，其准确率待第一个真实案例；
+两条 signature watch 的首批 verified/no_change 判定约 2026-09-12 产出。
 
 ## 许可
 
