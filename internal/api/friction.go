@@ -670,7 +670,18 @@ func frictionSignatureLine(signature string) string {
 	return parts[2]
 }
 
+// frictionProjectLabel names a project by its recorded key; the cwd is the
+// name only when no key was recorded at all. The cwd used to win outright,
+// and because a group keeps MAX(cwd), a worktree path sorting alphabetically
+// last renamed the whole project after one of its worktrees.
 func frictionProjectLabel(projectKey string, cwd sql.NullString) string {
+	if key := strings.TrimSpace(projectKey); key != "" && key != frictionUnrecordedKey {
+		trimmed := strings.TrimRight(key, "/\\")
+		if index := strings.LastIndexAny(trimmed, "/\\"); index >= 0 && index+1 < len(trimmed) {
+			return trimmed[index+1:]
+		}
+		return trimmed
+	}
 	if cwd.Valid && strings.TrimSpace(cwd.String) != "" {
 		value := strings.TrimRight(strings.TrimSpace(cwd.String), "/\\")
 		if index := strings.LastIndexAny(value, "/\\"); index >= 0 && index+1 < len(value) {
@@ -680,10 +691,7 @@ func frictionProjectLabel(projectKey string, cwd sql.NullString) string {
 			return value
 		}
 	}
-	if projectKey == frictionUnrecordedKey || strings.TrimSpace(projectKey) == "" {
-		return "项目未记录"
-	}
-	return projectKey
+	return "项目未记录"
 }
 
 // frictionKindNames lists the kinds one source event carries, in the fixed

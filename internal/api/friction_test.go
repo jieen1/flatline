@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+	"database/sql"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
@@ -582,5 +583,22 @@ func TestFrictionAPIReadsTheSameTimeWindowAsEveryOtherEndpoint(t *testing.T) {
 		if item.Rule == "" || item.RuleEN == "" {
 			t.Errorf("category %q rule = %q / %q, want both languages", item.Key, item.Rule, item.RuleEN)
 		}
+	}
+}
+
+// The project's name comes from its recorded key. A worktree's cwd sorting
+// alphabetically last was winning MAX(cwd) and renaming cognode to
+// "wechat-mp-ui-prototype" on both the list and the detail header — cwd is
+// only the name when no project key was recorded at all.
+func TestFrictionProjectLabelPrefersTheRecordedKey(t *testing.T) {
+	worktree := sql.NullString{String: "/home/tongyu/project/cognode/.claude/worktrees/wechat-mp-ui-prototype", Valid: true}
+	if got := frictionProjectLabel("/home/tongyu/project/cognode", worktree); got != "cognode" {
+		t.Errorf("label = %q, want the key's own name", got)
+	}
+	if got := frictionProjectLabel(frictionUnrecordedKey, worktree); got != "wechat-mp-ui-prototype" {
+		t.Errorf("unrecorded-key label = %q, want the cwd fallback", got)
+	}
+	if got := frictionProjectLabel(frictionUnrecordedKey, sql.NullString{}); got != "项目未记录" {
+		t.Errorf("nothing-recorded label = %q", got)
 	}
 }
