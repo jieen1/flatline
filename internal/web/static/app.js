@@ -5373,9 +5373,17 @@
         + '<span class="overview-list-aside">' + esc(quantity(child.friction_count, "条摩擦", "friction", "friction")) + "</span>"
         + "<strong data-no-translate=\"true\">" + esc(workTokens == null ? uiText("token 未记录", "Tokens not recorded") : tokenText(workTokens)) + "</strong></a>";
     }).join("");
+    // P17-5: the previous run in the same project, side by side. Facts only —
+    // the reader compares; the page derives no ratio.
+    const previous = fleet.previous;
+    const previousLine = previous
+      ? '<a class="overview-list-row session-fleet-previous" href="#/sessions/' + encodeURIComponent(previous.session_id) + '" title="' + esc(daemonProse(previous.note, previous.note_en)) + '"><span class="session-fleet-role">' + uiText("上一支舰队", "Previous run") + '</span><span class="session-fleet-name" data-no-translate="true">' + esc(previous.display_title || uiText("标题未记录", "Title not recorded")) + (previous.started_at ? ' · ' + esc(shortDate(previous.started_at)) : '') + "</span>"
+        + '<span class="overview-list-aside">' + esc(quantity((previous.rollup || {}).friction_count, "条摩擦", "friction", "friction") + " · " + quantity((previous.rollup || {}).sessions, "个会话", "session", "sessions")) + "</span>"
+        + "<strong data-no-translate=\"true\">" + esc(tokenText((previous.rollup || {}).work_tokens)) + "</strong></a>"
+      : "";
     return '<section class="elevated-card session-fleet-card"><header class="fl-head"><h3>' + uiText("团队", "Team") + '</h3><span class="fl-aside">' + esc(uiText("1 + " + children.length + " 个会话", "1 + " + children.length + " sessions")) + '</span></header>'
       + '<div class="session-usage-cells session-fleet-cells">' + cellsRow + "</div>" + tokenNote
-      + '<div class="overview-list session-fleet-list">' + rows + "</div>"
+      + '<div class="overview-list session-fleet-list">' + rows + "</div>" + previousLine
       + '<p class="friction-method-note">' + esc(uiText("孩子按总 token 降序；工作 token = 输入 + 输出 + 缓存写入。", "Children in descending total-token order; work tokens = input + output + cache write.")) + "</p></section>";
   }
   function drawSessionDetail(data, panelOnly) {

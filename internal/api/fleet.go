@@ -2,9 +2,11 @@ package api
 
 import (
 	"context"
+	"database/sql"
 	"net/http"
 	"sort"
 	"strings"
+	"time"
 )
 
 // The fleet view answers what a session's subagent tree did as one unit
@@ -59,8 +61,25 @@ type fleetResponsePayload struct {
 	Children  []*sessionResponse   `json:"children"`
 	Rollup    fleetRollupResponse  `json:"rollup"`
 	Outcome   fleetOutcomeResponse `json:"outcome"`
-	Complete  bool                 `json:"complete"`
+	// Previous is the run to compare against (P17-5): the latest earlier main
+	// session in the same project that also commanded children, with its own
+	// tree rollup. Two recorded runs side by side; no ratio is invented.
+	Previous *fleetPreviousResponse `json:"previous"`
+	Complete bool                   `json:"complete"`
 }
+
+type fleetPreviousResponse struct {
+	SessionID    string              `json:"session_id"`
+	DisplayTitle string              `json:"display_title"`
+	StartedAt    *time.Time          `json:"started_at"`
+	Rollup       fleetRollupResponse `json:"rollup"`
+	Note         string              `json:"note"`
+	NoteEN       string              `json:"note_en"`
+}
+
+const fleetPreviousNote = "上一支舰队 = 同一项目里、开始时间早于本会话、且自身也带子代理的最近一个主会话；给出它整棵树的同口径汇总。两次运行并排陈述，不折算比率。"
+
+const fleetPreviousNoteEN = "The previous run is the latest earlier main session in the same project that also commanded children, with its whole tree rolled up the same way. Two runs stated side by side; no ratio is derived."
 
 func (s *Server) handleSessionFleet(w http.ResponseWriter, r *http.Request) {
 	sessionID := r.PathValue("id")
@@ -115,9 +134,70 @@ func (s *Server) handleSessionFleet(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	previous, err := s.previousFleet(ctx, parent)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 	writeJSON(w, http.StatusOK, fleetResponsePayload{
-		SessionID: sessionID, Children: children, Rollup: rollup, Outcome: outcome, Complete: true,
+		SessionID: sessionID, Children: children, Rollup: rollup, Outcome: outcome,
+		Previous: previous, Complete: true,
 	})
+}
+
+// previousFleet finds the run before this one — same project, earlier start,
+// itself a parent of children — and rolls its tree up the same way. A session
+// with no recorded start, or the oldest run, gets null rather than a guess.
+func (s *Server) previousFleet(ctx context.Context, parent *sessionResponse) (*fleetPreviousResponse, error) {
+	if parent.StartedAt == nil || parent.ProjectKey == "" {
+		return nil, nil
+	}
+	var previousID string
+	err := s.db.QueryRowContext(ctx, `
+		SELECT s.id FROM sessions s
+		JOIN session_stats st ON st.session_id = s.id
+		WHERE s.project_key = ? AND s.thread_kind = 'main' AND s.id <> ?
+		  AND s.started_at IS NOT NULL AND s.started_at < ?
+		  AND COALESCE(st.subagent_count, 0) > 0
+		ORDER BY s.started_at DESC LIMIT 1`,
+		parent.ProjectKey, parent.ID, parent.StartedAt.Format(time.RFC3339Nano)).Scan(&previousID)
+	if err == sql.ErrNoRows {
+		return nil, nil
+	}
+	if err != nil {
+		return nil, err
+	}
+	rows, err := s.db.QueryContext(ctx,
+		`SELECT `+sessionColumns+sessionFrom+` WHERE s.id = ? OR s.parent_session_id = ?`,
+		previousID, previousID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var previousParent *sessionResponse
+	tree := make([]*sessionResponse, 0, 8)
+	for rows.Next() {
+		item, err := scanSession(rows)
+		if err != nil {
+			return nil, err
+		}
+		tree = append(tree, item)
+		if item.ID == previousID {
+			previousParent = item
+		}
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	if previousParent == nil {
+		return nil, nil
+	}
+	out := &fleetPreviousResponse{SessionID: previousID, Rollup: rollUpFleet(tree),
+		StartedAt: previousParent.StartedAt, Note: fleetPreviousNote, NoteEN: fleetPreviousNoteEN}
+	if previousParent.DisplayTitle != nil {
+		out.DisplayTitle = *previousParent.DisplayTitle
+	}
+	return out, nil
 }
 
 func rollUpFleet(tree []*sessionResponse) fleetRollupResponse {

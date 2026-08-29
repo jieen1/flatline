@@ -1815,7 +1815,9 @@ Claude Code 默认 30 天）、而本库仍保有完整事件历史的会话数�
   总量单独看会把一次运行的代价放大约 50 倍）、`friction_count`、`lines_added/removed`、`files_changed`；
 - `outcome`：树内 `git commit / push / merge` 的记录条数与其中"未记录到失败"的条数，附
   `note/note_en` 说明 claude_code 大多不记退出码——**未见失败 ≠ 成功**；
-- 对没有孩子的会话返回空 `children` 与只含自身的 rollup。
+- 对没有孩子的会话返回空 `children` 与只含自身的 rollup；
+- `previous`（P17-5，2026-08-29）：同项目里开始更早、自身也带子代理的最近一个主会话，
+  附它整棵树的同口径 rollup 与配对规则句——两次运行并排陈述，不折算比率；最老的一支为 null。
 
 同轮变更：`display_title` 在 `title`/`task_text` 命中注入前缀表（如 `<teammate-message …>`）时，
 改取标签 `summary` 属性或包装内首行，`title_source` 如实标 `synthesized`；库中原文不动。

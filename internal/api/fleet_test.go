@@ -199,3 +199,75 @@ func TestFleetOfAChildlessSessionIsJustTheSession(t *testing.T) {
 		t.Errorf("stranger commits = %d, want its own 1", fleet.Outcome.Commits)
 	}
 }
+
+// The fleet answer to "did this week's run cost less" is the previous run
+// itself (P17-5): the latest earlier main session in the same project that
+// also commanded children, with its own tree rollup beside this one. Two
+// recorded runs side by side — no invented ratio.
+func TestFleetNamesThePreviousRunInTheSameProject(t *testing.T) {
+	db, ids := fleetFixtureDB(t)
+	ctx := context.Background()
+	store := eventstore.New(db)
+	older := time.Date(2026, 8, 13, 9, 0, 0, 0, time.UTC)
+	end := older.Add(2 * time.Hour)
+	prevParent, err := store.IngestSession(ctx, adapters.SourceClaudeCode, adapters.SessionMeta{
+		SourceSessionID: "fleet-prev", StartedAt: &older, EndedAt: &end, CWD: fleetProject, Title: "上一支小队"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	prevChild, err := store.IngestSession(ctx, adapters.SourceClaudeCode, adapters.SessionMeta{
+		SourceSessionID: "fleet-prev-dev", StartedAt: &older, EndedAt: &end, CWD: fleetProject})
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, id := range []string{prevParent, prevChild} {
+		if err := store.RecomputeSessionStats(ctx, id); err != nil {
+			t.Fatal(err)
+		}
+	}
+	exec(t, db, `UPDATE session_stats SET is_empty = 0`)
+	exec(t, db, `UPDATE sessions SET thread_kind = 'main' WHERE id = ?`, prevParent)
+	exec(t, db, `UPDATE sessions SET thread_kind = 'subagent', parent_session_id = ?, agent_role = 'dev-8' WHERE id = ?`, prevParent, prevChild)
+	exec(t, db, `UPDATE session_stats SET subagent_count = 1 WHERE session_id = ?`, prevParent)
+	stamp := older.Format(time.RFC3339Nano)
+	exec(t, db, `INSERT INTO session_usage
+		(session_id, input_tokens, cached_input_tokens, cache_write_tokens, output_tokens, reasoning_tokens,
+		 total_tokens, assistant_turns, user_turns, lines_added, lines_removed, files_changed, usage_source, parser_version, computed_at)
+		VALUES (?, 400, 40000, 2000, 1200, 0, 43600, 3, 1, 80, 10, 2, 'claude_transcript', 'parser/test', ?)`,
+		prevChild, stamp)
+
+	handler := NewServerWithDB(db).Handler()
+	var fleet struct {
+		Previous *struct {
+			SessionID string `json:"session_id"`
+			Title     string `json:"display_title"`
+			Rollup    struct {
+				Sessions   int    `json:"sessions"`
+				WorkTokens *int64 `json:"work_tokens"`
+			} `json:"rollup"`
+			Note string `json:"note"`
+		} `json:"previous"`
+	}
+	getJSON(t, handler, "/api/v1/sessions/"+ids["parent"]+"/fleet", &fleet)
+	if fleet.Previous == nil {
+		t.Fatal("fleet names no previous run")
+	}
+	if fleet.Previous.SessionID != prevParent || fleet.Previous.Title != "上一支小队" {
+		t.Errorf("previous = %+v, want the older same-project fleet", fleet.Previous)
+	}
+	if fleet.Previous.Rollup.Sessions != 2 || fleet.Previous.Rollup.WorkTokens == nil || *fleet.Previous.Rollup.WorkTokens != 3600 {
+		t.Errorf("previous rollup = %+v, want its own 2-session tree with 3600 work tokens", fleet.Previous.Rollup)
+	}
+	if fleet.Previous.Note == "" {
+		t.Error("the pairing rule is not stated")
+	}
+
+	// The oldest fleet has no predecessor: previous is null, not an error.
+	var first struct {
+		Previous *struct{} `json:"previous"`
+	}
+	getJSON(t, handler, "/api/v1/sessions/"+prevParent+"/fleet", &first)
+	if first.Previous != nil {
+		t.Errorf("the oldest fleet reports a previous run: %+v", first.Previous)
+	}
+}

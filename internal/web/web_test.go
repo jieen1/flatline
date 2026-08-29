@@ -931,6 +931,7 @@ func TestSessionPageCarriesTheFleetBlock(t *testing.T) {
 		"token_sessions",
 		"commits_no_failure",
 		"session-fleet-list",
+		"session-fleet-previous",
 	} {
 		if !strings.Contains(appJS, marker) {
 			t.Fatalf("app.js is missing fleet marker %q", marker)
