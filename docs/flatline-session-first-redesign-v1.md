@@ -1788,7 +1788,7 @@ Claude Code 会把一个子代理转写**软链**进第二个父目录，同一�
 | `q` | 在项目/cwd/harness/会话标题/任务文本/工具名/类别/payload 里做 LIKE |
 | `from` / `to` | 见 §27.10，与其它端点同一读法（`from=all` 与相对写法都受理） |
 | `group` | `signature`（默认给出生命周期）/ `category` / `tool` / 项目+harness |
-| `sort` | `friction`（默认）/ `recent` / `sessions` |
+| `sort` | `count` / `recent` / `sessions`；未传时 `group=signature` 默认 `sessions`，其余默认 `count`。**不受理 `friction`**——这里过去写的是 `friction`，而 `parseFrictionFilters` 从来只认这三个，照文档写会拿到 400 |
 | `window` | 生命周期窗口天数，默认 7 |
 | `limit` / `offset` | 分组分页 |
 

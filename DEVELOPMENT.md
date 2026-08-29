@@ -42,10 +42,32 @@ docs/qa/                # 真实使用记录与 UI 截图（dogfood）
 每次提交/PR 必须通过：
 
 ```bash
+scripts/check.sh       # 下面四步，任一不过即停
+```
+
+```bash
+git ls-files --others --ignored --exclude-standard   # 被 .gitignore 藏起来的源文件必须为空
 gofmt -l .            # 输出必须为空
 go vet ./...           # 必须通过
 go test ./...          # 必须全绿
 ```
+
+### 3.1 第一步为什么在最前面：三道门禁读的是工作区，不是索引
+
+`.gitignore` 里**不带前导斜杠**的模式在任意层级匹配。本仓库被这一条咬过两次：
+
+| 模式 | 本意 | 实际吃掉的文件 | 后果 |
+| --- | --- | --- | --- |
+| `coverage.*` | Go 覆盖率产物 | `internal/api/coverage.go` | `main` 编译不过（提交里有测试和三个调用点，没有实现） |
+| `vendor/` | Go vendor 目录 | `internal/web/static/vendor/morphdom.js` | `/vendor/morphdom.js` 走 SPA 兜底返回 `index.html`，浏览器把 `<!doctype` 当 JS 解析 |
+
+两次 `gofmt` / `go vet` / `go test` 都是**绿的**——它们读工作区，而文件在工作区里好端端地躺着；
+缺的是索引。所以门禁的第一步读 `git ls-files --others --ignored`，即 git 自己看到的东西。
+
+**容易误读的地方**：*"三道门禁全绿 = 这次提交是完整的。"* 不是。
+绿的是"本机这份代码自洽"，不是"推上去那份能编译"。
+
+新增 `.gitignore` 模式时：**产物路径一律加前导斜杠**（`/bin/`、`/dist/`、`/vendor/`）。
 
 - 测试与源码同包（`_test.go`）；表驱动测试优先；
 - 涉及 detector/状态机的测试必须基于 `testdata/` 中的合成 fixture 回放，fixture 变更需说明；
@@ -157,10 +179,10 @@ go build -o bin/flatline ./cmd/flatline
 ### 第 1 步 · 静态门禁
 
 ```bash
-scripts/check.sh          # gofmt -l . 为空、go vet ./...、go test ./...
+scripts/check.sh          # hidden sources、gofmt -l . 为空、go vet ./...、go test ./...
 ```
 
-三者任一不过就停在这里，后面三步没有意义。
+四者任一不过就停在这里，后面三步没有意义。第一步（hidden sources）的来历见 §3.1。
 
 ### 第 2 步 · 原文对账（API 说的和转写里写的一致吗）
 

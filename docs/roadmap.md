@@ -257,13 +257,17 @@ P7（三个月真实历史回测）仍然未完成，见下面"未完成"。
 
 ### 版本号（改这几个常量就会触发对应的全量重算）
 
-| 常量 | 当前值 | 变了会发生什么 |
-| --- | --- | --- |
-| `storage.SchemaVersion` | `20` | 迁移运行器补跑到这个编号 |
-| `history.ParserVersion` | `parser/6` | 全部转写重读，会话度量重算 |
-| `eventstore.ProjectionVersion` | `projection/5` | 命令/文件投影全部重算 |
-| `friction.ClassifierVersion` | `friction/4` | 摩擦记录重新分类，签名重算 |
-| `eventstore.PairingVersion` | `pairs/1` | 事件配对（工具调用 ↔ 结果）重投影 |
+**这张表读的是代码，不是本轮的快照。** P8–P15 收口时的值记在"P15 收口时"一列供追溯；
+后面几轮各自推过版本号，`当前值` 一列必须与 `internal/` 里的常量逐字相同——
+对不上就是这张表过期了，不是代码错了。
+
+| 常量 | 当前值 | P15 收口时 | 谁推的 | 变了会发生什么 |
+| --- | --- | --- | --- | --- |
+| `storage.SchemaVersion` | `22` | `20` | 迁移 `021` / `022`（ADR-21） | 迁移运行器补跑到这个编号 |
+| `history.ParserVersion` | `parser/8` | `parser/6` | ADR-22 逐消息 usage（`parser/7`）→ ADR-23 Codex 轮级差值（`parser/8`） | 全部转写重读，会话度量重算 |
+| `eventstore.ProjectionVersion` | `projection/7` | `projection/5` | 2026-08-25 价值挖掘轮 → 2026-08-29 `<teammate-message>` 计数规则 | 命令/文件投影全部重算，会话度量随之重算 |
+| `friction.ClassifierVersion` | `friction/5` | `friction/4` | 机制字典扩容（2026-08-25） | 摩擦记录重新分类，签名重算 |
+| `eventstore.PairingVersion` | `pairs/1` | `pairs/1` | 未推过 | 事件配对（工具调用 ↔ 结果）重投影 |
 
 ### 未完成
 
@@ -314,6 +318,29 @@ P7（三个月真实历史回测）仍然未完成，见下面"未完成"。
 **追加（同日深夜）**：中断 token 按项目下钻（qwen 448.9M/143 次为最贵）；卡死循环 token 代价（apply_patch 52 次循环 = 505M token/15 轮）；验证记分板上总览（不动 ADR-5 通知契约）。
 **追加（同日深夜收口）**：watch 判定进入通知投影（ADR-24，修订 ADR-5"唯一通知源"为"迁移+验证判定"两源，仍纯投影；watch 写入 bump data_version 使缓存失效）；简报样例优先取含 error/fail/exception 的行。
 **下一拍（未做）**：重复读取的 token 代价（需"读取时体积"口径，先立决策）；watch 判定的跨会话下钻。
+
+---
+
+## 2026-08-29 全量跑通 + 准确性与可用性修复
+
+> 补记于 2026-08-29。起点是在一台没有 Go 工具链、也没跑过 Flatline 的机器上从零启动，
+> 再用系统自己读本机历史反过来修系统。实测记录 `docs/qa/dogfood-2026-08-29.md`。
+
+| 项 | 内容 | 状态 |
+| --- | --- | --- |
+| **`main` 编译不过** | `.gitignore` 的 `coverage.*` 不带前导斜杠，在任意层级匹配，`internal/api/coverage.go` 从未进过 git。按测试 + 三个调用点 + 设计文档 §26.8 重建 | 完成 |
+| **`<teammate-message>` 不是用户轮** | 另一个 agent 发来的消息被算成用户轮：2,489 次 / 528 会话，占全库"用户轮"的 **26.7%**。进 `InjectedMessagePrefixes`，`ProjectionVersion` → `projection/7` 全量重算 | 完成 |
+| **重算不再关掉 API** | `RecomputeMissingSessionStats` 跑在 `net.Listen` 之前，版本号一推就是 197 s 全黑且看不到进度（违背 ADR-18 §4）。移进 `catchUp()`。A/B：302 s → **0 s**，结果同为 `backfilled sessions=973` | 完成 |
+| **对账脚本的真相收窄** | `audit_accuracy.py` 的"任何尖括号开头都算注入块"启发式会把真实用户正文判成注入、把新 harness 标签悄悄吞掉。改用与 Go 相同的闭合表；未登记标签改为 `[warn]` 单独报出；新增 `TestAuditScriptMirrorsInjectedPrefixes` 执行"两边保持一致"这句注释 | 完成 |
+| **morphdom 被 `.gitignore` 吃掉** | `vendor/` 同样不带斜杠，吃掉 `internal/web/static/vendor/`；`/vendor/morphdom.js` 由 SPA 兜底返回 `index.html`，浏览器报 `Unexpected token '<'`，局部更新退化成整块重建。而 `web_test.go` 只断言 200 + 非空，**在兜底响应上通过**。重新 vendor + 测试改为拒绝兜底 | 完成 |
+| **新门禁 hidden sources** | `scripts/check.sh` 新增一步，读 `git ls-files --others --ignored`：被 `.gitignore` 藏起来的源文件一律 `exit 1`。gofmt/vet/test 读工作区，读不到这一类问题 | 完成 |
+| **机制字典扩容** | 新增 7 条规则；按事件数覆盖率 **49.3% → 59.3%**（新解释 386 条），并纠正 7 条把"分类器够不到模型"错记成"测试自己报了失败"的归类；`hints.go` 的顺序注释改成代码真正在做的事 | 完成 |
+
+**验证**：`scripts/check.sh` 全绿；原文对账 claude_code 8 + codex 8 会话 **0 mismatching fields**（修复前 2）；
+一致性等式七处全等 973；浏览器首页 **0 控制台报错**（修复前 1 条）。
+
+**本轮明确不做**：会话标题剥离 harness 包装（65 个会话受影响，但源头自己就是这么记的，
+如实转述 vs 可读是产品决定）；`pkill` 自匹配单列机制（需先确认能否只凭已记录事实判定）。
 
 ---
 
