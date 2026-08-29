@@ -1757,6 +1757,15 @@ Claude Code 会把一个子代理转写**软链**进第二个父目录，同一�
 响应：`session`（同上，不含 `usage` 与检索命中）、`events`、`commands` + `commands_total`、
 `files` + `files_total`、`children`、`parent`、`friction {count, records, complete, records_truncated}`、`data_version`。
 
+### `GET /api/v1/projects/{key}/briefing`（P18-4 开工简报，2026-08-29）
+
+语料回馈 agent 的第一只水龙头：一份为注入上下文设计的文档，全部由既有提炼层组装——
+作业命令（前 10）、反复摩擦（≥2 会话的前 5，附机制与 ≥2 佐证的终结动作）、热点文件（前 5）。
+默认返回 `text/markdown`（注册为 tagged 而非 cached：响应缓存会把命中回放成 JSON 类型）；
+`?format=json` 返回结构。空历史项目明说"没有记录"而非报错；有历史但不够佐证门槛也明说。
+口径句随文档携带。用户侧入口：`~/.claude/skills/project-briefing`（Claude Code 技能，
+其它 harness 直接 curl 同一 URL）。
+
 ### `GET /api/v1/friction/weekly`（P17-1，2026-08-29）
 
 一条签名的近 12 周曲线（周一为界、连续轴、空周带真实分母出现）：

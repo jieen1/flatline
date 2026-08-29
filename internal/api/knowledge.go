@@ -1,6 +1,7 @@
 package api
 
 import (
+	"context"
 	"database/sql"
 	"net/http"
 	"sort"
@@ -57,8 +58,15 @@ type knowledgeResponse struct {
 }
 
 func (s *Server) handleProjectKnowledge(w http.ResponseWriter, r *http.Request) {
-	projectKey := r.PathValue("key")
-	ctx := r.Context()
+	out, err := s.projectKnowledge(r.Context(), r.PathValue("key"))
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	writeJSON(w, http.StatusOK, out)
+}
+
+func (s *Server) projectKnowledge(ctx context.Context, projectKey string) (knowledgeResponse, error) {
 	out := knowledgeResponse{ProjectKey: projectKey, WorkingCommands: []workingCommand{},
 		Note: knowledgeNote, NoteEN: knowledgeNoteEN, Complete: true}
 
@@ -68,8 +76,7 @@ func (s *Server) handleProjectKnowledge(w http.ResponseWriter, r *http.Request) 
 		FROM session_commands sc JOIN sessions s ON s.id = sc.session_id
 		WHERE s.project_key = ?`, projectKey)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		return out, err
 	}
 	defer rows.Close()
 
@@ -84,8 +91,7 @@ func (s *Server) handleProjectKnowledge(w http.ResponseWriter, r *http.Request) 
 		var isError sql.NullInt64
 		var expectedExit int
 		if err := rows.Scan(&sessionID, &program, &command, &exitCode, &isError, &expectedExit, &occurredAt); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
+			return out, err
 		}
 		out.CommandsSeen++
 		if _, navigation := navigationPrograms[strings.ToLower(program)]; navigation || program == "" {
@@ -109,8 +115,7 @@ func (s *Server) handleProjectKnowledge(w http.ResponseWriter, r *http.Request) 
 		}
 	}
 	if err := rows.Err(); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		return out, err
 	}
 	for _, entry := range totals {
 		if entry.item.Runs < knowledgeMinRuns || len(entry.sessions) < knowledgeMinSessions {
@@ -132,5 +137,5 @@ func (s *Server) handleProjectKnowledge(w http.ResponseWriter, r *http.Request) 
 	if len(out.WorkingCommands) > knowledgeLimit {
 		out.WorkingCommands = out.WorkingCommands[:knowledgeLimit]
 	}
-	writeJSON(w, http.StatusOK, out)
+	return out, nil
 }

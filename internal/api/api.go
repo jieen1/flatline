@@ -104,6 +104,9 @@ func (s *Server) Handler() http.Handler {
 		mux.HandleFunc("GET /api/v1/projects", s.cached(s.handleProjects))
 		mux.HandleFunc("GET /api/v1/projects/{key}", s.cached(s.handleProject))
 		mux.HandleFunc("GET /api/v1/projects/{key}/knowledge", s.cached(s.handleProjectKnowledge))
+		// tagged, not cached: the markdown form must keep its own Content-Type,
+		// and the response cache replays every hit as JSON.
+		mux.HandleFunc("GET /api/v1/projects/{key}/briefing", s.tagged(s.handleProjectBriefing))
 		mux.HandleFunc("GET /api/v1/search", s.tagged(s.handleSearch))
 		mux.HandleFunc("GET /api/v1/tools", s.cached(s.handleTools))
 		mux.HandleFunc("GET /api/v1/overview", s.cached(s.handleOverview))
