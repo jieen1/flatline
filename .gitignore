@@ -1,11 +1,16 @@
 # Go
-bin/
-dist/
+# These are build artifacts at the repo root. The leading slash matters: an
+# unanchored pattern matches at every depth, and `vendor/` written that way
+# hid internal/web/static/vendor/morphdom.js from git — the page then loaded
+# index.html as JavaScript. scripts/check.sh has a "hidden sources" step that
+# fails when a pattern here swallows a source file.
+/bin/
+/dist/
 *.exe
 *.test
 *.out
-coverage.*
-vendor/
+/coverage.html
+/vendor/
 
 # Go workspace
 go.work
