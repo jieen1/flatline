@@ -55,6 +55,8 @@ func run(args []string) error {
 		return runStatus(args[1:])
 	case "scan":
 		return runScan(args[1:])
+	case "service":
+		return runService(args[1:])
 	case "-h", "--help", "help":
 		usage()
 		return nil
@@ -71,6 +73,7 @@ subcommands:
   daemon    run the local daemon (loopback API + SQLite)
   status    query the running local daemon (read-only)
   scan      read-only scan an explicit asset root and update local facts
+  service   install/uninstall/status of the systemd user service (survive reboots)
   help      show this help`)
 }
 

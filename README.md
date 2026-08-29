@@ -83,6 +83,20 @@ Asset Snapshotter → Asset Registry ───────┼→ Effective Bundl
 
 `docs/flatline-prototype.zip` 为 UI 原型设计输入，只读保留，不解压到生产目录。
 
+## 常驻运行（存档承诺的运维面）
+
+harness 默认 30 天删除转写，抢救者必须一直在场。安装为 systemd 用户服务（开机自启、崩溃自拉）：
+
+```bash
+./bin/flatline service install    # 写入 ~/.config/systemd/user/flatline.service 并启用
+./bin/flatline service status     # 查看
+./bin/flatline service uninstall  # 移除
+```
+
+WSL / 纯 SSH 登录下用户级 systemd 实例可能未启动，install 会写好单元并打印精确的一次性修复命令
+（`sudo loginctl enable-linger <user>`）。服务以 `-asset-scope user` 运行：后台守护没有"当前项目"，
+不会把 $HOME 当项目根去扫。ExecStart 指向安装时的二进制路径，重新构建后 `systemctl --user restart flatline` 生效。
+
 ## 状态
 
 **P0–P6（资产监护链路）**：canonical event store、适配器、真实本地历史只读摄取、字段矩阵、locator 下钻、增量幂等、资产快照与版本、EffectiveBundle、机会/参与/基线、四个 detector、状态机、loopback API、内嵌 SPA、通知、显式处置、修改后验证、批量清理与变化时间线，均已通过自动化测试。若原生会话没有提供可验证的任务形状，界面明确显示"没有相关任务记录"，不会把会话存在伪装成机会。
