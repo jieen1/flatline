@@ -189,11 +189,6 @@ func runDaemon(args []string) error {
 	} else {
 		log.Printf("native file fingerprints loaded=%d", loaded)
 	}
-	if filled, err := app.RecomputeMissingSessionStats(ctx); err != nil {
-		return fmt.Errorf("recompute session stats: %w", err)
-	} else if filled > 0 {
-		log.Printf("session stats backfilled sessions=%d", filled)
-	}
 	// Unchanged transcript files are no longer replayed, so a tool identity the
 	// stored ids never linked, rows written by an older classifier version, and
 	// results whose outcome the harness only printed into the output text would
@@ -204,6 +199,22 @@ func runDaemon(args []string) error {
 	catchUp := func() {
 		app.BeginPairing(time.Now().UTC())
 		defer app.EndPairing()
+		// Re-deriving the session projections is the first step of the pass.
+		// A counting rule can change without a single new event, so every
+		// session stamped with an older projection version is recomputed here
+		// — after a version bump that is all of them. This ran in front of the
+		// listener until 2026-08-29, which left the API refusing connections
+		// for 197 s on a 973-session history, with no way to see why: the
+		// endpoint that reports progress was the one not yet up. ADR-18 §4
+		// asks the daemon to listen first and import behind it, and this pass
+		// is an import like the others.
+		app.SetPairingProgress("recounting", 0, 0, 0)
+		if filled, err := app.RecomputeMissingSessionStats(ctx); err != nil {
+			log.Printf("recompute session stats failed: %v", err)
+			app.SetImportError(err)
+		} else if filled > 0 {
+			log.Printf("session stats backfilled sessions=%d", filled)
+		}
 		pairing, err := app.BackfillEventPairs(ctx)
 		reparse := pairing.Reparse
 		// The versioned re-read is the first step of this pass and the only one
