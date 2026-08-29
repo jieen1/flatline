@@ -5218,3 +5218,9 @@ a:focus-visible,
 .session-fleet-previous { border-top: 1px dashed var(--border); margin-top: 4px; padding-top: 9px; }
 .session-fleet-previous .session-fleet-role { color: var(--primary); }
 .friction-resolution-sample { font-size: 12px; }
+
+/* Project playbook (P18-3): working commands with their record. */
+.knowledge-card { display: flex; flex-direction: column; gap: 8px; }
+.knowledge-row { justify-content: flex-start; }
+.knowledge-row > code:first-child { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; background: var(--panel-surface-hover); padding: 2px 8px; border-radius: 4px; }
+.knowledge-row strong { flex: 0 0 auto; font-weight: 500; font-size: 11.5px; color: var(--panel-surface-fg-muted); }

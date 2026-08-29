@@ -1775,6 +1775,17 @@ UI：摩擦页签名行的简报面板展开时懒加载。
 泛化签名（bash exit 1 等）佐证为 1 是正确行为——异质问题本就没有共同解法。
 UI：签名简报面板"上次怎么过去的"区块（随周曲线懒加载）。
 
+### `GET /api/v1/projects/{key}/knowledge`（P18-3 项目作业知识，2026-08-29）
+
+语料的第二条提炼产品线：这个项目**怎么干活**，命令级。`working_commands[]`
+{label（规范化命令）, program, runs, sessions（佐证数）, failures_recorded, last_at}。
+入选规则一句话：同一条规范化命令 ≥3 次运行且 ≥2 个会话；查看/导航类程序
+（cd ls cat grep rg find echo head tail sed awk which pwd wc，封闭清单）不入——探索不是方法。
+failures_recorded 如实陈述、不用于隐藏命令（测试命令偶尔失败正是它的正常用法）。按佐证数排序，上限 30。
+UI：项目页"作业命令"卡。真实实测（cognode）：30 条，头部即项目的真实作业方式——
+glab 看 issue（93 会话）、git status/checkout -b feature/issue-#（35/21 会话）、
+just ci-fast-scoped（23 会话 67 次）、npm run typecheck（18 会话）。
+
 ### `GET /api/v1/assets/{id}/adherence`（P17-1，2026-08-29）
 
 规则形资产（rule / agents_md）的遵守问题：正文提到了哪些机制关键词（与 coverage 同一判定），

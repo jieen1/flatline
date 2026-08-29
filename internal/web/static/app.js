@@ -3184,6 +3184,14 @@
       state.data = null;
       state.error = error.message || String(error);
     }
+    // P18-3: the playbook is its own endpoint so the page's main answer never
+    // waits for it; a daemon without it renders the page without the card.
+    state.knowledge = null;
+    try {
+      state.knowledge = await get("/api/v1/projects/" + encodeURIComponent(key) + "/knowledge");
+    } catch (error) {
+      state.knowledge = null;
+    }
   }
   function distributionCard(title, aside, items, labelOf, hrefOf, emptyText) {
     const list = Array.isArray(items) ? items : [];
@@ -3267,6 +3275,18 @@
     const rows = programs.map((entry) => '<a class="program-row" data-key="program:' + esc(entry.program || "") + '" href="#/sessions?program=' + encodeURIComponent(entry.program || "") + '"><span class="command-program" data-no-translate="true">' + esc(entry.program || uiText("程序未记录", "Program not recorded")) + '</span><span class="program-counts"><b>' + esc(count(entry.calls)) + '</b><small>' + uiText("调用", "Calls") + '</small></span><span class="program-counts"><b>' + esc(count(entry.sessions)) + '</b><small>' + uiText("会话", "Sessions") + '</small></span><span class="program-outcome" data-tone="' + (num(entry.failures) ? "bad" : "muted") + '">' + esc(failureText(entry)) + "</span></a>").join("");
     return '<section class="elevated-card card-pad stats-card wide"><header class="fl-head"><h3>' + uiText("常用命令", "Top commands") + '</h3><span class="fl-aside">' + uiText("失败来自退出码非零或 is_error；未记录不计入", "Failures come from a non-zero exit code or is_error; not recorded is not counted") + '</span></header><div class="program-table">' + (rows || '<div class="empty-copy"><strong>' + uiText("没有记录到命令。", "No command was recorded.") + "</strong></div>") + "</div></section>";
   }
+  // knowledgeCard is the project playbook (P18-3): the commands work is
+  // actually done with here, at the invocation level, each with its record.
+  function knowledgeCard(knowledge) {
+    if (!knowledge || !Array.isArray(knowledge.working_commands) || !knowledge.working_commands.length) return "";
+    const rows = knowledge.working_commands.slice(0, 12).map(function (item) {
+      const failures = item.failures_recorded > 0
+        ? quantity(item.failures_recorded, "次记录到失败", "recorded failure", "recorded failures")
+        : uiText("未记录到失败", "no recorded failure");
+      return '<div class="overview-list-row knowledge-row"><code class="knowledge-command" data-no-translate="true" title="' + esc(item.label) + '">' + esc(item.label) + '</code><span class="overview-list-aside">' + esc(quantity(item.sessions, "个会话", "session", "sessions") + " · " + quantity(item.runs, "次", "run", "runs") + " · " + failures) + "</span><strong data-no-translate=\"true\">" + esc(shortDate(item.last_at)) + "</strong></div>";
+    }).join("");
+    return '<section class="elevated-card card-pad stats-card knowledge-card"><header class="fl-head"><h3>' + uiText("作业命令", "Working commands") + '</h3><span class="fl-aside">' + esc(quantity(knowledge.working_commands.length, "条", "command", "commands")) + '</span></header><div class="overview-list">' + rows + '</div><p class="friction-method-note">' + esc(daemonProse(knowledge.note, knowledge.note_en)) + "</p></section>";
+  }
   function drawProjectPage(key) {
     const screen = document.getElementById("flatline-screen");
     if (!screen) return;
@@ -3320,7 +3340,7 @@
     const assets = data.assets || {};
     const assetCard = '<section class="elevated-card card-pad stats-card"><header class="fl-head"><h3>' + uiText("资产关注", "Asset attention") + '</h3><span class="fl-aside"><a href="#/assets">' + icon("chevron-right") + uiText("资产墙", "Asset wall") + '</a></span></header><div class="overview-assets"><span class="fl-metric"><b data-tone="' + (num(assets.attention) ? "bad" : "") + '">' + esc(count(assets.attention)) + '</b><small>' + uiText("需要注意", "Need attention") + '</small></span><span class="fl-metric"><b>' + esc(count(assets.total)) + '</b><small>' + uiText("已记录资产", "Recorded assets") + "</small></span></div></section>";
     const recent = overviewRecent({ recent_sessions: data.recent_sessions });
-    const body = '<div class="stats-grid overview-grid">' + identity + metrics + trend + distributions + '<div class="overview-pair">' + overviewModelUsage(data) + tags + "</div>" + '<div class="overview-pair">' + assetCard + "</div>" + projectFrictionCard(data) + projectFilesCard(data) + projectProgramsCard(data) + recent + "</div>";
+    const body = '<div class="stats-grid overview-grid">' + identity + metrics + knowledgeCard(view.projectPage.knowledge) + trend + distributions + '<div class="overview-pair">' + overviewModelUsage(data) + tags + "</div>" + '<div class="overview-pair">' + assetCard + "</div>" + projectFrictionCard(data) + projectFilesCard(data) + projectProgramsCard(data) + recent + "</div>";
     const headerRight = '<a class="us-btn" data-variant="outline" data-size="sm" href="' + esc(allSessionsHref) + '">' + icon("layers") + uiText("查看全部会话", "View all sessions") + "</a>";
     setScreen(header(projectLabelOf(project), homeDirBadge(project) + esc(range) + " · " + esc(quantity(project.sessions, "个会话", "session", "sessions")), headerRight) + screenContent(body, "prototype-page"));
     localizeDOM();

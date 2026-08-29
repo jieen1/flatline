@@ -103,6 +103,7 @@ func (s *Server) Handler() http.Handler {
 		mux.HandleFunc("GET /api/v1/friction/resolution", s.cached(s.handleFrictionResolution))
 		mux.HandleFunc("GET /api/v1/projects", s.cached(s.handleProjects))
 		mux.HandleFunc("GET /api/v1/projects/{key}", s.cached(s.handleProject))
+		mux.HandleFunc("GET /api/v1/projects/{key}/knowledge", s.cached(s.handleProjectKnowledge))
 		mux.HandleFunc("GET /api/v1/search", s.tagged(s.handleSearch))
 		mux.HandleFunc("GET /api/v1/tools", s.cached(s.handleTools))
 		mux.HandleFunc("GET /api/v1/overview", s.cached(s.handleOverview))

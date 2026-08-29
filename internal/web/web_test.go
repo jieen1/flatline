@@ -960,6 +960,8 @@ func TestOverviewLeadsWithNowAndWorkTokens(t *testing.T) {
 		"/api/v1/friction/weekly?signature=",
 		"function adherenceCard(",
 		"function frictionResolutionRow(",
+		"function knowledgeCard(",
+		"working_commands",
 		"/api/v1/friction/resolution?signature=",
 		"/adherence\"",
 		"rescued_transcripts",
