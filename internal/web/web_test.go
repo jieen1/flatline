@@ -124,12 +124,36 @@ func TestEmbeddedSPAServesSessionHierarchyAndDataPage(t *testing.T) {
 
 func TestEmbeddedSPAPatchesInPageUpdatesInsteadOfRebuilding(t *testing.T) {
 	handler := Handler()
+	// 200 and a non-empty body is not proof the file is there. Anything the
+	// embed does not hold falls through to the SPA, which answers 200 with
+	// index.html — and the browser then parses "<!doctype html>" as
+	// JavaScript. That is exactly what happened while .gitignore's unanchored
+	// `vendor/` kept morphdom.js out of the repo: this test stayed green, the
+	// build stayed green, and every in-page update silently rebuilt the DOM
+	// instead of patching it. So the body has to be checked, not just counted.
 	for _, path := range []string{"/vendor/morphdom.js", "/vendor/morphdom-LICENSE.txt"} {
 		rec := httptest.NewRecorder()
 		handler.ServeHTTP(rec, httptest.NewRequest(http.MethodGet, path, nil))
 		if rec.Code != http.StatusOK || rec.Body.Len() == 0 {
 			t.Fatalf("GET %s status = %d, %d bytes", path, rec.Code, rec.Body.Len())
 		}
+		body := rec.Body.String()
+		if strings.Contains(strings.ToLower(body[:min(64, len(body))]), "<!doctype") {
+			t.Fatalf("GET %s served the SPA fallback, so the file is missing from the embed", path)
+		}
+	}
+	// The script has to be the library, not merely some non-HTML bytes.
+	if body := fetch(t, handler, "/vendor/morphdom.js"); !strings.Contains(body, "morphdom") {
+		t.Fatal("/vendor/morphdom.js does not define morphdom; the embed holds something else")
+	}
+	if body := fetch(t, handler, "/vendor/morphdom-LICENSE.txt"); !strings.Contains(body, "MIT") {
+		t.Fatal("/vendor/morphdom-LICENSE.txt is not the MIT licence text")
+	}
+	// The script tag is only useful if the daemon labels it as script.
+	script := httptest.NewRecorder()
+	handler.ServeHTTP(script, httptest.NewRequest(http.MethodGet, "/vendor/morphdom.js", nil))
+	if contentType := script.Header().Get("Content-Type"); !strings.Contains(contentType, "javascript") {
+		t.Fatalf("/vendor/morphdom.js Content-Type = %q, want a JavaScript type", contentType)
 	}
 	index := httptest.NewRecorder()
 	handler.ServeHTTP(index, httptest.NewRequest(http.MethodGet, "/", nil))
@@ -872,4 +896,18 @@ func TestEmbeddedSPADegradesSparseChartsAndGroupsTheSessionToolbar(t *testing.T)
 	if !strings.Contains(css, ".fl-daemon-copy-flag") {
 		t.Fatal("style.css must style the daemon-copy flag")
 	}
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
+func fetch(t *testing.T, handler http.Handler, path string) string {
+	t.Helper()
+	rec := httptest.NewRecorder()
+	handler.ServeHTTP(rec, httptest.NewRequest(http.MethodGet, path, nil))
+	return rec.Body.String()
 }
