@@ -100,6 +100,7 @@ func (s *Server) Handler() http.Handler {
 		// response cache; every filtered shape is asked for once.
 		mux.HandleFunc("GET /api/v1/friction", s.cachedWhen(unfiltered, s.handleFriction))
 		mux.HandleFunc("GET /api/v1/friction/weekly", s.cached(s.handleFrictionWeekly))
+		mux.HandleFunc("GET /api/v1/friction/resolution", s.cached(s.handleFrictionResolution))
 		mux.HandleFunc("GET /api/v1/projects", s.cached(s.handleProjects))
 		mux.HandleFunc("GET /api/v1/projects/{key}", s.cached(s.handleProject))
 		mux.HandleFunc("GET /api/v1/search", s.tagged(s.handleSearch))

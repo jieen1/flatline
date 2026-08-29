@@ -959,6 +959,8 @@ func TestOverviewLeadsWithNowAndWorkTokens(t *testing.T) {
 		"function weeklyStrip(",
 		"/api/v1/friction/weekly?signature=",
 		"function adherenceCard(",
+		"function frictionResolutionRow(",
+		"/api/v1/friction/resolution?signature=",
 		"/adherence\"",
 		"rescued_transcripts",
 	} {

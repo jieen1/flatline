@@ -5217,3 +5217,4 @@ a:focus-visible,
 .asset-adherence-head code { font-size: 11px; background: var(--panel-surface-hover); padding: 1px 6px; border-radius: 4px; }
 .session-fleet-previous { border-top: 1px dashed var(--border); margin-top: 4px; padding-top: 9px; }
 .session-fleet-previous .session-fleet-role { color: var(--primary); }
+.friction-resolution-sample { font-size: 12px; }

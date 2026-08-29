@@ -3694,6 +3694,29 @@
     var first = weeks[0].week.slice(5), last = weeks[weeks.length - 1].week.slice(5);
     return '<span class="friction-weekly-strip" role="img" aria-label="' + esc(uiText("12 周曲线，峰值 " + max, "12-week curve, peak " + max)) + '"><svg viewBox="0 0 ' + W + ' 46" width="' + W + '" height="46">' + parts + '</svg><span class="friction-weekly-axis" data-no-translate="true"><span>' + esc(first) + "</span><span>" + esc(uiText("峰值 " + max, "peak " + max)) + "</span><span>" + esc(last) + "</span></span></span>";
   }
+  // frictionResolutionRow is the mined experience (P18-1): what ran right
+  // after this signature stopped, corroborated across sessions. It states
+  // sequence, never cause — the criterion sentence rides along, and a
+  // signature that never ended inside a session says so instead of guessing.
+  function frictionResolutionRow(group) {
+    var res = view.frictionResolution;
+    if (!res || res.signature !== group.signature) {
+      return '<div class="friction-brief-row"><span class="friction-brief-label">' + uiText("上次怎么过去的", "How it ended before") + '</span><span class="quiet-note">' + uiText("正在挖掘终结序列…", "Mining the ending sequences…") + "</span></div>";
+    }
+    if (!res.ended_sessions) {
+      return '<div class="friction-brief-row"><span class="friction-brief-label">' + uiText("上次怎么过去的", "How it ended before") + '</span><span class="quiet-note">' + esc(uiText("在 " + count(res.total_sessions) + " 个会话里，这条签名之后都没有再记录到活动——没有可挖的终结序列。", "In " + count(res.total_sessions) + " sessions nothing was recorded after this signature — no ending sequence to mine.")) + "</span></div>";
+    }
+    var actions = (res.actions || []).slice(0, 4).map(function (action) {
+      return '<li><code data-no-translate="true">' + esc(action.label) + "</code> <small>" + esc(uiText(count(action.sessions) + " 个会话佐证 · " + count(action.count) + " 次", "seen in " + count(action.sessions) + " sessions · " + count(action.count) + " times")) + "</small></li>";
+    }).join("");
+    var sample = res.sample
+      ? '<a class="friction-resolution-sample" href="#/sessions/' + encodeURIComponent(res.sample.session_id) + '">' + esc(uiText("查看一次真实的终结序列", "Open one real ending sequence")) + "</a>"
+      : "";
+    return '<div class="friction-brief-row friction-resolution-row"><span class="friction-brief-label">' + uiText("上次怎么过去的", "How it ended before") + '</span><span>'
+      + '<small class="friction-weekly-note">' + esc(uiText(count(res.ended_sessions) + "/" + count(res.total_sessions) + " 个会话里它终结后工作继续；终结点之后最常出现的动作：", count(res.ended_sessions) + " of " + count(res.total_sessions) + " sessions kept working after it ended; the most common actions right after:")) + "</small>"
+      + '<ul class="friction-brief-samples">' + actions + "</ul>" + sample
+      + '<small class="friction-weekly-note">' + esc(daemonProse(res.note, res.note_en)) + "</small></span></div>";
+  }
   // frictionWeeklyRow shows a signature's last-12-weeks curve inside its
   // brief. The series loads when the brief opens; until it lands the row says
   // so instead of drawing an empty axis.
@@ -3724,6 +3747,7 @@
       + '<div class="friction-brief-row friction-brief-prompt-row"><span class="friction-brief-label">' + uiText("给 agent 的简报", "Brief for your agent") + '</span><textarea class="friction-brief-prompt" rows="6" readonly data-no-translate="true">' + esc(view.locale === "en" ? brief.paste_prompt_en : brief.paste_prompt) + "</textarea>"
       + '<button class="us-btn" data-variant="outline" data-size="sm" data-action="friction-brief-copy" data-signature="' + esc(group.signature || "") + '">' + icon("file-text") + uiText("复制简报", "Copy brief") + "</button></div>"
       + frictionWeeklyRow(group)
+      + frictionResolutionRow(group)
       + '<p class="insight-criterion">' + esc(uiText("判定规则：", "Rule: ") + (view.locale === "en" ? brief.criterion_en : brief.criterion)) + "</p>"
       + watchBlock + "</div>";
   }
@@ -6221,6 +6245,12 @@
         get("/api/v1/friction/weekly?signature=" + encodeURIComponent(wantedSignature)).then(function (weekly) {
           if (view.frictionBriefSignature === wantedSignature) {
             view.frictionWeekly = weekly;
+            if (cache.friction) drawFrictionOverview(cache.friction, true);
+          }
+        }).catch(function () {});
+        get("/api/v1/friction/resolution?signature=" + encodeURIComponent(wantedSignature)).then(function (resolution) {
+          if (view.frictionBriefSignature === wantedSignature) {
+            view.frictionResolution = resolution;
             if (cache.friction) drawFrictionOverview(cache.friction, true);
           }
         }).catch(function () {});
