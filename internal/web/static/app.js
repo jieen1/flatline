@@ -2756,7 +2756,7 @@
           label: frictionSignatureLine(entry.signature),
           aside: [entry.project_key, num(entry.turn_tokens) > 0 ? tokenText(entry.turn_tokens) : ""].filter(Boolean).join(" · "),
           strong: quantity(entry.count, "次", "times", "times"),
-          href: overviewRangeHref("#/friction", "signature=" + encodeURIComponent(entry.signature || ""))
+          href: overviewRangeHref("#/friction", "group=signature&signature=" + encodeURIComponent(entry.signature || ""))
         }));
       } else if (item.kind === "reread") {
         (facts.top_files || []).forEach((entry) => rows.push({
@@ -4042,7 +4042,7 @@
       const signature = gap.sample_line || gap.signature || uiText("签名未记录", "Signature not recorded");
       const mechanism = daemonProse(gap.mechanism, gap.mechanism_en) || (gap.hint_kind ? hintKindLabel(gap.hint_kind) : "");
       const project = gap.project_key || uiText("项目未记录", "Project not recorded");
-      const href = overviewRangeHref("#/friction", "signature=" + encodeURIComponent(gap.signature || "") + "&project=" + encodeURIComponent(gap.project_key || "__unrecorded__"));
+      const href = overviewRangeHref("#/friction", "group=signature&signature=" + encodeURIComponent(gap.signature || "") + "&project=" + encodeURIComponent(gap.project_key || "__unrecorded__"));
       return '<div class="friction-gap-row"><a class="friction-gap-signature" href="' + esc(href) + '" data-no-translate="true" title="' + esc(signature) + '">' + esc(signature) + '</a><span class="friction-gap-project" data-no-translate="true" title="' + esc(project) + '">' + esc(project) + "</span>"
         + frictionNumberCell(gap.session_count)
         + '<span class="friction-gap-mechanism"' + (mechanism ? "" : ' data-missing="true"') + ">" + esc(mechanism || uiText("机制未记录", "Mechanism not recorded")) + "</span></div>";
@@ -5430,7 +5430,7 @@
     // the reader compares; the page derives no ratio.
     const previous = fleet.previous;
     const previousLine = previous
-      ? '<a class="overview-list-row session-fleet-previous" href="#/sessions/' + encodeURIComponent(previous.session_id) + '" title="' + esc(daemonProse(previous.note, previous.note_en)) + '"><span class="session-fleet-role">' + uiText("上一支舰队", "Previous run") + '</span><span class="session-fleet-name" data-no-translate="true">' + esc(previous.display_title || uiText("标题未记录", "Title not recorded")) + (previous.started_at ? ' · ' + esc(shortDate(previous.started_at)) : '') + "</span>"
+      ? '<a class="overview-list-row session-fleet-previous" href="#/sessions/' + encodeURIComponent(previous.session_id) + '" title="' + esc(daemonProse(previous.note, previous.note_en)) + '"><span class="session-fleet-role">' + uiText("上一支舰队", "Previous run") + '</span><span class="session-fleet-name" data-no-translate="true">' + esc(previous.display_title || uiText("标题未记录", "Title not recorded")) + (previous.started_at ? ' · ' + esc(shortDate(previous.started_at)) : '') + "</span>" + (previous.in_progress ? ' <span class="fl-flag" data-flag="new">' + uiText("仍在进行，数字会变", "Still running; numbers moving") + "</span>" : "")
         + '<span class="overview-list-aside">' + esc(quantity((previous.rollup || {}).friction_count, "条摩擦", "friction", "friction") + " · " + quantity((previous.rollup || {}).sessions, "个会话", "session", "sessions")) + "</span>"
         + "<strong data-no-translate=\"true\">" + esc(tokenText((previous.rollup || {}).work_tokens)) + "</strong></a>"
       : "";

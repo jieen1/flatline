@@ -5220,7 +5220,11 @@ a:focus-visible,
 .friction-resolution-sample { font-size: 12px; }
 
 /* Project playbook (P18-3): working commands with their record. */
-.knowledge-card { display: flex; flex-direction: column; gap: 8px; }
-.knowledge-row { justify-content: flex-start; }
-.knowledge-row > code:first-child { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; background: var(--panel-surface-hover); padding: 2px 8px; border-radius: 4px; }
+/* The whole point of command-level knowledge is the readable invocation, so
+   the card runs full width and commands wrap instead of ellipsizing — a
+   truncated command is decoration, not knowledge. */
+.knowledge-card { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 8px; }
+.knowledge-row { justify-content: flex-start; align-items: baseline; }
+.knowledge-row > code:first-child { flex: 1 1 auto; min-width: 0; white-space: pre-wrap; word-break: break-all; font-size: 12px; line-height: 1.55; background: var(--panel-surface-hover); padding: 3px 8px; border-radius: 4px; }
+.knowledge-row .overview-list-aside { flex: 0 0 auto; white-space: nowrap; }
 .knowledge-row strong { flex: 0 0 auto; font-weight: 500; font-size: 11.5px; color: var(--panel-surface-fg-muted); }

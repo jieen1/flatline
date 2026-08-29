@@ -69,17 +69,20 @@ type fleetResponsePayload struct {
 }
 
 type fleetPreviousResponse struct {
-	SessionID    string              `json:"session_id"`
-	DisplayTitle string              `json:"display_title"`
-	StartedAt    *time.Time          `json:"started_at"`
-	Rollup       fleetRollupResponse `json:"rollup"`
-	Note         string              `json:"note"`
-	NoteEN       string              `json:"note_en"`
+	SessionID    string     `json:"session_id"`
+	DisplayTitle string     `json:"display_title"`
+	StartedAt    *time.Time `json:"started_at"`
+	// InProgress marks a previous run that is still being written: its
+	// numbers are still moving, and a comparison against it has to say so.
+	InProgress bool                `json:"in_progress"`
+	Rollup     fleetRollupResponse `json:"rollup"`
+	Note       string              `json:"note"`
+	NoteEN     string              `json:"note_en"`
 }
 
-const fleetPreviousNote = "上一支舰队 = 同一项目里、开始时间早于本会话、且自身也带子代理的最近一个主会话；给出它整棵树的同口径汇总。两次运行并排陈述，不折算比率。"
+const fleetPreviousNote = "上一支舰队 = 同一项目里、开始时间早于本会话、且自身也带子代理的最近一个主会话；给出它整棵树的同口径汇总。两次运行并排陈述，不折算比率；上一支仍在进行时如实标注——和未完赛的对手比不出胜负。"
 
-const fleetPreviousNoteEN = "The previous run is the latest earlier main session in the same project that also commanded children, with its whole tree rolled up the same way. Two runs stated side by side; no ratio is derived."
+const fleetPreviousNoteEN = "The previous run is the latest earlier main session in the same project that also commanded children, with its whole tree rolled up the same way. Two runs stated side by side; no ratio is derived, and a previous run still being written says so — an unfinished opponent settles nothing."
 
 func (s *Server) handleSessionFleet(w http.ResponseWriter, r *http.Request) {
 	sessionID := r.PathValue("id")
@@ -193,7 +196,8 @@ func (s *Server) previousFleet(ctx context.Context, parent *sessionResponse) (*f
 		return nil, nil
 	}
 	out := &fleetPreviousResponse{SessionID: previousID, Rollup: rollUpFleet(tree),
-		StartedAt: previousParent.StartedAt, Note: fleetPreviousNote, NoteEN: fleetPreviousNoteEN}
+		StartedAt: previousParent.StartedAt, InProgress: previousParent.InProgress,
+		Note: fleetPreviousNote, NoteEN: fleetPreviousNoteEN}
 	if previousParent.DisplayTitle != nil {
 		out.DisplayTitle = *previousParent.DisplayTitle
 	}

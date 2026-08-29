@@ -731,7 +731,7 @@ func (s *Server) coverageGapInsight(ctx context.Context, window overviewRange) (
 			SessionCount: gap.SessionCount, Mechanism: gap.Mechanism, MechanismEN: gap.MechanismEN})
 		if len(links) < 3 {
 			links = append(links, insightLink{
-				Href:  "#/friction?signature=" + url.QueryEscape(gap.Signature),
+				Href:  "#/friction?group=signature&signature=" + url.QueryEscape(gap.Signature),
 				Label: frictionSignatureLine(gap.Signature), LabelEN: frictionSignatureLine(gap.Signature)})
 		}
 	}
