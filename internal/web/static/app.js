@@ -5212,6 +5212,56 @@
       : "";
     return '<section class="session-usage-bar" data-in-progress="' + Boolean(item && item.in_progress === true) + '">' + total + '<div class="session-usage-cells">' + cells.join("") + "</div>" + progress + sessionModelTable(usage) + "</section>";
   }
+  // sessionFleetBlock is the whole subagent tree as one unit (ADR-25): the
+  // rollup leads with work tokens — input + output + cache write — because on
+  // this machine 98% of the total is cache reads and the total alone
+  // overstates a run's cost by around fifty-fold. Outcome states recorded git
+  // evidence and stops there: no recorded failure is not success.
+  function sessionFleetBlock(item) {
+    if (num(item && item.subagent_count) == null || item.subagent_count <= 0) return "";
+    const fleet = view.sessionFleet && view.sessionFleet.session_id === item.id ? view.sessionFleet : null;
+    if (!fleet) {
+      return '<section class="elevated-card session-fleet-card"><header class="fl-head"><h3>' + uiText("团队", "Team") + '</h3><span class="fl-aside">' + esc(uiText("正在读取子代理树…", "Reading the subagent tree…")) + "</span></header></section>";
+    }
+    const rollup = fleet.rollup || {};
+    const children = Array.isArray(fleet.children) ? fleet.children : [];
+    if (!children.length) {
+      return '<section class="elevated-card session-fleet-card"><header class="fl-head"><h3>' + uiText("团队", "Team") + '</h3></header><p class="evidence-note">' + esc(uiText("这个来源把子代理记录并入父会话，没有单独的子会话行可以汇总。", "This source keeps subagent records inside the parent session; there are no child rows to roll up.")) + "</p></section>";
+    }
+    const outcome = fleet.outcome || {};
+    const cellsRow = [
+      sessionUsageCell(uiText("工作 token（树）", "Work tokens (tree)"), tokenText(rollup.work_tokens), uiText("输入 + 输出 + 缓存写入，不含缓存读取", "input + output + cache write; cache reads excluded")),
+      sessionUsageCell(uiText("总 token（树）", "Total tokens (tree)"), tokenText(rollup.total_tokens), uiText("其中缓存读取 " + tokenText(rollup.cached_input_tokens), "of which " + tokenText(rollup.cached_input_tokens) + " cache reads")),
+      sessionUsageCell(uiText("摩擦（树）", "Friction (tree)"), count(rollup.friction_count)),
+      sessionUsageCell(uiText("改动行（树）", "Changed lines (tree)"), linesChangedText(rollup.lines_added, rollup.lines_removed)),
+      sessionUsageCell(uiText("git 结局证据", "git outcome evidence"),
+        (outcome.commits_recorded || outcome.pushes_recorded || outcome.merges_recorded)
+          ? uiText("commit " + count(outcome.commits_recorded) + " 次（" + count(outcome.commits_no_failure) + " 次未见失败）· push " + count(outcome.pushes_recorded) + " 次",
+              count(outcome.commits_recorded) + " commits (" + count(outcome.commits_no_failure) + " with no recorded failure) · " + count(outcome.pushes_recorded) + " pushes")
+          : uiText("树内没有记录到 git commit / push / merge", "No git commit / push / merge recorded in the tree"),
+        daemonProse(outcome.note, outcome.note_en))
+    ].join("");
+    const tokenNote = rollup.token_sessions != null && rollup.sessions != null && rollup.token_sessions < rollup.sessions
+      ? '<p class="evidence-note">' + esc(uiText(rollup.sessions + " 个会话里 " + rollup.token_sessions + " 个记录了 token；求和只覆盖记录了的。", rollup.token_sessions + " of " + rollup.sessions + " sessions recorded tokens; the sums cover only those.")) + "</p>"
+      : "";
+    const rows = children.map((child) => {
+      const usage = child.usage || {};
+      const workTokens = num(usage.input_tokens) == null && num(usage.output_tokens) == null && num(usage.cache_write_tokens) == null
+        ? null
+        : (num(usage.input_tokens) || 0) + (num(usage.output_tokens) || 0) + (num(usage.cache_write_tokens) || 0);
+      const name = child.display_title || uiText("标题未记录", "Title not recorded");
+      const live = child.in_progress === true ? ' <span class="fl-flag" data-flag="new">' + uiText("进行中", "In progress") + "</span>" : "";
+      return '<a class="overview-list-row session-fleet-row" href="#/sessions/' + encodeURIComponent(child.id) + '">'
+        + '<span class="session-fleet-role" data-no-translate="true">' + esc(child.agent_role || uiText("角色未记录", "Role not recorded")) + "</span>"
+        + '<span class="session-fleet-name" data-no-translate="true" title="' + esc(name) + '">' + esc(name) + live + "</span>"
+        + '<span class="overview-list-aside">' + esc(quantity(child.friction_count, "条摩擦", "friction", "friction")) + "</span>"
+        + "<strong data-no-translate=\"true\">" + esc(workTokens == null ? uiText("token 未记录", "Tokens not recorded") : tokenText(workTokens)) + "</strong></a>";
+    }).join("");
+    return '<section class="elevated-card session-fleet-card"><header class="fl-head"><h3>' + uiText("团队", "Team") + '</h3><span class="fl-aside">' + esc(uiText("1 + " + children.length + " 个会话", "1 + " + children.length + " sessions")) + '</span></header>'
+      + '<div class="session-usage-cells session-fleet-cells">' + cellsRow + "</div>" + tokenNote
+      + '<div class="overview-list session-fleet-list">' + rows + "</div>"
+      + '<p class="friction-method-note">' + esc(uiText("孩子按总 token 降序；工作 token = 输入 + 输出 + 缓存写入。", "Children in descending total-token order; work tokens = input + output + cache write.")) + "</p></section>";
+  }
   function drawSessionDetail(data, panelOnly) {
     resetSessionLazyRows();
     view.sessionData = data;
@@ -5321,7 +5371,7 @@
     const frictionTab = view.locale === "en" ? "Friction" : "摩擦轴";
     const mainContent = view.sessionTab === "chat" ? chat : view.sessionTab === "commands" ? sessionCommandsPane(data) : overview + toolbar + ledger;
     const body = '<div class="session-detail-canvas"><main class="session-detail-main-pane">' + mainContent + '</main><aside class="session-inspector-pane"><div class="session-inspector-head"><div class="session-inspector-tabs"><button type="button" data-action="session-inspector-tab" data-tab="inspector" data-active="' + (view.sessionInspectorTab === "inspector") + '">' + inspectorTab + '</button><button type="button" data-action="session-inspector-tab" data-tab="ecm" data-active="' + (view.sessionInspectorTab === "ecm") + '">' + ecmTab + '</button><button type="button" data-action="session-inspector-tab" data-tab="friction" data-active="' + (view.sessionInspectorTab === "friction") + '">' + frictionTab + '</button></div><span>' + (selected ? esc("#" + (selectedIndex + 1)) : (view.locale === "en" ? "No selection" : "未选择")) + '</span></div><div class="session-inspector-scroll">' + inspectorBody + '</div></aside></div>';
-    const markup = sessionHeader + parentLine + taskLine + sessionUsageBar(item) + annotationLine + tabs + screenContent(body, "session-detail-page", "session-detail-scroll");
+    const markup = sessionHeader + parentLine + taskLine + sessionUsageBar(item) + sessionFleetBlock(item) + annotationLine + tabs + screenContent(body, "session-detail-page", "session-detail-scroll");
     if (!(panelOnly && swapPanels(markup, [".session-tabbar", ".session-detail-canvas"]))) setScreen(markup);
     const turnsButton = document.querySelector('[data-action="session-mode"][data-mode="turns"]');
     const callsButton = document.querySelector('[data-action="session-mode"][data-mode="calls"]');
@@ -5473,10 +5523,22 @@
         view.sessionRevealEvent = -1;
         view.sessionCommandProgram = "all";
         view.sessionCommandFailedOnly = false;
+        view.sessionFleet = null;
       }
       if (params.get("pane") === "friction") view.sessionInspectorTab = "friction";
       const sessionData = view.sessionData && view.sessionPageState ? view.sessionData : await loadSessionFirstPage(id);
       drawSessionDetail(sessionData);
+      // The fleet rollup (ADR-25) loads after the first paint: the tree can
+      // hold a hundred children and the session itself must not wait for it.
+      const detailItem = sessionData.session || {};
+      if (num(detailItem.subagent_count) > 0 && (!view.sessionFleet || view.sessionFleet.session_id !== detailItem.id)) {
+        get("/api/v1/sessions/" + encodeURIComponent(id) + "/fleet").then((fleet) => {
+          if (view.sessionData && view.sessionData.session && view.sessionData.session.id === fleet.session_id) {
+            view.sessionFleet = fleet;
+            drawSessionDetail(view.sessionData);
+          }
+        }).catch(() => {});
+      }
       const wanted = params.get("event") || "";
       if (wanted && view.sessionEventFocus !== wanted) {
         view.sessionEventFocus = wanted;

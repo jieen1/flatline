@@ -911,3 +911,25 @@ func fetch(t *testing.T, handler http.Handler, path string) string {
 	handler.ServeHTTP(rec, httptest.NewRequest(http.MethodGet, path, nil))
 	return rec.Body.String()
 }
+
+// The fleet block (ADR-25) is the subagent tree as one unit on the session
+// page. The markers pin its contract: it reads the fleet endpoint, leads with
+// work tokens, and states git evidence without claiming success.
+func TestSessionPageCarriesTheFleetBlock(t *testing.T) {
+	handler := Handler()
+	rec := httptest.NewRecorder()
+	handler.ServeHTTP(rec, httptest.NewRequest(http.MethodGet, "/app.js", nil))
+	appJS := rec.Body.String()
+	for _, marker := range []string{
+		"function sessionFleetBlock(",
+		"/fleet\"",
+		"work_tokens",
+		"token_sessions",
+		"commits_no_failure",
+		"session-fleet-list",
+	} {
+		if !strings.Contains(appJS, marker) {
+			t.Fatalf("app.js is missing fleet marker %q", marker)
+		}
+	}
+}

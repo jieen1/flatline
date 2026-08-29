@@ -5183,3 +5183,12 @@ a:focus-visible,
 .friction-brief-watch { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; border-top: 1px dashed var(--border); padding-top: 8px; font-size: 12.5px; }
 .friction-brief-watch span { color: var(--panel-surface-fg-muted); }
 .fl-flag[data-watch-status="verified"] { color: var(--verified); }
+
+/* Fleet rollup (ADR-25): the subagent tree as one unit on the session page. */
+.session-fleet-card { display: flex; flex-direction: column; gap: 10px; padding: 12px 14px; margin: 0 24px 10px; }
+.session-fleet-cells { margin: 0; }
+.session-fleet-row { justify-content: flex-start; }
+.session-fleet-role { flex: 0 0 auto; min-width: 110px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--panel-surface-fg-muted); font-family: var(--font-mono, monospace); font-size: 11px; }
+.session-fleet-name { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.session-fleet-row strong { flex: 0 0 auto; }
+.session-fleet-list { max-height: 320px; overflow-y: auto; }

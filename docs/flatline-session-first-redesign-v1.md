@@ -1755,6 +1755,22 @@ Claude Code 会把一个子代理转写**软链**进第二个父目录，同一�
 响应：`session`（同上，不含 `usage` 与检索命中）、`events`、`commands` + `commands_total`、
 `files` + `files_total`、`children`、`parent`、`friction {count, records, complete, records_truncated}`、`data_version`。
 
+### `GET /api/v1/sessions/{id}/fleet`（ADR-25，2026-08-29）
+
+父会话及其全部子会话作为一个单元的读时聚合，无新表：
+
+- `children[]`：完整会话行（同 `/sessions` 列表元素），按总 token 降序，未记录 token 的孩子排最后；
+- `rollup`：`sessions`（父+子行数）、`token_sessions`（其中有 usage 行的个数——求和只覆盖这些，
+  一个都没有时四个分量为 null 而不是 0）、四个 token 分量各自求和、
+  `work_tokens = input + output + cache_write`（不含缓存读取；本机缓存读取占总量 98%，
+  总量单独看会把一次运行的代价放大约 50 倍）、`friction_count`、`lines_added/removed`、`files_changed`；
+- `outcome`：树内 `git commit / push / merge` 的记录条数与其中"未记录到失败"的条数，附
+  `note/note_en` 说明 claude_code 大多不记退出码——**未见失败 ≠ 成功**；
+- 对没有孩子的会话返回空 `children` 与只含自身的 rollup。
+
+同轮变更：`display_title` 在 `title`/`task_text` 命中注入前缀表（如 `<teammate-message …>`）时，
+改取标签 `summary` 属性或包装内首行，`title_source` 如实标 `synthesized`；库中原文不动。
+
 ### `PUT /api/v1/sessions/{id}/annotation`
 
 请求 `{ pinned?: bool, note?: string, tags?: string[] }`——三个字段都是指针，**不给就不动**。

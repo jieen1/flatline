@@ -146,3 +146,42 @@ func TestIsHomeDirMarksTheHomeDirectoryAndItsBareChildren(t *testing.T) {
 		t.Errorf("a directory outside home must not be marked")
 	}
 }
+
+// A harness-written wrapper is not a name. 65 local sessions carry a whole
+// <teammate-message …> block as their recorded title; the row then reads as
+// raw XML. The display name is derived from the block — the summary attribute
+// when the tag has one, the first non-empty inner line otherwise — and the
+// source honestly says the system built it (ADR-25).
+func TestDisplayTitleUnwrapsHarnessWrappers(t *testing.T) {
+	summaryWrapped := "<teammate-message teammate_id=\"team-lead\" summary=\"审计测试冗余\">\n你是 cognode 仓库的测试审计员。开始前先确认接单。\n</teammate-message>"
+	value, source := sessionDisplayTitle(&sessionResponse{Title: strPtr(summaryWrapped)})
+	if source != titleSourceSynthesized || value == nil || *value != "审计测试冗余" {
+		t.Errorf("summary-attribute wrapper = %v / %q, want the summary attribute", value, source)
+	}
+
+	lineWrapped := "<teammate-message teammate_id=\"team-lead\">\n\nYou are **reviewer-1721** on the cognode sprint-61 executor team.\nMore lines follow.\n</teammate-message>"
+	value, source = sessionDisplayTitle(&sessionResponse{Title: strPtr(lineWrapped)})
+	if source != titleSourceSynthesized || value == nil || *value != "You are **reviewer-1721** on the cognode sprint-61 executor team." {
+		t.Errorf("no-summary wrapper = %v / %q, want the first inner line", value, source)
+	}
+
+	// The same wrapper arriving as task text is unwrapped the same way.
+	value, source = sessionDisplayTitle(&sessionResponse{TaskText: strPtr(summaryWrapped)})
+	if source != titleSourceSynthesized || value == nil || *value != "审计测试冗余" {
+		t.Errorf("wrapped task text = %v / %q", value, source)
+	}
+
+	// A title that merely mentions the tag is a real title and keeps its source.
+	mention := "why does <teammate-message> appear in my counts?"
+	value, source = sessionDisplayTitle(&sessionResponse{Title: strPtr(mention)})
+	if source != titleSourceAI || value == nil || *value != mention {
+		t.Errorf("mention = %v / %q, want the ai title untouched", value, source)
+	}
+
+	// <task> is genuine user content, not a harness wrapper; it stays as-is.
+	task := "<task>Perform an adversarial architecture review.</task>"
+	value, source = sessionDisplayTitle(&sessionResponse{Title: strPtr(task)})
+	if source != titleSourceAI || value == nil || *value != task {
+		t.Errorf("task-tag title = %v / %q, want untouched", value, source)
+	}
+}

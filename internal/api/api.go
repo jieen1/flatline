@@ -92,6 +92,7 @@ func (s *Server) Handler() http.Handler {
 		mux.HandleFunc("GET /api/v1/sessions/facets", s.tagged(s.handleSessionFacets))
 		mux.HandleFunc("GET /api/v1/sessions/export", s.handleSessionsExport)
 		mux.HandleFunc("GET /api/v1/sessions/{id}", s.tagged(s.handleSession))
+		mux.HandleFunc("GET /api/v1/sessions/{id}/fleet", s.tagged(s.handleSessionFleet))
 		mux.HandleFunc("PUT /api/v1/sessions/{id}/annotation", s.handleSessionAnnotation)
 		mux.HandleFunc("GET /api/v1/sessions/{id}/events/{event_id}", s.tagged(s.handleSessionEvent))
 		// Only the unfiltered friction overview is worth holding in the

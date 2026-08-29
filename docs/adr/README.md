@@ -73,6 +73,12 @@ ADR 是**决策的权威来源**：当设计文档、代码与 ADR 冲突时，�
 | ADR-17 | 工具结果摩擦作为证据投影 | accepted | [017-tool-outcome-friction-projection.md](017-tool-outcome-friction-projection.md) |
 | ADR-18 | 从摩擦出发理解会话历史 | accepted | [018-friction-first-session-understanding.md](018-friction-first-session-understanding.md) |
 | ADR-19 | 适配器可依赖纯 Go 格式解码器（zstd 等），不引入 CGO | accepted | [019-adapter-format-decoders.md](019-adapter-format-decoders.md) |
+| ADR-20 | insights 是既有事实的只读投影（代价与机会六类洞察） | accepted | [020-insights-cost-and-opportunity.md](020-insights-cost-and-opportunity.md) |
+| ADR-21 | 规则层 CI：简报 + 签名验证闭环 | accepted | [021-rule-ci-improvement-loop.md](021-rule-ci-improvement-loop.md) |
+| ADR-22 | 逐消息 usage 入事件 payload | accepted | [022-per-message-usage.md](022-per-message-usage.md) |
+| ADR-23 | Codex 轮级 token 差值归属 | accepted | [023-codex-turn-token-delta.md](023-codex-turn-token-delta.md) |
+| ADR-24 | watch 判定进入通知投影 | accepted | [024-watch-verdict-notifications.md](024-watch-verdict-notifications.md) |
+| ADR-25 | 舰队汇总：父会话及其子代理树是一等展示单元 | accepted | [025-fleet-run-rollup.md](025-fleet-run-rollup.md) |
 
 ## 流程
 

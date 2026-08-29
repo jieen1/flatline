@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"strings"
 	"time"
+
+	"flatline/internal/canonical"
 )
 
 // transcriptIdleBound is how long a transcript has to go unwritten before the
@@ -216,9 +218,17 @@ const parentTitleBound = 60
 // parent_title, so nothing has to be spliced onto the end of it.
 func sessionDisplayTitle(item *sessionResponse) (*string, string) {
 	if value := trimmedValue(item.Title); value != "" {
+		if inner, ok := unwrapInjectedTitle(value); ok {
+			bounded := boundRunes(inner, maxSessionTitleRunes)
+			return &bounded, titleSourceSynthesized
+		}
 		return &value, titleSourceAI
 	}
 	if value := trimmedValue(item.TaskText); value != "" {
+		if inner, ok := unwrapInjectedTitle(value); ok {
+			bounded := boundRunes(inner, maxSessionTitleRunes)
+			return &bounded, titleSourceSynthesized
+		}
 		bounded := boundRunes(value, maxSessionTitleRunes)
 		return &bounded, titleSourceTask
 	}
@@ -236,6 +246,58 @@ func sessionDisplayTitle(item *sessionResponse) (*string, string) {
 }
 
 const maxSessionTitleRunes = 120
+
+// unwrapInjectedTitle derives a display name from a harness-written block that
+// was recorded as a session's title or task text — on this machine, whole
+// <teammate-message …> blocks stand as the title of 65 sessions. The name is
+// the tag's summary attribute when it has one, else the first non-empty line
+// inside the block. The second return is false for anything that is not one of
+// the known injected blocks, including genuine user text such as <task>…: the
+// closed list in canonical.InjectedMessagePrefixes decides, nothing is guessed.
+func unwrapInjectedTitle(value string) (string, bool) {
+	if canonical.InjectedMessagePrefix(value) == "" {
+		return "", false
+	}
+	value = strings.TrimSpace(value)
+	if !strings.HasPrefix(value, "<") {
+		return "", false
+	}
+	end := strings.Index(value, ">")
+	if end < 0 {
+		return "", false
+	}
+	openTag, body := value[:end+1], value[end+1:]
+	if summary := tagAttribute(openTag, "summary"); summary != "" {
+		return summary, true
+	}
+	// Drop the closing tag so the last line is content, not markup.
+	if name, _, ok := strings.Cut(strings.TrimPrefix(openTag, "<"), " "); ok || name != "" {
+		name = strings.TrimSuffix(name, ">")
+		if close := strings.LastIndex(body, "</"+name+">"); close >= 0 {
+			body = body[:close]
+		}
+	}
+	for _, line := range strings.Split(body, "\n") {
+		if line = strings.TrimSpace(line); line != "" {
+			return line, true
+		}
+	}
+	return "", false
+}
+
+// tagAttribute reads one double-quoted attribute from an opening tag. The
+// blocks it reads are machine-written, so the quoting is regular.
+func tagAttribute(openTag, name string) string {
+	_, after, found := strings.Cut(openTag, name+`="`)
+	if !found {
+		return ""
+	}
+	attr, _, found := strings.Cut(after, `"`)
+	if !found {
+		return ""
+	}
+	return strings.TrimSpace(attr)
+}
 
 func trimmedValue(value *string) string {
 	if value == nil {
