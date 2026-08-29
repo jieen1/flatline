@@ -44,16 +44,28 @@ type briefingHotFile struct {
 	Sessions int    `json:"sessions"`
 }
 
+type briefingKnownProject struct {
+	Key      string `json:"key"`
+	Sessions int    `json:"sessions"`
+}
+
 type briefingResponse struct {
-	ProjectKey      string              `json:"project_key"`
-	SessionsKnown   int                 `json:"sessions_known"`
-	WorkingCommands []workingCommand    `json:"working_commands"`
-	Recurring       []briefingRecurring `json:"recurring"`
-	HotFiles        []briefingHotFile   `json:"hot_files"`
-	GeneratedAt     string              `json:"generated_at"`
-	Note            string              `json:"note"`
-	NoteEN          string              `json:"note_en"`
-	Complete        bool                `json:"complete"`
+	ProjectKey    string `json:"project_key"`
+	SessionsKnown int    `json:"sessions_known"`
+	// KnownProjects rides along when this briefing is empty or below every
+	// corroboration bar: the fleet workflow spawns fresh worktrees with no
+	// stored link to their repo, and the agent — which knows its own git
+	// remote — can pick the right project from the index and fetch that
+	// briefing instead. Facts from the system; the judgement stays with the
+	// reader.
+	KnownProjects   []briefingKnownProject `json:"known_projects,omitempty"`
+	WorkingCommands []workingCommand       `json:"working_commands"`
+	Recurring       []briefingRecurring    `json:"recurring"`
+	HotFiles        []briefingHotFile      `json:"hot_files"`
+	GeneratedAt     string                 `json:"generated_at"`
+	Note            string                 `json:"note"`
+	NoteEN          string                 `json:"note_en"`
+	Complete        bool                   `json:"complete"`
 }
 
 func (s *Server) handleProjectBriefing(w http.ResponseWriter, r *http.Request) {
@@ -146,7 +158,50 @@ func (s *Server) assembleBriefing(ctx context.Context, projectKey string) (brief
 		}
 		out.HotFiles = append(out.HotFiles, item)
 	}
-	return out, fileRows.Err()
+	if err := fileRows.Err(); err != nil {
+		return out, err
+	}
+	if len(out.WorkingCommands) == 0 && len(out.Recurring) == 0 && len(out.HotFiles) == 0 {
+		if out.KnownProjects, err = s.briefingIndex(ctx, projectKey); err != nil {
+			return out, err
+		}
+	}
+	return out, nil
+}
+
+// briefingIndex lists the projects that do have history, largest first.
+func (s *Server) briefingIndex(ctx context.Context, exceptKey string) ([]briefingKnownProject, error) {
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT project_key, COUNT(*) FROM sessions
+		WHERE project_key IS NOT NULL AND project_key <> '' AND project_key <> ?
+		GROUP BY project_key ORDER BY COUNT(*) DESC LIMIT 8`, exceptKey)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	out := make([]briefingKnownProject, 0, 8)
+	for rows.Next() {
+		var item briefingKnownProject
+		if err := rows.Scan(&item.Key, &item.Sessions); err != nil {
+			return nil, err
+		}
+		out = append(out, item)
+	}
+	return out, rows.Err()
+}
+
+// briefingWriteIndex prints the projects that do have history. It exists for
+// the fresh-worktree case: the reader knows which repo this directory really
+// is, and can fetch that project's briefing by its key.
+func briefingWriteIndex(b *strings.Builder, known []briefingKnownProject) {
+	if len(known) == 0 {
+		return
+	}
+	b.WriteString("本机已有历史的项目（若当前目录是其中某个仓库的新工作树或新克隆，按该项目的 key 取它的简报）：\n\n")
+	for _, item := range known {
+		fmt.Fprintf(b, "- `%s` — %d 个会话\n", item.Key, item.Sessions)
+	}
+	b.WriteString("\n")
 }
 
 // briefingMarkdown renders the briefing for a context window: terse, factual,
@@ -159,7 +214,8 @@ func briefingMarkdown(briefing briefingResponse) string {
 	}
 	fmt.Fprintf(&b, "# 项目开工简报 · %s\n\n", label)
 	if briefing.SessionsKnown == 0 {
-		b.WriteString("本机历史中没有这个项目的会话记录——下面没有可给出的事实，这不是错误。\n")
+		b.WriteString("本机历史中没有这个项目的会话记录——下面没有可给出的事实，这不是错误。\n\n")
+		briefingWriteIndex(&b, briefing.KnownProjects)
 		return b.String()
 	}
 	fmt.Fprintf(&b, "> 来源：本机 %d 个会话的记录 · 生成于 %s\n\n", briefing.SessionsKnown, briefing.GeneratedAt)
@@ -197,6 +253,7 @@ func briefingMarkdown(briefing briefingResponse) string {
 	}
 	if len(briefing.WorkingCommands) == 0 && len(briefing.Recurring) == 0 && len(briefing.HotFiles) == 0 {
 		b.WriteString("有会话记录，但尚无满足佐证门槛的事实（作业命令需 ≥3 次 ≥2 会话；摩擦需 ≥2 会话）。佐证会随历史累积。\n\n")
+		briefingWriteIndex(&b, briefing.KnownProjects)
 	}
 	fmt.Fprintf(&b, "---\n%s\n", briefing.Note)
 	return b.String()

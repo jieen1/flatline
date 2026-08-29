@@ -69,14 +69,22 @@ func TestProjectBriefingComposesTheRefinedLayers(t *testing.T) {
 	}
 }
 
-// A project the corpus knows nothing about gets a briefing that says so — an
-// agent must be able to tell "no history" from "the endpoint is broken".
-func TestProjectBriefingOfAnUnknownProjectSaysSo(t *testing.T) {
+// The dominant fleet workflow spawns fresh worktrees (/tmp/cog-843-dev held
+// 62 sessions with no stored link to its repo), so the thin briefing lists
+// the projects that do have history: the agent knows its own git remote and
+// can fetch the right one — facts from the system, judgement with the reader.
+func TestProjectBriefingOfAnUnknownProjectSaysSoAndOffersTheIndex(t *testing.T) {
 	db, _ := knowledgeFixtureDB(t)
 	handler := NewServerWithDB(db).Handler()
 	markdown := getRawBody(t, handler, "/api/v1/projects/"+url.QueryEscape("/synthetic/never-seen")+"/briefing")
 	if !strings.Contains(markdown, "没有") && !strings.Contains(markdown, "尚无") {
 		t.Fatalf("empty briefing does not say the history is empty:\n%s", markdown)
+	}
+	if !strings.Contains(markdown, knowledgeProject) {
+		t.Fatalf("empty briefing does not index the projects that have history:\n%s", markdown)
+	}
+	if !strings.Contains(markdown, "新工作树") {
+		t.Fatalf("the index does not say what it is for:\n%s", markdown)
 	}
 }
 
